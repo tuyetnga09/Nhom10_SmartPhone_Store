@@ -44,7 +44,7 @@ public class Images {
     @Column(name = "PersonCreate")
     private String personCreate;
 
-    @Column(name = "PersonUpate")
+    @Column(name = "PersonUpdate")
     private String personUpate;
 
     @Column(name = "Status")
