@@ -9,7 +9,30 @@
 </head>
 <body>
 <div class="container">
-
+    <div class="row" th:replace="layout/header :: menu"></div>
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <form enctype="multipart/form-data" method="post">
+                <div class="mb-3">
+                    <label class="form-label">Image Files</label>
+                    <input type="file" class="form-control" accept="image/*">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Describe</label>
+                    <div class="form-floating">
+                        <textarea class="form-control" placeholder="Leave a comment here"></textarea>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Person Create</label>
+                    <input type="text" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-success">Submit</button>
+            </form>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
 </div>
 <script src="/static/lib/bootstrap.bundle.min.js"></script>
 </body>
