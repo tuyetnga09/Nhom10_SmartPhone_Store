@@ -1,4 +1,4 @@
-package com.example.smartphone_store.Controller;
+package com.example.smartphone_store.controller;
 
 import com.example.smartphone_store.entity.Manufacture;
 import com.example.smartphone_store.service.ManufactureService;
@@ -51,7 +51,7 @@ public class ManufactureController {
         } else {
             for (Manufacture mn : manufactureService.getAll()
             ) {
-                if (manufacture.getCode().contains(mn.getCode())) {
+                if (manufacture.getCode().equalsIgnoreCase(mn.getCode())) {
                     model.addAttribute("message", "Ma trung");
                     return "manufacture/manufacture-view-add";
                 }

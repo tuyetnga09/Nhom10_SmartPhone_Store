@@ -1,4 +1,4 @@
-package com.example.smartphone_store.Controller;
+package com.example.smartphone_store.controller;
 
 import com.example.smartphone_store.entity.Color;
 import com.example.smartphone_store.service.ColorService;
@@ -51,7 +51,7 @@ public class ColorController {
         }else {
             for (Color cl : colorService.getAll()
             ) {
-                if (color.getCode().contains(cl.getCode())) {
+                if (color.getCode().equalsIgnoreCase(cl.getCode())) {
                     model.addAttribute("message", "Ma trung");
                     return "color/color-view-add";
                 }
