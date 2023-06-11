@@ -39,9 +39,16 @@ public class CapacityController {
     }
 
     @PostMapping("add")
-    public String addCapacity(@Valid @ModelAttribute("Capa") Capacity capacity, BindingResult result) {
+    public String addCapacity(Model model,@Valid @ModelAttribute("Capa") Capacity capacity, BindingResult result) {
         if (result.hasErrors()) {
             return "/capacity/capacities_viewAdd";
+        }else{
+            for(Capacity cap : capacityService.getAll()){
+                if(capacity.getCode().equals(cap.getCode())){
+                    model.addAttribute("messege", "(*) Ma dang trung");
+                    return "/capacity/capacities_viewAdd";
+                }
+            }
         }
         capacityService.addCapacity(capacity);
         return "redirect:/capacity/display";

@@ -37,7 +37,7 @@
         </div>
         <div class="form-group row">
             <label class="col-sm-2 col-form-label">CODE:</label>
-            <input class="form-control" name="code" type="text" th:field="*{code}"/>
+            <input class="form-control" name="code" type="text" th:field="*{code}" readonly="readonly"/>
             <span th:errors="*{code}" style="color:red;"></span>
         </div>
         <div class="form-group row">
@@ -55,14 +55,7 @@
             <input class="form-control" name="personUpdate" type="text" th:field="*{personUpdate}"/>
             <span th:errors="*{personUpdate}" style="color:red;"></span>
         </div>
-        <div class="form-group row">
-            <div class="col-sm-6">
-                <label class="col-sm-2 col-form-label">STATUS:</label>
-                <input name="status" type="radio" th:field="*{status}" value="0"/>Hoạt động
-                <input name="status" type="radio" th:field="*{status}" value="1"/>Không hoạt động
-                <!--            <span th:errors="*{name}"></span>-->
-            </div>
-        </div>
+        <br/>
         <button type="submit" class="btn btn-outline-secondary" onclick="return confirmSubmit()">UPDATE</button>
     </form>
 </div>

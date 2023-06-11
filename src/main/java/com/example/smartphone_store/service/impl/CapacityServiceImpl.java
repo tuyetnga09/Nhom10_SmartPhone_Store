@@ -43,6 +43,7 @@ public class CapacityServiceImpl implements CapacityService {
     public void addCapacity(Capacity capacity) {
         capacity.setDateCreate(java.time.LocalDate.now());
         capacity.setDateUpdate(java.time.LocalDate.now());
+        capacity.setStatus(0);
         capacityRepository.save(capacity);
     }
 
@@ -51,6 +52,7 @@ public class CapacityServiceImpl implements CapacityService {
         Capacity capacityId = getOne(capacity.getId());
         capacity.setDateCreate(capacityId.getDateCreate());
         capacity.setDateUpdate(java.time.LocalDate.now());
+        capacity.setStatus(capacityId.getStatus());
         return capacityRepository.save(capacity);
     }
 

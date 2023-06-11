@@ -41,9 +41,16 @@ public class CategoryController {
     }
 
     @PostMapping("add")
-    public String addCategory(@Valid @ModelAttribute("Cate")Category category, BindingResult result){
+    public String addCategory(Model model,@Valid @ModelAttribute("Cate")Category category, BindingResult result){
         if(result.hasErrors()){
             return "/category/categories_viewAdd";
+        }else{
+            for(Category cate : categoryService.getAll()){
+                if(category.getCode().equals(cate.getCode())){
+                    model.addAttribute("messege", "(*) Ma dang trung");
+                    return "/category/categories_viewAdd";
+                }
+            }
         }
         categoryService.addCategory(category);
         return "redirect:/category/display";
