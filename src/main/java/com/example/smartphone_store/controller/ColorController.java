@@ -44,6 +44,15 @@ public class ColorController {
         return "color/color-view-update";
     }
 
+    @GetMapping("view-delete")
+    public String viewDelete(Model model, @RequestParam(value = "page", defaultValue = "0") Integer page){
+        Page<Color> colorPage = colorService.pagingViewDelete(page, 5);
+        model.addAttribute("colors", colorPage.getContent());
+        model.addAttribute("pageProduct", colorPage.getTotalPages());
+        model.addAttribute("pageNumber", page);
+        return "color/color-view-delete";
+    }
+
     @PostMapping("add")
     public String add(@Valid @ModelAttribute("cl") Color color, BindingResult result, Model model){
         if (result.hasErrors()){
@@ -73,6 +82,13 @@ public class ColorController {
     public String delete(@PathVariable("id") Long id){
         Color color = colorService.detail(id);
         colorService.delete(color);
+        return "redirect:/color/";
+    }
+
+    @GetMapping("/undo/{id}")
+    public String undo(@PathVariable("id") Long id){
+        Color color = colorService.detail(id);
+        colorService.undo(color);
         return "redirect:/color/";
     }
 

@@ -49,7 +49,19 @@ public class ManufactureServiceImpl implements ManufactureService {
     }
 
     @Override
+    public void undo(Manufacture manufacture) {
+        manufacture.setStatus(0);
+        manufactureRepository.save(manufacture);
+    }
+
+    @Override
     public Page<Manufacture> paging(Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return manufactureRepository.getManufactureStatusZero(pageable);
+    }
+
+    @Override
+    public Page<Manufacture> pagingViewDelete(Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page, size);
         return manufactureRepository.getManufactureStatusOne(pageable);
     }

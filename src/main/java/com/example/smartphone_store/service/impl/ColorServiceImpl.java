@@ -49,7 +49,19 @@ public class ColorServiceImpl implements ColorService {
     }
 
     @Override
+    public void undo(Color color) {
+        color.setStatus(0);
+        colorRepository.save(color);
+    }
+
+    @Override
     public Page<Color> paging(Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return colorRepository.getColorStatusZero(pageable);
+    }
+
+    @Override
+    public Page<Color> pagingViewDelete(Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page, size);
         return colorRepository.getColorStatusOne(pageable);
     }

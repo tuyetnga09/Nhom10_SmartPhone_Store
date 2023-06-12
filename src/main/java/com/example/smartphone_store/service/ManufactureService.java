@@ -18,7 +18,11 @@ public interface ManufactureService {
 
     void delete(Manufacture manufacture);
 
+    void undo(Manufacture manufacture);
+
     Page<Manufacture> paging(Integer page, Integer size);
+
+    Page<Manufacture> pagingViewDelete(Integer page, Integer size);
 
     Page<Manufacture> searchManufacture(String keyword, Integer page, Integer size);
 }

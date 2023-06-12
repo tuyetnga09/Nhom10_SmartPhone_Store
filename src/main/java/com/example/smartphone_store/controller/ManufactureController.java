@@ -44,6 +44,15 @@ public class ManufactureController {
         return "manufacture/manufacture-view-update";
     }
 
+    @GetMapping("view-delete")
+    public String viewDelete(Model model, @RequestParam(value = "page", defaultValue = "0") Integer page) {
+        Page<Manufacture> manufacturePage = manufactureService.pagingViewDelete(page, 5);
+        model.addAttribute("manufactures", manufacturePage.getContent());
+        model.addAttribute("pageProduct", manufacturePage.getTotalPages());
+        model.addAttribute("pageNumber", page);
+        return "manufacture/manufacture-view-delete";
+    }
+
     @PostMapping("add")
     public String add(@Valid @ModelAttribute("mn") Manufacture manufacture, BindingResult result, Model model) {
         if (result.hasErrors()) {
@@ -73,6 +82,13 @@ public class ManufactureController {
     public String delete(@PathVariable("id") Long id) {
         Manufacture manufacture = manufactureService.detail(id);
         manufactureService.delete(manufacture);
+        return "redirect:/manufacture/";
+    }
+
+    @GetMapping("undo/{id}")
+    public String undo(@PathVariable("id") Long id) {
+        Manufacture manufacture = manufactureService.detail(id);
+        manufactureService.undo(manufacture);
         return "redirect:/manufacture/";
     }
 

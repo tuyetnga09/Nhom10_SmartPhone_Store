@@ -18,7 +18,11 @@ public interface ColorService {
 
     void delete(Color color);
 
+    void undo(Color color);
+
     Page<Color> paging(Integer page, Integer size);
+
+    Page<Color> pagingViewDelete(Integer page, Integer size);
 
     Page<Color> searchColor(String keyword, Integer page, Integer size);
 
