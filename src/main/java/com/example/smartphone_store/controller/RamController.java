@@ -42,7 +42,7 @@ public class RamController {
         return "ram/add";
     }
 
-    // hien thi trang add ram
+    // hien thi trang update ram
     @GetMapping("view-update/{id}")
     public String viewUpdateRam(Model model, @PathVariable("id")Long id) {
         Ram ram = ramService.findById(id);
@@ -72,6 +72,15 @@ public class RamController {
         if (bindingResult.hasErrors()) {
             model.addAttribute("ram", ram);
             return "ram/add";
+        }else {
+            List<Ram> rams = ramService.getAll();
+            for (Ram ramCheckMa: rams) {
+                if (ram.getCode().equalsIgnoreCase(ramCheckMa.getCode())) {
+                    model.addAttribute("message", "* Mã đã tôn tại!");
+                    model.addAttribute("ram", ram);
+                    return "ram/add";
+                }
+            }
         }
         ramService.save(ram);
         return "redirect:/ram/hien-thi";

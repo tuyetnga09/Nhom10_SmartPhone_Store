@@ -30,14 +30,14 @@ public class Size {
     @Column(name = "Id")
     private Long id;
 
-    @jakarta.validation.constraints.Size
-    @NotBlank(message = "Du lieu khong trong!")
-    @jakarta.validation.constraints.Size(max = 20, message = "Khong vuot qua 200 ky tu!")
+
+    @NotBlank(message = "* Dữ liệu không để rỗng!")
+    @jakarta.validation.constraints.Size(max = 20, message = "* Không vượt quá 20 ký tự!")
     @Column(name = "Code")
     private String code;
 
-    @NotBlank(message = "Du lieu khong trong!")
-    @jakarta.validation.constraints.Size(max = 200, message = "Khong vuot qua 200 ky tu!")
+    @NotBlank(message = "* Dữ liệu không để rỗng!")
+    @jakarta.validation.constraints.Size(max = 200, message = "* Không vượt quá 200 ký tự!")
     @Column(name = "Name")
     private String name;
 

@@ -30,13 +30,13 @@ public class Screen {
     @Column(name = "Id")
     private Long id;
 
-    @NotBlank(message = "Du lieu khong trong!")
-    @Size(max = 20, message = "Khong vuot qua 200 ky tu!")
+    @NotBlank(message = "* Dữ liệu không để rỗng!")
+    @Size(max = 20, message = "* Không vượt quá 20 ký tự!")
     @Column(name = "Code")
     private String code;
 
-    @NotBlank(message = "Du lieu khong trong!")
-    @Size(max = 200, message = "Khong vuot qua 200 ky tu!")
+    @NotBlank(message = "* Dữ liệu không để rỗng!")
+    @Size(max = 200, message = "* Không vượt quá 200 ký tự!")
     @Column(name = "Name")
     private String name;
 

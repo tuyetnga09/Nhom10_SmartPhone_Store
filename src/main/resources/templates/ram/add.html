@@ -34,8 +34,10 @@
                         aria-describedby="inputGroup-sizing-default"
                         th:field="*{code}"
                 />
+                <span style="margin-left: 5px;color: red" th:text="${message}" ></span>
                 <span style="margin-left: 15px;color: red"  th:errors="*{code}"></span>
             </div>
+
             <div class="input-group mb-3">
             <span class="input-group-text" id="inputGroup-sizing-default"
             >Name</span
@@ -47,7 +49,7 @@
                         aria-describedby="inputGroup-sizing-default"
                         th:field="*{name}"
                 />
-                <span style="margin-left: 15px;color: red"  th:errors="*{name}"></span>
+                <span style="margin-left: 15px;color: red" th:text="${message}"  th:errors="*{name}"></span>
 
             </div>
             <div class="input-group mb-3">

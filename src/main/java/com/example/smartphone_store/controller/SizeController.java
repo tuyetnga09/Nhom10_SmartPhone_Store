@@ -1,5 +1,6 @@
 package com.example.smartphone_store.controller;
 
+import com.example.smartphone_store.entity.Screen;
 import com.example.smartphone_store.entity.Size;
 import com.example.smartphone_store.service.SizeService;
 import jakarta.validation.Valid;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/size/")
@@ -69,6 +72,15 @@ public class SizeController {
         if (bindingResult.hasErrors()) {
             model.addAttribute("size", size);
             return "size/add";
+        }else {
+            List<Size> sizes = sizeService.getAll();
+            for (Size sizeCheckMa: sizes) {
+                if (size.getCode().equalsIgnoreCase(sizeCheckMa.getCode())) {
+                    model.addAttribute("message", "* Mã đã tôn tại!");
+                    model.addAttribute("size", size);
+                    return "size/add";
+                }
+            }
         }
         sizeService.save(size);
         return "redirect:/size/hien-thi";

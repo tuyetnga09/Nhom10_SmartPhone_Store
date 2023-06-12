@@ -1,5 +1,6 @@
 package com.example.smartphone_store.controller;
 
+import com.example.smartphone_store.entity.Ram;
 import com.example.smartphone_store.entity.Screen;
 import com.example.smartphone_store.service.ScreenService;
 import jakarta.validation.Valid;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/screen/")
@@ -69,6 +72,15 @@ public class ScreenController {
         if (bindingResult.hasErrors()) {
             model.addAttribute("screen", screen);
             return "screen/add";
+        }else {
+            List<Screen> screens = screenService.getAll();
+            for (Screen screenCheckMa: screens) {
+                if (screen.getCode().equalsIgnoreCase(screenCheckMa.getCode())) {
+                    model.addAttribute("message", "* Mã đã tôn tại!");
+                    model.addAttribute("screen", screen);
+                    return "screen/add";
+                }
+            }
         }
         screenService.save(screen);
         return "redirect:/screen/hien-thi";
