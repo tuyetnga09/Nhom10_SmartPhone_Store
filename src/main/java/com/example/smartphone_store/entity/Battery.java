@@ -35,7 +35,7 @@ public class Battery {
     @Column(name = "DateCreate")
     private Date dateCreate;
 
-    @Column(name = "DateCreate")
+    @Column(name = "DateUpdate")
     private Date dateUpdate;
 
     @Column(name = "PersonCreate")
@@ -46,4 +46,5 @@ public class Battery {
 
     @Column(name = "Status")
     private int status;
+
 }

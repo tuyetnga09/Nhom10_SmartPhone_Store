@@ -17,7 +17,7 @@ public interface ImagesRepository extends JpaRepository<Images, Long> {
 
     @Transactional
     @Modifying
-    @Query("update Images set status = 0 where id = ?1")
+    @Query("update Images set status = 1 where id = ?1")
     void delete(Long id);
 
 }

@@ -7,9 +7,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.sql.Date;
 
@@ -19,10 +21,11 @@ import java.sql.Date;
 @ToString
 @Entity
 @Table(name = "Images")
+@Builder
 public class Images {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
     private Long id;
 
@@ -52,7 +55,7 @@ public class Images {
 
     public Images() {
         this.dateCreate = new Date(new java.util.Date().getTime());
-        this.status = 1;
+        this.status = 0;
     }
 
 }
