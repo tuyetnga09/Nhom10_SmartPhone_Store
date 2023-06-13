@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Color</title>
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+            crossorigin="anonymous"
+    />
+</head>
+<body>
+<section>
+    <div class="container">
+        <h1 style="text-align: center">Manager Color</h1>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">STT</th>
+                <th scope="col">Code</th>
+                <th scope="col">Name</th>
+                <th scope="col">Date Create</th>
+                <th scope="col">Date Update</th>
+                <th scope="col">Person Create</th>
+                <th scope="col">Person Update</th>
+                <th scope="col">Status</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="cl, index : ${colors}">
+                <th scope="row" th:text="${index.count}"></th>
+                <td th:text="${cl.code}"></td>
+                <td th:text="${cl.name}"></td>
+                <td th:text="${cl.dateCreate}"></td>
+                <td th:text="${cl.dateUpdate}"></td>
+                <td th:text="${cl.personCreate}"></td>
+                <td th:text="${cl.personUpdate}"></td>
+                <td th:text="${cl.status == 0 ? 'Hoạt động' : 'Không hoạt động'}"></td>
+                <td>
+                    <a
+                            th:href="@{/color/view-update/{id}(id=${cl.id})}"
+                            role="button"
+                            class="btn btn-warning"
+                    >Update</a
+                    >
+                    <a th:href="@{/color/delete/{id}(id=${cl.id})}" role="button" class="btn btn-danger"
+                       onclick="return confirmButton()">Delete</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <!--        phân trang cho sản phẩm-->
+<!--        <nav aria-label="...">-->
+<!--            <ul class="pagination">-->
+<!--                &lt;!&ndash;                trang đầu&ndash;&gt;-->
+<!--                <li class="page-item">-->
+<!--                    <a class="page-link" th:href="@{/color/search?(code=${code}, name=${name}, dateCreate=${dateCreate}, dateUpdate=${dateUpdate}, personCreate=${personCreate}, personUpdate=${personUppdate}, page=0)}">Fist</a>-->
+<!--                </li>-->
+<!--                &lt;!&ndash;Previous&ndash;&gt;-->
+<!--                <li class="page-item" th:if="${pageNumber>0}">-->
+<!--                    <a class="page-link" th:href="@{/color/search?(code=${code}, name=${name}, dateCreate=${dateCreate}, dateUpdate=${dateUpdate}, personCreate=${personCreate}, personUpdate=${personUppdate}, page=${pageNumer} - 1)}">Previous</a>-->
+<!--                </li>-->
+<!--                <li class="page-item" th:if="${pageNumber == 0}">-->
+<!--                    <a class="page-link" th:disabled="true">Previous</a>-->
+<!--                </li>-->
+
+<!--                &lt;!&ndash;                số thứ tự trang&ndash;&gt;-->
+<!--                &lt;!&ndash;                dùng for i trong thymleaf&ndash;&gt;-->
+<!--                <div th:each="index : ${#numbers.sequence(0, pageProduct-1)}">-->
+<!--                    <li class="page-item">-->
+<!--                        <a class="page-link"-->
+<!--                           th:href="@{/color/search?(code=${code}, name=${name}, dateCreate=${dateCreate}, dateUpdate=${dateUpdate}, personCreate=${personCreate}, personUpdate=${personUppdate}, page=${index})}" th:text="${index+1}"></a>-->
+<!--                    </li>-->
+<!--                </div>-->
+
+<!--                &lt;!&ndash;       Next         &ndash;&gt;-->
+<!--                <li class="page-item" th:if="${pageNumber < (pageProduct -1)}">-->
+<!--                    <a class="page-link" th:href="@{/color/search?(code=${code}, name=${name}, dateCreate=${dateCreate}, dateUpdate=${dateUpdate}, personCreate=${personCreate}, personUpdate=${personUppdate}, page=${pageNumber} + 1)}">Next</a>-->
+<!--                </li>-->
+<!--                <li class="page-item" th:if="${pageNumber == (pageProduct -1)}">-->
+<!--                    <a class="page-link" th:disabled="true">Next</a>-->
+<!--                </li>-->
+
+<!--                &lt;!&ndash;                trang cuối&ndash;&gt;-->
+<!--                <li class="page-item">-->
+<!--                    <a class="page-link"-->
+<!--                       th:href="@{/color/search?(code=${code}, name=${name}, dateCreate=${dateCreate}, dateUpdate=${dateUpdate}, personCreate=${personCreate}, personUpdate=${personUppdate}, page=${pageProduct} - 1)}">Last</a>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--        </nav>-->
+        <nav aria-label="...">
+            <ul class="pagination">
+                <!--                trang đầu-->
+                <li class="page-item">
+                    <a class="page-link" th:href="@{/color/search((page=0), keyword=${keyword})}">Fist</a>
+                </li>
+                <!--Previous-->
+                <li class="page-item" th:if="${pageNumber>0}">
+                    <a class="page-link" th:href="@{/color/search((page=${pageNumber} -1), keyword=${keyword})}">Previous</a>
+                </li>
+                <li class="page-item" th:if="${pageNumber == 0}">
+                    <a class="page-link" th:disabled="true">Previous</a>
+                </li>
+
+                <!--                số thứ tự trang-->
+                <!--                dùng for i trong thymleaf-->
+                <div th:each="index : ${#numbers.sequence(0, pageProduct-1)}">
+                    <li class="page-item">
+                        <a class="page-link"
+                           th:href="@{/color/search((page=${index}), keyword=${keyword})}" th:text="${index+1}"></a>
+                    </li>
+                </div>
+
+                <!--       Next         -->
+                <li class="page-item" th:if="${pageNumber < (pageProduct -1)}">
+                    <a class="page-link" th:href="@{/color/search((page=${pageNumber} +1), keyword=${keyword})}">Next</a>
+                </li>
+                <li class="page-item" th:if="${pageNumber == (pageProduct -1)}">
+                    <a class="page-link" th:disabled="true">Next</a>
+                </li>
+
+                <!--                trang cuối-->
+                <li class="page-item">
+                    <a class="page-link"
+                       th:href="@{/color/search((page=${pageProduct -1}), keyword=${keyword})}"
+                    >Last</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</section>
+</body>
+</html>
