@@ -2,29 +2,27 @@ package com.example.smartphone_store.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 import java.sql.Date;
-import java.time.LocalDate;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @Entity
-@Table(name = "Battery")
-@ToString
-@Builder
-public class Battery {
+@Table(name = "Product")
+public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -37,11 +35,20 @@ public class Battery {
     @Column(name = "Name")
     private String name;
 
+    @Column(name = "ImportPrice")
+    private float importPrice;
+
+    @Column(name = "Price")
+    private float price;
+
+    @Column(name = "Quantity")
+    private int quantity;
+
     @Column(name = "DateCreate")
-    private LocalDate dateCreate;
+    private Date dateCreate;
 
     @Column(name = "DateUpdate")
-    private LocalDate dateUpdate;
+    private Date dateUpdate;
 
     @Column(name = "PersonCreate")
     private String personCreate;
@@ -52,4 +59,7 @@ public class Battery {
     @Column(name = "Status")
     private int status;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "Id_Images")
+    private Images idImages;
 }

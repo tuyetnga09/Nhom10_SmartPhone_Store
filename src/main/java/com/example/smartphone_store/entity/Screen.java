@@ -6,34 +6,37 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
-import java.sql.Date;
 import java.time.LocalDate;
 
+@Entity
+@Table(name = "Screen")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-@Entity
-@Table(name = "Battery")
-@ToString
 @Builder
-public class Battery {
+public class Screen {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
     private Long id;
 
+    @NotBlank(message = "* Dữ liệu không để rỗng!")
+    @Size(max = 20, message = "* Không vượt quá 20 ký tự!")
     @Column(name = "Code")
     private String code;
 
+    @NotBlank(message = "* Dữ liệu không để rỗng!")
+    @Size(max = 200, message = "* Không vượt quá 200 ký tự!")
     @Column(name = "Name")
     private String name;
 
@@ -50,6 +53,6 @@ public class Battery {
     private String personUpdate;
 
     @Column(name = "Status")
-    private int status;
+    private Integer status;
 
 }

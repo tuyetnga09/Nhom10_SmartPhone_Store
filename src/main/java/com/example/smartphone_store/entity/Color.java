@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,27 +14,27 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.sql.Date;
 import java.time.LocalDate;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-@Entity
-@Table(name = "Battery")
 @ToString
 @Builder
-public class Battery {
+@Entity
+@Table(name = "Color")
+public class Color {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "Id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotEmpty(message = "Code not null")
     @Column(name = "Code")
     private String code;
 
+    @NotEmpty(message = "Name not null")
     @Column(name = "Name")
     private String name;
 
@@ -50,6 +51,5 @@ public class Battery {
     private String personUpdate;
 
     @Column(name = "Status")
-    private int status;
-
+    private Integer status;
 }

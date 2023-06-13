@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Capacity</title>
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+            crossorigin="anonymous"/>
+</head>
+<script>
+    function confirmSubmit() {
+        var result = true;
+        if ($('.error').length > 0) {
+            alert("Vui lòng kiểm tra thông tin");
+            result = false;
+        } else {
+            result = confirm("Bạn có chắc chắn không?");
+        }
+        return result;
+    }
+</script>
+<body>
+<div class="container text-center">
+    <div><h1>Capacity Add</h1></div>
+</div>
+<hr/>
+<div class="container">
+    <a th:href="@{/capacity/display}" class="btn btn-outline-secondary">DISPLAY</a>
+</div>
+<hr/>
+<div class="container">
+    <form th:action="@{/capacity/add}" method="post" th:object="${Capa}">
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">CODE:</label>
+            <input class="form-control" name="code" type="text" th:field="*{code}"/>
+            <span th:errors="*{code}" style="color: red"></span>
+            <span th:text="${messege}" style="color: red"></span>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">NAME:</label>
+            <input class="form-control" name="name" type="text" th:field="*{name}"/>
+            <span th:errors="*{name}" style="color: red"></span>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">PersonCreate:</label>
+            <input class="form-control" name="personCreate" type="text" th:field="*{personCreate}"/>
+            <span th:errors="*{personCreate}" style="color: red"></span>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">PersonUpdate:</label>
+            <input class="form-control" name="personUpdate" type="text" th:field="*{personUpdate}"/>
+            <span th:errors="*{personUpdate}" style="color: red"></span>
+        </div>
+        <br/>
+        <button type="submit" class="btn btn-outline-secondary" onclick="return confirmSubmit()">ADD</button>
+    </form>
+</div>
+</body>
+</html>

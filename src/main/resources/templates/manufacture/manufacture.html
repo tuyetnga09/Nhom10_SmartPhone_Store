@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manufacture</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <section>
+      <div class="container">
+        <h1 style="text-align: center">Manager Manufacture</h1>
+        <form th:action="@{/manufacture/search}" method="get">
+          <div class="input-group mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-default"
+                >Search</span
+                >
+            <input
+                    type="text"
+                    class="form-control"
+                    aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-default"
+                    name="keyword"
+            />
+          </div>
+          <button type="submit" class="btn btn-primary">Search</button>
+          <a th:href="@{/manufacture/view-add}" role="button" class="btn btn-success">Add</a>
+          <a th:href="@{/manufacture/view-delete}" role="button" class="btn btn-danger">View Delete</a>
+        </form>
+        <hr />
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">STT</th>
+              <th scope="col">Code</th>
+              <th scope="col">Name</th>
+              <th scope="col">Date Create</th>
+              <th scope="col">Date Update</th>
+              <th scope="col">Person Create</th>
+              <th scope="col">Person Update</th>
+              <th scope="col">Status</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="mn, index : ${manufactures}">
+              <th scope="row" th:text="${index.count}"></th>
+              <td th:text="${mn.code}"></td>
+              <td th:text="${mn.name}"></td>
+              <td th:text="${mn.dateCreate}"></td>
+              <td th:text="${mn.dateUpdate}"></td>
+              <td th:text="${mn.personCreate}"></td>
+              <td th:text="${mn.personUpdate}"></td>
+              <td th:text="${mn.status == 0 ? 'Hoạt động' : 'Không hoạt động'}"></td>
+              <td>
+                <a
+                  th:href="@{/manufacture/view-update/{id}(id=${mn.id})}"
+                  role="button"
+                  class="btn btn-warning"
+                  >Update</a
+                >
+                <a
+                  th:href="@{/manufacture/delete/{id}(id=${mn.id})}"
+                  role="button"
+                  class="btn btn-danger"
+                  onclick="return confirmButton()"
+                  >Delete</a
+                >
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <!--        phân trang cho sản phẩm-->
+        <nav aria-label="...">
+          <ul class="pagination">
+            <!--                trang đầu-->
+            <li class="page-item">
+              <a class="page-link" th:href="@{/manufacture/(page=0)}">Fist</a>
+            </li>
+            <!--Previous-->
+            <li class="page-item" th:if="${pageNumber>0}">
+              <a class="page-link" th:href="@{/manufacture/(page=${pageNumber} -1)}">Previous</a>
+            </li>
+            <li class="page-item" th:if="${pageNumber == 0}">
+              <a class="page-link" th:disabled="true">Previous</a>
+            </li>
+
+            <!--                số thứ tự trang-->
+            <!--                dùng for i trong thymleaf-->
+            <div th:each="index : ${#numbers.sequence(0, pageProduct-1)}">
+              <li class="page-item">
+                <a class="page-link"
+                   th:href="@{/manufacture/(page=${index})}" th:text="${index+1}"></a>
+              </li>
+            </div>
+
+            <!--       Next         -->
+            <li class="page-item" th:if="${pageNumber < (pageProduct -1)}">
+              <a class="page-link" th:href="@{/manufacture/(page=${pageNumber} +1)}">Next</a>
+            </li>
+            <li class="page-item" th:if="${pageNumber == (pageProduct -1)}">
+              <a class="page-link" th:disabled="true">Next</a>
+            </li>
+
+            <!--                trang cuối-->
+            <li class="page-item">
+              <a class="page-link"
+                 th:href="@{/manufacture/(page=${pageProduct -1})}">Last</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </section>
+  </body>
+  <script>
+    function confirmButton() {
+      var result = confirm("Bạn chắc chắn muốn xóa?");
+      if (result) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  </script>
+</html>

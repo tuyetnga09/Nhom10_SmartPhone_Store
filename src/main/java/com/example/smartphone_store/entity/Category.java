@@ -6,35 +6,34 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
-import java.sql.Date;
 import java.time.LocalDate;
 
+@Entity
+@Table(name = "Category")
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
 @Setter
-@Entity
-@Table(name = "Battery")
-@ToString
-@Builder
-public class Battery {
-
+@Getter
+public class Category {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "Id")
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
     @Column(name = "Code")
+    @NotBlank(message = "(*) Không để trống")
+    @Size(max = 20, message = "(*) Không quá 20 ký tự")
     private String code;
 
     @Column(name = "Name")
+    @NotBlank(message = "(*) Không để trống")
+    @Size(max = 200, message = "(*) Không quá 200 ký tự")
     private String name;
 
     @Column(name = "DateCreate")
@@ -44,12 +43,15 @@ public class Battery {
     private LocalDate dateUpdate;
 
     @Column(name = "PersonCreate")
+    @NotBlank(message = "(*) Không để trống")
+    @Size(max = 200, message = "(*) Không quá 200 ký tự")
     private String personCreate;
 
     @Column(name = "PersonUpdate")
+    @NotBlank(message = "(*) Không để trống")
+    @Size(max = 200, message = "(*) Không quá 200 ký tự")
     private String personUpdate;
 
     @Column(name = "Status")
-    private int status;
-
+    private Integer status;
 }
