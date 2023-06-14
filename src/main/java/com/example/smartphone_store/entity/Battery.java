@@ -16,19 +16,18 @@ import lombok.ToString;
 import java.sql.Date;
 import java.time.LocalDate;
 
+@Entity
+@Table(name = "Battery")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-@Entity
-@Table(name = "Battery")
 @ToString
 @Builder
 public class Battery {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "Id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "Code")
@@ -50,6 +49,6 @@ public class Battery {
     private String personUpdate;
 
     @Column(name = "Status")
-    private int status;
+    private Integer status;
 
 }
