@@ -8,8 +8,9 @@
             rel="stylesheet"
             integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
             crossorigin="anonymous"/>
-    <link rel="stylesheet" href="/css/custom/style.css"/>
+    <script src="/js/confirm/confirmAddUpdateDelete.js" ></script>
 
+    <!--    <link rel="stylesheet" href="/css/custom/style.css"/>-->
 </head>
 <body>
 <!--<section>-->
@@ -26,7 +27,7 @@
         <form th:action="@{/ram/add}" method="post" th:object="${ram}">
             <div class="input-group mb-3">
             <span class="input-group-text" id="inputGroup-sizing-default"
-            >Name</span>
+            >Code</span>
                 <input
                         type="text"
                         class="form-control"
@@ -92,10 +93,7 @@
                         th:field="*{status}"
                 />Không Hoạt Động
             </div>
-            <button type="submit" class="btn btn-primary">Add</button>
-<!--            <a href="color-view-add.html" role="button" class="btn btn-success"-->
-<!--            >Add</a-->
-<!--            >-->
+            <button type="submit" class="btn btn-primary" onclick="return confirmAdd()">Add</button>
         </form>
     </div>
 </section>

@@ -35,6 +35,17 @@ public class SizeController {
         return "size/view-size";
     }
 
+    // hien thi tat ca san phaam size đã xoá
+    @GetMapping("view-delete")
+    public String viewSizeDelete(Model model, @RequestParam(name = "pageNo", defaultValue = "0", required = false) Integer pageNo) {
+        Page<Size> size = sizeService.viewShowActivitySize(1, pageNo, 5);
+        model.addAttribute("sizes", size.getContent());
+        model.addAttribute("size", size);
+        model.addAttribute("sizeTotalPages", size.getTotalPages());
+        model.addAttribute("pageNumber", pageNo);
+        return "size/view-delete";
+    }
+
     // hien thi trang add size
     @GetMapping("view-add")
     public String viewAddSize(Model model) {
@@ -62,6 +73,13 @@ public class SizeController {
     @GetMapping("remove/{id}")
     public String removeSize(Model model, @PathVariable("id")Long id) {
         sizeService.deleteActivitytatus(id);
+        return "redirect:/size/hien-thi";
+    }
+
+    // khôi phục sp size
+    @GetMapping("return/{id}")
+    public String returnSize(Model model, @PathVariable("id")Long id) {
+        sizeService.returnActivitytatus(id);
         return "redirect:/size/hien-thi";
     }
 

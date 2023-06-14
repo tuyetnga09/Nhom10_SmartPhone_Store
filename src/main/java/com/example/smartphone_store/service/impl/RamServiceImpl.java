@@ -62,9 +62,16 @@ public class RamServiceImpl implements RamService {
     }
 
     @Override
+    public void returnActivitytatus(Long id) {
+        Ram ram = ramRepository.findById(id).get();
+        ram.setStatus(0);
+        ramRepository.save(ram);
+    }
+
+    @Override
     public Page<Ram> viewShowActivityRam(Integer status, Integer pageNo, Integer size) {
         Pageable pageable = PageRequest.of(pageNo, size);
-        return ramRepository.viewShowActivityRam(0, pageable);
+        return ramRepository.viewShowActivityRam(status, pageable);
     }
 
     @Override

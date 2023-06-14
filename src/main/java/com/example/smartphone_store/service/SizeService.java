@@ -20,6 +20,9 @@ public interface SizeService {
 
     void deleteActivitytatus(Long id);
 
+    void returnActivitytatus(Long id);
+
+
     Page<Size> viewShowActivitySize(Integer status, Integer pageNo, Integer size);
 
     Page<Size> viewSeachAllSize(String seach, Integer pageNo, Integer size);

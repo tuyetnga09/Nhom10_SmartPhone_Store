@@ -8,21 +8,21 @@
             rel="stylesheet"
             integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
             crossorigin="anonymous"/>
-    <link rel="stylesheet" href="/css/custom/style.css"/>
-    <script src="/js/confirm/confirmAddUpdateDelete.js" ></script>
+    <!--    <link rel="stylesheet" href="/css/custom/style.css"/>-->
+    <script src="/js/confirm/confirmAddUpdateDelete.js"></script>
 
 
 </head>
 <body>
 <section class="container">
-    <h1 style="text-align: center">Manager Size</h1>
+    <h1 style="text-align: center">View All Ram Delete</h1>
     <hr/>
-    <a th:href="@{/size/hien-thi}" class="btn btn-warning">View All</a>
+    <a th:href="@{/ram/hien-thi}" class="btn btn-warning">Trang Chu</a>
     <br/>
     <hr/>
     <section>
         <div class="container">
-            <form class="d-flex" th:action="@{/size/seach}" method="get">
+            <form class="d-flex" th:action="@{/ram/seach}" method="get">
                 <button class="btn btn-outline-success" type="submit">Search</button>
                 <input
                         class="form-control me-2"
@@ -49,25 +49,19 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="size, index :${sizes}">
+        <tr th:each="ram, index :${rams}">
             <th scope="row" th:text="${index.count}"></th>
-            <td th:text="${size.code}"></td>
-            <td th:text="${size.name}"></td>
-            <td th:text="${size.dateCreate}"></td>
-            <td th:text="${size.dateUpdate}"></td>
-            <td th:text="${size.personCreate}"></td>
-            <td th:text="${size.personUpdate}"></td>
-            <td th:text="${size.status==0?'Hoạt Động':'Không Hoạt Động'}"></td>
+            <td th:text="${ram.code}"></td>
+            <td th:text="${ram.name}"></td>
+            <td th:text="${ram.dateCreate}"></td>
+            <td th:text="${ram.dateUpdate}"></td>
+            <td th:text="${ram.personCreate}"></td>
+            <td th:text="${ram.personUpdate}"></td>
+            <td th:text="${ram.status==0?'Hoạt Động':'Không Hoạt Động'}"></td>
             <td>
-                <div class="form-group row">
                     <div class="col-sm-4">
-                        <a th:href="@{/size/view-update/{id}(id=${size.id})}" class="btn btn-warning">Update</a>
-                    </div>
-                    <div class="col-sm-4">
-                        <a th:href="@{/size/detail/{id}(id=${size.id})}" class="btn btn-info">Detail</a>
-                    </div>
-                    <div class="col-sm-4">
-                        <a th:href="@{/size/remove/{id}(id=${size.id})}" class="btn btn-danger" onclick="return confirmDelete()">Remove</a>
+                        <a th:href="@{/ram/return/{id}(id=${ram.id})}" class="btn btn-danger"
+                           onclick="return confirmReturn()">Return</a>
                     </div>
                 </div>
             </td>
@@ -79,11 +73,11 @@
         <ul class="pagination">
             <!--                trang đầu-->
             <li class="page-item">
-                <a class="page-link" th:href="@{/size/seach((pageNo=0), seach=${seachUri})}">Fist</a>
+                <a class="page-link" th:href="@{/ram/view-delete(pageNo=0)}">Fist</a>
             </li>
             <!--Previous-->
             <li class="page-item" th:if="${pageNumber>0}">
-                <a class="page-link" th:href="@{/size/seach((pageNo=${pageNumber} -1), seach=${seachUri})}">Previous</a>
+                <a class="page-link" th:href="@{/ram/view-delete(pageNo=${pageNumber} -1)}">Previous</a>
             </li>
             <li class="page-item" th:if="${pageNumber == 0}">
                 <a class="page-link" th:disabled="true">Previous</a>
@@ -91,26 +85,24 @@
 
             <!--                số thứ tự trang-->
             <!--                dùng for i trong thymleaf-->
-            <div th:each="index : ${#numbers.sequence(0, sizeTotalPages-1)}">
+            <div th:each="index : ${#numbers.sequence(0, ramTotalPages-1)}">
                 <li class="page-item">
                     <a class="page-link"
-                       th:href="@{/size/seach((pageNo=${index}), seach=${seachUri})}" th:text="${index+1}"></a>
+                       th:href="@{/ram/view-delete(pageNo=${index})}" th:text="${index+1}"></a>
                 </li>
             </div>
 
             <!--       Next         -->
-            <li class="page-item" th:if="${pageNumber < (sizeTotalPages -1)}">
-                <a class="page-link" th:href="@{/size/seach((pageNo=${pageNumber} +1), seach=${seachUri})}">Next</a>
+            <li class="page-item" th:if="${pageNumber < (ramTotalPages -1)}">
+                <a class="page-link" th:href="@{/ram/view-delete(pageNo=${pageNumber} +1)}">Next</a>
             </li>
-            <li class="page-item" th:if="${pageNumber == (sizeTotalPages -1)}">
+            <li class="page-item" th:if="${pageNumber == (ramTotalPages -1)}">
                 <a class="page-link" th:disabled="true">Next</a>
             </li>
-
             <!--                trang cuối-->
             <li class="page-item">
                 <a class="page-link"
-                   th:href="@{/size/seach((pageNo=${sizeTotalPages -1}), seach=${seachUri})}"
-                >Last</a>
+                   th:href="@{/ram/view-delete(pageNo=${ramTotalPages -1})}">Last</a>
             </li>
         </ul>
     </nav>

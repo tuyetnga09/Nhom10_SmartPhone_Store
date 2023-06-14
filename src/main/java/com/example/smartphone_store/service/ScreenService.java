@@ -20,6 +20,9 @@ public interface ScreenService {
 
     void deleteActivitytatus(Long id);
 
+    void returnActivitytatus(Long id);
+
+
     Page<Screen> viewShowActivityScreen(Integer status, Integer pageNo, Integer size);
 
     Page<Screen> viewSeachAllScreen(String seach, Integer pageNo, Integer size);

@@ -35,6 +35,17 @@ public class ScreenController {
         return "screen/view-screen";
     }
 
+
+    // hien thi tat ca san phaam da xoa Screen
+    @GetMapping("view-delete")
+    public String returnScreen(Model model, @RequestParam(name = "pageNo", defaultValue = "0", required = false) Integer pageNo) {
+        Page<Screen> screen = screenService.viewShowActivityScreen(1, pageNo, 5);
+        model.addAttribute("screens", screen.getContent());
+        model.addAttribute("screen", screen);
+        model.addAttribute("screenTotalPages", screen.getTotalPages());
+        model.addAttribute("pageNumber", pageNo);
+        return "screen/view-delete";
+    }
     // hien thi trang add screen
     @GetMapping("view-add")
     public String viewAddScreen(Model model) {
@@ -113,5 +124,12 @@ public class ScreenController {
         model.addAttribute("seachUri", seach);
 
         return "screen/view-seach";
+    }
+
+    // khôi phục dữ liệu sp
+    @GetMapping("return/{id}")
+    public String returnRam(Model model, @PathVariable("id") Long id) {
+        screenService.returnActivitytatus(id);
+        return "redirect:/screen/hien-thi";
     }
 }

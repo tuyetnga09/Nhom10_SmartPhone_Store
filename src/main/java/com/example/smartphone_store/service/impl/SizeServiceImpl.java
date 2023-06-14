@@ -59,9 +59,16 @@ public class SizeServiceImpl implements SizeService {
     }
 
     @Override
+    public void returnActivitytatus(Long id) {
+        Size size = findById(id);
+        size.setStatus(0);
+        sizeRepository.save(size);
+    }
+
+    @Override
     public Page<Size> viewShowActivitySize(Integer status, Integer pageNo, Integer size) {
         Pageable pageable = PageRequest.of(pageNo, size);
-        return sizeRepository.viewShowActivityRam(0, pageable);
+        return sizeRepository.viewShowActivityRam(status, pageable);
     }
 
     @Override
