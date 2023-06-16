@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.sql.Date;
+
 @Controller
 @RequestMapping(value = "/product")
 public class ProductController {
@@ -45,7 +47,7 @@ public class ProductController {
     }
 
     @GetMapping(value = "/details/{id}")
-    public String details(@PathVariable int id, Model model){
+    public String details(@PathVariable Long id, Model model){
         model.addAttribute("product", this.productService.findById(id));
         model.addAttribute("list_images", this.imagesService.findAll(0));
         model.addAttribute("list_product", this.productService.selectByStatus(0));
@@ -53,7 +55,7 @@ public class ProductController {
     }
 
     @GetMapping(value = "/edit/{id}")
-    public String edit(@PathVariable int id, Model model){
+    public String edit(@PathVariable Long id, Model model){
         model.addAttribute("product", this.productService.findById(id));
         model.addAttribute("list_images", this.imagesService.findAll(0));
         model.addAttribute("list_product", this.productService.selectByStatus(0));
@@ -62,12 +64,13 @@ public class ProductController {
 
     @PostMapping(value = "/update/{id}")
     public String update(@ModelAttribute Product product){
+        product.setDateUpdate(new Date(new java.util.Date().getTime()));
         this.productService.update(product);
         return "redirect:/product/index";
     }
 
     @GetMapping(value = "/delete/{id}")
-    public String delete(@PathVariable int id) {
+    public String delete(@PathVariable Long id) {
         this.productService.delete(id);
         return "redirect:/product/index";
     }

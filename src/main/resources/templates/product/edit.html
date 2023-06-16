@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"><head>
+    <meta charset="UTF-8">
+    <title>Product Update</title>
+    <link rel="stylesheet" th:href="@{/lib/bootstrap.min.css}">
+</head>
+<body>
+<div class="container">
+    <div class="row" th:replace="~{layout/header :: menu}"></div>
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <form th:action="@{'/product/update/' + *{id}}" th:object="${product}" method="post">
+                <div class="mb-3">
+                    <label class="form-label">Code</label>
+                    <input type="text" class="form-control" th:field="*{code}">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Name</label>
+                    <input type="text" class="form-control" th:field="*{name}">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Import Price</label>
+                    <input type="number" class="form-control" th:field="*{importPrice}">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Price</label>
+                    <input type="number" class="form-control" th:field="*{price}">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Quantity</label>
+                    <input type="number" class="form-control" th:field="*{quantity}" min="0">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Person Create</label>
+                    <input type="text" class="form-control" th:field="*{personCreate}">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Person Update</label>
+                    <input type="text" class="form-control" th:field="*{personUpdate}">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Images</label>
+                    <select class="form-select" th:field="*{idImages}">
+                        <option th:each="im : ${list_images}" th:value="${im.id}" th:text="${im.nameImage}">One</option>
+                    </select>
+                </div>
+                <button class="btn btn-success">Update</button>
+            </form>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+</div>
+<script th:src="@{/lib/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

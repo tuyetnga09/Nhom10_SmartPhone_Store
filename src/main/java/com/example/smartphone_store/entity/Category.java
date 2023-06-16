@@ -6,6 +6,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -37,9 +39,11 @@ public class Category {
     private String name;
 
     @Column(name = "DateCreate")
+    @Temporal(TemporalType.DATE)
     private LocalDate dateCreate;
 
     @Column(name = "DateUpdate")
+    @Temporal(TemporalType.DATE)
     private LocalDate dateUpdate;
 
     @Column(name = "PersonCreate")

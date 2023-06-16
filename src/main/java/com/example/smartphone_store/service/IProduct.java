@@ -12,8 +12,8 @@ public interface IProduct {
 
     void update(Product product);
 
-    void delete(int id);
+    void delete(Long id);
 
-    Product findById(int id);
+    Product findById(Long id);
 
 }

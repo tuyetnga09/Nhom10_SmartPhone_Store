@@ -30,12 +30,12 @@ public class ProductService implements IProduct {
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(Long id) {
         this.repository.delete(id);
     }
 
     @Override
-    public Product findById(int id) {
+    public Product findById(Long id) {
         return this.repository.findById(id).orElseThrow(null);
     }
 

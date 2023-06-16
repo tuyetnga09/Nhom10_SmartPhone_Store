@@ -9,6 +9,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +22,6 @@ import lombok.Setter;
 import java.sql.Date;
 
 @AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
 @Entity
@@ -25,32 +29,40 @@ import java.sql.Date;
 public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
     private Long id;
 
     @Column(name = "Code")
+    @NotBlank(message = "Mã không được để trống!")
     private String code;
 
     @Column(name = "Name")
+    @NotBlank(message = "Tên không được để trống!")
     private String name;
 
     @Column(name = "ImportPrice")
-    private float importPrice;
+    @NotNull(message = "Chưa nhập giá!")
+    private Double importPrice;
 
     @Column(name = "Price")
-    private float price;
+    @NotNull(message = "Chưa nhập giá!")
+    private Double price;
 
     @Column(name = "Quantity")
+    @NotNull(message = "Chưa nhập số lượng!")
     private int quantity;
 
     @Column(name = "DateCreate")
+    @Temporal(TemporalType.DATE)
     private Date dateCreate;
 
     @Column(name = "DateUpdate")
+    @Temporal(TemporalType.DATE)
     private Date dateUpdate;
 
     @Column(name = "PersonCreate")
+    @NotNull(message = "Chưa nhập tên người tạo!")
     private String personCreate;
 
     @Column(name = "PersonUpdate")
@@ -62,5 +74,10 @@ public class Product {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Id_Images")
     private Images idImages;
+
+    public Product() {
+        this.dateCreate = new Date(new java.util.Date().getTime());
+        this.status = 0;
+    }
 
 }

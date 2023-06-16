@@ -6,6 +6,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -42,9 +44,11 @@ public class Images {
     private Date dateCreate;
 
     @Column(name = "DateUpdate")
+    @Temporal(TemporalType.DATE)
     private Date dateUpdate;
 
     @Column(name = "PersonCreate")
+    @Temporal(TemporalType.DATE)
     private String personCreate;
 
     @Column(name = "PersonUpdate")

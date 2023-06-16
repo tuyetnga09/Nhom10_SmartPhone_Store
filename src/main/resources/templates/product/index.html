@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Product index</title>
+    <link rel="stylesheet" th:href="@{/lib/bootstrap.min.css}">
+</head>
+<body>
+<div class="container">
+    <div class="row" th:replace="~{layout/header :: menu}"></div>
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <form th:action="@{/product/store}" th:object="${product}" method="post">
+                <div class="mb-3">
+                    <label class="form-label">Code</label>
+                    <input type="text" class="form-control" th:field="*{code}">
+                    <div class="alert alert-warning" th:if="${#fields.hasErrors('code')}" th:errors="*{code}"></div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Name</label>
+                    <input type="text" class="form-control" th:field="*{name}">
+                    <div class="alert alert-warning" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Import Price</label>
+                    <input type="number" class="form-control" th:field="*{importPrice}" min="0">
+                    <div class="alert alert-warning" th:if="${#fields.hasErrors('importPrice')}"
+                         th:errors="*{importPrice}"></div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Price</label>
+                    <input type="number" class="form-control" th:field="*{price}" min="0">
+                    <div class="alert alert-warning" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Quantity</label>
+                    <input type="number" class="form-control" th:field="*{quantity}" min="0">
+                    <div class="alert alert-warning" th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}"></div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Person Create</label>
+                    <input type="text" class="form-control" th:field="*{personCreate}">
+                    <div class="alert alert-warning" th:if="${#fields.hasErrors('personCreate')}"
+                         th:errors="*{personCreate}"></div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Images</label>
+                    <select class="form-select" th:field="*{idImages}">
+                        <option th:each="im : ${list_images}" th:value="${im.id}" th:text="${im.nameImage}">One</option>
+                    </select>
+                </div>
+                <button class="btn btn-success">Add</button>
+            </form>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+    <div class="row">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Code</th>
+                <th scope="col">Images</th>
+                <th scope="col">Name</th>
+                <th scope="col">Import Price</th>
+                <th scope="col">Price</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Person Create</th>
+                <th scope="col">Person Update</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="pr, stave : ${list_product}">
+                <th scope="row" th:text="${stave.index + 1}">1</th>
+                <td th:text="${pr.code}">Mark</td>
+                <td>
+                    <img th:src="@{${pr.idImages.linkImage}}" style="width: 300px; height: 188px" alt="Không tìm thấy ảnh!">
+                </td>
+                <td th:text="${pr.name}">@mdo</td>
+                <td th:text="${pr.importPrice}">@mdo</td>
+                <td th:text="${pr.price}">@mdo</td>
+                <td th:text="${pr.quantity}">@mdo</td>
+                <td th:text="${pr.personCreate}">@mdo</td>
+                <td th:text="${pr.personUpdate}">@mdo</td>
+                <td>
+                    <a th:href="@{'/product/details/' + ${pr.id}}" class="btn btn-primary">Details</a>
+                    <a th:href="@{'/product/edit/' + ${pr.id}}" class="btn btn-primary">Edit</a>
+                    <a th:href="@{'/product/delete/' + ${pr.id}}" class="btn btn-primary">Delete</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script th:src="@{/lib/bootstrap.bundle.min.js}"></script>
+</body>
+</html>
