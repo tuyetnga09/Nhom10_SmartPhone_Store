@@ -7,23 +7,27 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
+@Entity
+@Table(name = "Battery")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-@Entity
-@Table(name = "Battery")
+@ToString
+@Builder
 public class Battery {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "Id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "Code")
@@ -33,10 +37,10 @@ public class Battery {
     private String name;
 
     @Column(name = "DateCreate")
-    private Date dateCreate;
+    private LocalDate dateCreate;
 
     @Column(name = "DateUpdate")
-    private Date dateUpdate;
+    private LocalDate dateUpdate;
 
     @Column(name = "PersonCreate")
     private String personCreate;
@@ -45,6 +49,6 @@ public class Battery {
     private String personUpdate;
 
     @Column(name = "Status")
-    private int status;
+    private Integer status;
 
 }

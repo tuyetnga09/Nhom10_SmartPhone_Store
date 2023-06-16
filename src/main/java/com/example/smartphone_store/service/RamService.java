@@ -22,6 +22,8 @@ public interface RamService {
 
     void deleteActivitytatus(Long id);
 
+    void returnActivitytatus(Long id);
+
     Page<Ram> viewShowActivityRam(Integer status, Integer pageNo, Integer size);
 
     Page<Ram> viewSeachAllRam(String seach, Integer pageNo, Integer size);

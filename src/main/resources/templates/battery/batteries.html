@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Capacity</title>
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+            crossorigin="anonymous"/>
+</head>
+<script>
+    function confirmSubmit() {
+        var result = confirm("Bạn có chắc chắn không?");
+        if (result) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+</script>
+<body>
+<div class="container text-center">
+    <div><h1>Battery</h1></div>
+</div>
+<hr/>
+<!--<div class="container">-->
+    <a th:href="@{/battery/view-add}" class="btn btn-outline-secondary">ADD</a>
+<!--    <a th:href="@{/capacity/return-delete}" class="btn btn-outline-secondary">VIEW-DELETE</a>-->
+<!--</div>-->
+<hr/>
+<!--<div class="container">-->
+<!--    <div class="form-group row">-->
+<!--        <form th:action="@{/capacity/search}" method="get">-->
+<!--            <div class="row">-->
+<!--                <div class="col-1">-->
+<!--                    <button type="submit" class="btn btn-outline-secondary">SEARCH</button>-->
+<!--                </div>-->
+<!--                <div class="col-11">-->
+<!--                    <input class="form-control" name="search" type="text"/>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </form>-->
+<!--    </div>-->
+<!--</div>-->
+<hr/>
+<div>
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Code</th>
+            <th scope="col">Name</th>
+            <th scope="col">DateCreate</th>
+            <th scope="col">DateUpdate</th>
+            <th scope="col">PersonCreate</th>
+            <th scope="col">PersonUpdate</th>
+            <th scope="col">Status</th>
+            <th scope="col">Function</th>
+        </tr>
+        </thead>
+        <tbody class="table-group-divider">
+        <tr th:each="batteryList : ${batteryList}">
+            <td th:text="${batteryList.id}"></td>
+            <td th:text="${batteryList.code}"></td>
+            <td th:text="${batteryList.name}"></td>
+            <td th:text="${batteryList.dateCreate}"></td>
+            <td th:text="${batteryList.dateUpdate}"></td>
+            <td th:text="${batteryList.personCreate}"></td>
+            <td th:text="${batteryList.personUpdate}"></td>
+            <td th:text="${batteryList.status == 0 ? 'Hoat dong' : 'Khong hoat dong'}"></td>
+            <!--            <td>-->
+            <!--                <a th:href="@{/capacity/view-update/{id}(id=${capacityList.id})}" class="btn btn-outline-secondary">Update</a>-->
+            <!--                <a th:href="@{/capacity/detail/{id}(id=${capacityList.id})}" class="btn btn-outline-secondary">Detail</a>-->
+            <!--                <a th:href="@{/capacity/remove/{id}(id=${capacityList.id})}" class="btn btn-outline-secondary"-->
+            <!--                   onclick="return confirmSubmit()">Remove</a>-->
+            <!--            </td>-->
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div class="container">
+    <!--phân trang cho sản phẩm-->
+    <nav aria-label="...">
+        <ul class="pagination">
+            <!--trang đầu-->
+            <li class="page-item">
+                <a class="page-link" th:href="@{/battery/display(pageNo=0)}">Fist</a>
+            </li>
+            <!--Previous-->
+            <li class="page-item" th:if="${pageNumber>0}">
+                <a class="page-link" th:href="@{/battery/display(pageNo=${pageNumber} -1)}">Previous</a>
+            </li>
+            <li class="page-item" th:if="${pageNumber == 0}">
+                <a class="page-link" th:disabled="true">Previous</a>
+            </li>
+            <!--số thứ tự trang-->
+            <!--dùng for i trong thymleaf-->
+            <div th:each="index : ${#numbers.sequence(0, batteryPage - 1)}">
+                <li class="page-item">
+                    <a class="page-link"
+                       th:href="@{/battery/display(pageNo=${index})}" th:text="${index+1}"></a>
+                </li>
+            </div>
+            <!--Next-->
+            <li class="page-item" th:if="${pageNumber < (batteryPage -1)}">
+                <a class="page-link" th:href="@{/battery/display(pageNo=${pageNumber} +1)}">Next</a>
+            </li>
+            <li class="page-item" th:if="${pageNumber == (batteryPage -1)}">
+                <a class="page-link" th:disabled="true">Next</a>
+            </li>
+            <!--trang cuối-->
+            <li class="page-item">
+                <a class="page-link"
+                   th:href="@{/battery/display(pageNo=${batteryPage -1})}">Last</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+</body>
+</html>

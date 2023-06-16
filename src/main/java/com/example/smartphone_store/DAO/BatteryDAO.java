@@ -2,7 +2,7 @@ package com.example.smartphone_store.DAO;
 
 import jakarta.validation.constraints.NotBlank;
 
-public class batteryDAO {
+public class BatteryDAO {
 
     @NotBlank(message = "Mã trống!")
     private String code;

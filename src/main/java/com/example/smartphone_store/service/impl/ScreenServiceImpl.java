@@ -59,9 +59,16 @@ public class ScreenServiceImpl implements ScreenService {
     }
 
     @Override
+    public void returnActivitytatus(Long id) {
+        Screen screen = findById(id);
+        screen.setStatus(0);
+        screenRepository.save(screen);
+    }
+
+    @Override
     public Page<Screen> viewShowActivityScreen(Integer status, Integer pageNo, Integer size) {
         Pageable pageable = PageRequest.of(pageNo, size);
-        return screenRepository.viewShowActivityScreen(0, pageable);
+        return screenRepository.viewShowActivityScreen(status, pageable);
     }
 
     @Override

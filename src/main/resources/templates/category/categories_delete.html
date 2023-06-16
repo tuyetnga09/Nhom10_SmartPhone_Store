@@ -78,7 +78,7 @@
             </li>
             <!--số thứ tự trang-->
             <!--dùng for i trong thymleaf-->
-            <div th:each="index : ${#numbers.sequence(0, categoryPage-1)}">
+            <div th:each="index : ${#numbers.sequence(0, categoryPage - 1)}">
                 <li class="page-item">
                     <a class="page-link"
                        th:href="@{/category/display(pageNo=${index})}" th:text="${index+1}"></a>
