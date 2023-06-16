@@ -10,14 +10,14 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Repository
-public interface ProductRepository extends JpaRepository<Product, Long> {
+public interface ProductRepository extends JpaRepository<Product, Integer> {
 
     @Query("select pr from Product pr where pr.status = ?1")
-    List<Product> selectByStatus(Long status);
+    List<Product> selectByStatus(int status);
 
     @Transactional
     @Modifying
     @Query("update Product set status = 1 where id = ?1")
-    void delete(Long id);
+    void delete(int id);
 
 }

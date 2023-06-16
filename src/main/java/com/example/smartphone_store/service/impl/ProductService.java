@@ -15,7 +15,7 @@ public class ProductService implements IProduct {
     private ProductRepository repository;
 
     @Override
-    public List<Product> selectByStatus(Long status) {
+    public List<Product> selectByStatus(int status) {
         return this.repository.selectByStatus(status);
     }
 
@@ -30,12 +30,12 @@ public class ProductService implements IProduct {
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(int id) {
         this.repository.delete(id);
     }
 
     @Override
-    public Product findById(Long id) {
+    public Product findById(int id) {
         return this.repository.findById(id).orElseThrow(null);
     }
 

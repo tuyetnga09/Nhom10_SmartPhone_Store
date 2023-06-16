@@ -6,14 +6,14 @@ import java.util.List;
 
 public interface IProduct {
 
-    List<Product> selectByStatus(Long status);
+    List<Product> selectByStatus(int status);
 
     void save(Product product);
 
     void update(Product product);
 
-    void delete(Long id);
+    void delete(int id);
 
-    Product findById(Long id);
+    Product findById(int id);
 
 }
