@@ -59,6 +59,10 @@ public class ImagesController {
         return "images/index";
     }
 
-
+    @GetMapping(value = "/delete/{id}")
+    public String delete(@PathVariable Long id) {
+        this.service.delete(id);
+        return "redirect:/images/index";
+    }
 
 }

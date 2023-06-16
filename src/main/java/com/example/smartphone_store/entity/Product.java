@@ -62,4 +62,5 @@ public class Product {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Id_Images")
     private Images idImages;
+
 }
