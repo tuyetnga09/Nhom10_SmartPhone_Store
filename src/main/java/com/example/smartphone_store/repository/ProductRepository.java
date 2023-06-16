@@ -13,7 +13,7 @@ import java.util.List;
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Query("select pr from Product pr where pr.status = ?1")
-    List<Product> selectByStatus(int status);
+    List<Product> selectByStatus(Long status);
 
     @Transactional
     @Modifying
