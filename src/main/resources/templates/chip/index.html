@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/static/lib/bootstrap.min.css">
+</head>
+<body>
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <form>
+            <div class="mb-3">
+                <label class="form-label">Code</label>
+                <input type="text" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Name</label>
+                <input type="text" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">DateCreate</label>
+                <input type="date" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">DateUpdate</label>
+                <input type="date" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">PersonCreate</label>
+                <input type="text" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">PersonUpdate</label>
+                <input type="date" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary">Add</button>
+        </form>
+    </div>
+    <div class="col-md-3"></div>
+</div>
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Code</th>
+                <th scope="col">Name</th>
+                <th scope="col">DateCreate</th>
+                <th scope="col">DateUpdate</th>
+                <th scope="col">PersonCreate</th>
+                <th scope="col">PersonUpdate</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                    <a href="" class="btn btn-primary">Detail</a>
+                    <a href="" class="btn btn-success">Update</a>
+                    <a href="" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+
+<script src="/static/lib/bootstrap.bundle.min.js"></script>
+</body>
+</html>
