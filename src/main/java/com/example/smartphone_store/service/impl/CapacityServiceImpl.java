@@ -72,4 +72,9 @@ public class CapacityServiceImpl implements CapacityService {
     public Capacity getOne(Integer id) {
         return capacityRepository.findById(id).orElse(null);
     }
+
+    @Override
+    public void delete(Integer id) {
+        capacityRepository.deleteById(id);
+    }
 }

@@ -23,4 +23,6 @@ public interface CapacityService {
     void returnCapacity(Capacity capacity);
 
     Capacity getOne(Integer id);
+
+    void delete(Integer id);
 }

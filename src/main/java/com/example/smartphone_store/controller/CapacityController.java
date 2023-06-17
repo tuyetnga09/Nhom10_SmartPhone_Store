@@ -3,6 +3,10 @@ package com.example.smartphone_store.controller;
 import com.example.smartphone_store.entity.Capacity;
 import com.example.smartphone_store.service.CapacityService;
 import jakarta.validation.Valid;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -14,6 +18,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.time.LocalDate;
 
 @Controller
 @RequestMapping("/capacity/")
@@ -39,12 +48,12 @@ public class CapacityController {
     }
 
     @PostMapping("add")
-    public String addCapacity(Model model,@Valid @ModelAttribute("Capa") Capacity capacity, BindingResult result) {
+    public String addCapacity(Model model, @Valid @ModelAttribute("Capa") Capacity capacity, BindingResult result) {
         if (result.hasErrors()) {
             return "/capacity/capacities_viewAdd";
-        }else{
-            for(Capacity cap : capacityService.getAll()){
-                if(capacity.getCode().equals(cap.getCode())){
+        } else {
+            for (Capacity cap : capacityService.getAll()) {
+                if (capacity.getCode().equals(cap.getCode())) {
                     model.addAttribute("messege", "(*) Ma dang trung");
                     return "/capacity/capacities_viewAdd";
                 }
@@ -56,8 +65,9 @@ public class CapacityController {
 
     @GetMapping("remove/{id}")
     public String removeCapacity(@PathVariable("id") Integer id) {
-        Capacity capacity = capacityService.getOne(id);
-        capacityService.removeCapacity(capacity);
+//        Capacity capacity = capacityService.getOne(id);
+//        capacityService.removeCapacity(capacity);
+        capacityService.delete(id);
         return "redirect:/capacity/display";
     }
 
@@ -112,4 +122,39 @@ public class CapacityController {
         model.addAttribute("pageNumber", pageNo);
         return "/capacity/capacities_viewSearch";
     }
+
+    @PostMapping("upload")
+    public String uploadExcel(@RequestParam("file") MultipartFile file, Model model) {
+        try {
+            InputStream inputStream = file.getInputStream();
+            Workbook workbook = new XSSFWorkbook(inputStream);
+            Sheet sheet = workbook.getSheetAt(0); // Dữ liệu nằm trong sheet dầu tiên
+
+            for (Row row : sheet) {
+                if (row.getRowNum() == 0) {
+                    continue; // Bỏ qua header
+                }
+
+                Capacity capacity = new Capacity();
+                capacity.setCode(row.getCell(0).getStringCellValue());
+                capacity.setName(row.getCell(1).getStringCellValue());
+                capacity.setDateCreate(LocalDate.now());
+                capacity.setDateUpdate(LocalDate.now());
+                capacity.setPersonCreate(row.getCell(2).getStringCellValue());
+                capacity.setPersonUpdate(row.getCell(3).getStringCellValue());
+                capacity.setStatus(0);
+                capacityService.addCapacity(capacity);
+            }
+            workbook.close();
+
+            model.addAttribute("messageUpload", "Du lieu duoc them thanh cong");
+            return "redirect:/capacity/display";
+        } catch (IOException e) {
+            e.printStackTrace();
+            model.addAttribute("error", "Du lieu them khong thanh cong");
+            return "redirect:/capacity/display";
+//            return "/capacity/capacities";
+        }
+    }
+
 }

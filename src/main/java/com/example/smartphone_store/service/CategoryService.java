@@ -23,4 +23,6 @@ public interface CategoryService {
     void returnCapacity(Category category);
 
     Category getOne(Integer id);
+
+    void delete(Integer id);
 }
