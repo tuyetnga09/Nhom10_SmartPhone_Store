@@ -1,9 +1,7 @@
 package com.example.smartphone_store.controller;
 
 import com.example.smartphone_store.entity.Battery;
-import com.example.smartphone_store.entity.Capacity;
 import com.example.smartphone_store.service.BatteryService;
-import com.example.smartphone_store.service.impl.BatterServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

@@ -2,9 +2,12 @@ package com.example.smartphone_store.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -61,4 +64,39 @@ public class ProductDetails {
 
     @Column(name = "Describe")
     private String describe;
+
+    @ManyToOne
+    @JoinColumn(name = "Id_Capacity")
+    private Capacity capacity;
+
+    @ManyToOne
+    @JoinColumn(name = "Id_Color")
+    private Color color;
+
+    @ManyToOne
+    @JoinColumn(name = "Id_Manufacture")
+    private Manufacture manufacture;
+    @ManyToOne
+    @JoinColumn(name = "Id_Category")
+    private Category category;
+
+    @ManyToOne
+    @JoinColumn(name = "Id_Battery")
+    private Battery battery;
+
+    @ManyToOne
+    @JoinColumn(name = "Id_Chip")
+    private Chip chip;
+
+    @ManyToOne
+    @JoinColumn(name = "Id_Ram")
+    private Ram ram;
+
+    @ManyToOne
+    @JoinColumn(name = "Id_Screen")
+    private Screen screen;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "Id_Product")
+    private Product product;
 }
+
