@@ -16,6 +16,14 @@
     <section>
       <div class="container">
         <h1 style="text-align: center">Manager Manufacture</h1>
+        <form th:action="@{/manufacture/upload}" method="POST" enctype="multipart/form-data">
+          <label class="col-sm-2 col-form-label">IMPORT EXCEL:</label>
+          <input type="file" class="form-control" name="file" accept=".xlsx, .xls"/>
+          <br>
+          <button type="submit" class="btn btn-outline-secondary">Upload</button>
+          <span th:text="${messageUpload}" style="color: red"></span>
+          <span th:text="${error}" style="color: red"></span>
+        </form>
         <form th:action="@{/manufacture/search}" method="get">
           <div class="input-group mb-3">
                 <span class="input-group-text" id="inputGroup-sizing-default"
