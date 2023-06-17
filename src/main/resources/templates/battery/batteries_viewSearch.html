@@ -21,27 +21,11 @@
 </script>
 <body>
 <div class="container text-center">
-    <div><h1>Battery</h1></div>
+    <div><h1>Capacity Search</h1></div>
 </div>
 <hr/>
-<!--<div class="container">-->
-    <a th:href="@{/battery/view-add}" class="btn btn-outline-secondary">ADD</a>
-    <a th:href="@{/battery/return-delete}" class="btn btn-outline-secondary">VIEW-DELETE</a>
-<!--</div>-->
-<hr/>
 <div class="container">
-    <div class="form-group row">
-        <form th:action="@{/battery/search}" method="get">
-            <div class="row">
-                <div class="col-1">
-                    <button type="submit" class="btn btn-outline-secondary">SEARCH</button>
-                </div>
-                <div class="col-11">
-                    <input class="form-control" name="search" type="text"/>
-                </div>
-            </div>
-        </form>
-    </div>
+    <a th:href="@{/battery/display}" class="btn btn-outline-secondary">DISPLAY</a>
 </div>
 <hr/>
 <div>
@@ -73,7 +57,7 @@
                 <a th:href="@{/battery/view-update/{id}(id=${batteryList.id})}"
                    class="btn btn-outline-secondary">Update</a>
                 <a th:href="@{/battery/detail/{id}(id=${batteryList.id})}" class="btn btn-outline-secondary">Detail</a>
-                <a th:href="@{/capacity/remove/{id}(id=${batteryList.id})}" class="btn btn-outline-secondary"
+                <a th:href="@{/battery/remove/{id}(id=${batteryList.id})}" class="btn btn-outline-secondary"
                    onclick="return confirmSubmit()">Remove</a>
             </td>
         </tr>
@@ -86,11 +70,11 @@
         <ul class="pagination">
             <!--trang đầu-->
             <li class="page-item">
-                <a class="page-link" th:href="@{/battery/display(pageNo=0)}">Fist</a>
+                <a class="page-link" th:href="@{/battery/search(pageNo=0)}">Fist</a>
             </li>
             <!--Previous-->
             <li class="page-item" th:if="${pageNumber>0}">
-                <a class="page-link" th:href="@{/battery/display(pageNo=${pageNumber} -1)}">Previous</a>
+                <a class="page-link" th:href="@{/battery/search(pageNo=${pageNumber} -1)}">Previous</a>
             </li>
             <li class="page-item" th:if="${pageNumber == 0}">
                 <a class="page-link" th:disabled="true">Previous</a>
@@ -100,12 +84,12 @@
             <div th:each="index : ${#numbers.sequence(0, batteryPage - 1)}">
                 <li class="page-item">
                     <a class="page-link"
-                       th:href="@{/battery/display(pageNo=${index})}" th:text="${index+1}"></a>
+                       th:href="@{/battery/search(pageNo=${index})}" th:text="${index+1}"></a>
                 </li>
             </div>
             <!--Next-->
             <li class="page-item" th:if="${pageNumber < (batteryPage -1)}">
-                <a class="page-link" th:href="@{/battery/display(pageNo=${pageNumber} +1)}">Next</a>
+                <a class="page-link" th:href="@{/battery/search(pageNo=${pageNumber} +1)}">Next</a>
             </li>
             <li class="page-item" th:if="${pageNumber == (batteryPage -1)}">
                 <a class="page-link" th:disabled="true">Next</a>
@@ -113,7 +97,7 @@
             <!--trang cuối-->
             <li class="page-item">
                 <a class="page-link"
-                   th:href="@{/battery/display(pageNo=${batteryPage -1})}">Last</a>
+                   th:href="@{/battery/search(pageNo=${batteryPage -1})}">Last</a>
             </li>
         </ul>
     </nav>

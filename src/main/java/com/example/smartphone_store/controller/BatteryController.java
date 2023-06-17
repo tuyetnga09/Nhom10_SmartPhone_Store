@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -54,5 +55,64 @@ public class BatteryController {
         return "redirect:/battery/display";
     }
 
+
+    @GetMapping("remove/{id}")
+    public String removeBattery(@PathVariable("id") Long id) {
+        Battery battery = batteryService.getOne(id);
+        batteryService.removeBattery(battery);
+        return "redirect:/battery/display";
+    }
+
+    @GetMapping("return-delete")
+    public String returnDeleteBattery(Model model, @RequestParam(value = "pageNo", defaultValue = "0") Integer pageNo) {
+        Page<Battery> batteryList = batteryService.getReturnDelete(pageNo, 5);
+        model.addAttribute("batteryList", batteryList.getContent());
+        model.addAttribute("batteryPage", batteryList.getTotalPages());
+        model.addAttribute("pageNumber", pageNo);
+        model.addAttribute("battry", new Battery());
+        return "/battery/batteries_delete";
+    }
+
+    @GetMapping("return/{id}")
+    public String returnBattery(@PathVariable("id") Long id) {
+        Battery battery = batteryService.getOne(id);
+        batteryService.returnBattery(battery);
+        return "redirect:/battery/return-delete";
+    }
+
+    @GetMapping("detail/{id}")
+    public String detailBattery(Model model, @PathVariable("id") Long id) {
+        Battery battery = batteryService.getOne(id);
+        model.addAttribute("battry", battery);
+        model.addAttribute("batteryList", batteryService.getAll());
+        return "/battery/batteries_detail";
+    }
+
+    @GetMapping("view-update/{id}")
+    public String viewUpdateBattery(Model model, @PathVariable("id") Long id) {
+        Battery battery = batteryService.getOne(id);
+        model.addAttribute("battry", battery);
+        return "/battery/capacities_viewUpdate";
+    }
+
+    @PostMapping("update")
+    public String updateBattery(@Valid @ModelAttribute("battry") Battery battery, BindingResult result) {
+        if (result.hasErrors()) {
+            return "/battery/capacities_viewUpdate";
+        }
+        batteryService.updateBattery(battery);
+        return "redirect:/battery/display";
+    }
+
+    @GetMapping("search")
+    public String searchBattery(Model model,
+                                @RequestParam(value = "search", required = false) String search,
+                                @RequestParam(value = "pageNo", defaultValue = "0") Integer pageNo) {
+        Page<Battery> batteryList = batteryService.viewSeachAllBattery(search, pageNo, 5);
+        model.addAttribute("batteryList", batteryList.getContent());
+        model.addAttribute("batteryPage", batteryList.getTotalPages());
+        model.addAttribute("pageNumber", pageNo);
+        return "/battery/batteries_viewSearch";
+    }
 
 }

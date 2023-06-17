@@ -21,27 +21,11 @@
 </script>
 <body>
 <div class="container text-center">
-    <div><h1>Battery</h1></div>
+    <div><h1>Battery Delete</h1></div>
 </div>
 <hr/>
-<!--<div class="container">-->
-    <a th:href="@{/battery/view-add}" class="btn btn-outline-secondary">ADD</a>
-    <a th:href="@{/battery/return-delete}" class="btn btn-outline-secondary">VIEW-DELETE</a>
-<!--</div>-->
-<hr/>
 <div class="container">
-    <div class="form-group row">
-        <form th:action="@{/battery/search}" method="get">
-            <div class="row">
-                <div class="col-1">
-                    <button type="submit" class="btn btn-outline-secondary">SEARCH</button>
-                </div>
-                <div class="col-11">
-                    <input class="form-control" name="search" type="text"/>
-                </div>
-            </div>
-        </form>
-    </div>
+    <a th:href="@{/battery/display}" class="btn btn-outline-secondary">DISPLAY</a>
 </div>
 <hr/>
 <div>
@@ -70,11 +54,8 @@
             <td th:text="${batteryList.personUpdate}"></td>
             <td th:text="${batteryList.status == 0 ? 'Hoat dong' : 'Khong hoat dong'}"></td>
             <td>
-                <a th:href="@{/battery/view-update/{id}(id=${batteryList.id})}"
-                   class="btn btn-outline-secondary">Update</a>
-                <a th:href="@{/battery/detail/{id}(id=${batteryList.id})}" class="btn btn-outline-secondary">Detail</a>
-                <a th:href="@{/capacity/remove/{id}(id=${batteryList.id})}" class="btn btn-outline-secondary"
-                   onclick="return confirmSubmit()">Remove</a>
+                <a th:href="@{/battery/return/{id}(id=${batteryList.id})}" class="btn btn-outline-secondary"
+                   onclick="return confirmSubmit()">Return</a>
             </td>
         </tr>
         </tbody>
