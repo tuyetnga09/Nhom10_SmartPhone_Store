@@ -16,4 +16,6 @@ public interface IProduct {
 
     Product findById(Long id);
 
+    List<Product> getAll();
+
 }

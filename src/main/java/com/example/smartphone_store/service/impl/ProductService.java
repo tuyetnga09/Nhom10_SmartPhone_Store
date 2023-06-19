@@ -39,4 +39,9 @@ public class ProductService implements IProduct {
         return this.repository.findById(id).orElseThrow(null);
     }
 
+    @Override
+    public List<Product> getAll() {
+        return repository.findAll();
+    }
+
 }

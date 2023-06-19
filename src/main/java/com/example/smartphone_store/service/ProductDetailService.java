@@ -1,0 +1,26 @@
+package com.example.smartphone_store.service;
+
+import com.example.smartphone_store.entity.Battery;
+import com.example.smartphone_store.entity.Capacity;
+import com.example.smartphone_store.entity.ProductDetail;
+import org.springframework.data.domain.Page;
+
+import java.util.List;
+
+public interface ProductDetailService {
+    List<ProductDetail> getAll();
+
+    Page<ProductDetail> getPage(Integer pageNo, Integer size);
+
+    void addProductDetail(ProductDetail productDetail);
+
+    void removeProductDetail(ProductDetail productDetail);
+
+    ProductDetail getOne(Long id);
+
+    void returnProductDetail(ProductDetail productDetail);
+
+    Page<ProductDetail> getReturnDelete(Integer pageNo, Integer size);
+
+    ProductDetail updateProduct(ProductDetail productDetail);
+}
