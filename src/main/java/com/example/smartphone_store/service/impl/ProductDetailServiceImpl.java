@@ -48,7 +48,8 @@ public class ProductDetailServiceImpl implements ProductDetailService {
     }
 
     @Override
-    public void returnProductDetail(ProductDetail productDetail) {
+    public void returnProductDetail(Long id) {
+        ProductDetail productDetail = getOne(id);
         productDetail.setStatus(0);
         productDetailRepository.save(productDetail);
     }
@@ -60,12 +61,12 @@ public class ProductDetailServiceImpl implements ProductDetailService {
     }
 
     @Override
-    public ProductDetail updateProduct(ProductDetail productDetail) {
+    public void updateProduct(ProductDetail productDetail) {
         ProductDetail productDetailId = getOne(productDetail.getId());
         productDetail.setDateCreate(productDetailId.getDateCreate());
         productDetail.setDateUpdate(java.time.LocalDate.now());
         productDetail.setStatus(productDetailId.getStatus());
-        return productDetailRepository.save(productDetail);
+        productDetailRepository.save(productDetail);
     }
 
     @Override

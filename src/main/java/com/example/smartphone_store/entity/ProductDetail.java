@@ -46,11 +46,11 @@ public class ProductDetail {
     private String name;
 
     @Column(name = "DateCreate")
-    @Temporal(TemporalType.DATE)
+//    @Temporal(TemporalType.DATE)
     private LocalDate dateCreate;
 
     @Column(name = "DateUpdate")
-    @Temporal(TemporalType.DATE)
+//    @Temporal(TemporalType.DATE)
     private LocalDate dateUpdate;
 
     @Column(name = "PersonCreate")

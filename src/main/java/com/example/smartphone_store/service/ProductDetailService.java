@@ -18,11 +18,11 @@ public interface ProductDetailService {
 
     ProductDetail getOne(Long id);
 
-    void returnProductDetail(ProductDetail productDetail);
+    void returnProductDetail(Long id);
 
     Page<ProductDetail> getReturnDelete(Integer pageNo, Integer size);
 
-    ProductDetail updateProduct(ProductDetail productDetail);
+    void updateProduct(ProductDetail productDetail);
 
     Page<ProductDetail> viewSeachAllProductDetail(String search, Integer pageNo, Integer size);
 }

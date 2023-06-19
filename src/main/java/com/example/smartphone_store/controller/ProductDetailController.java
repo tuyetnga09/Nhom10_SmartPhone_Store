@@ -125,8 +125,10 @@ public class ProductDetailController {
     }
 
     @PostMapping("update")
-    public String updateProductDetail(@Valid @ModelAttribute("proDetail") ProductDetail productDetail, BindingResult result, Model model) {
+    public String updateProductDetail(Model model, @Valid @ModelAttribute("proDetail") ProductDetail productDetail,
+                                      BindingResult result) {
         if (result.hasErrors()) {
+            model.addAttribute("proDetail", productDetail);
             model.addAttribute("capacities", capacityService.getAll());
             model.addAttribute("color", colorService.getAll());
             model.addAttribute("manufacturer", manufactureService.getAll());
@@ -136,6 +138,8 @@ public class ProductDetailController {
             model.addAttribute("ram", ramService.getAll());
             model.addAttribute("screen", screenService.getAll());
             model.addAttribute("product", productService.getAll());
+            System.out.println("hi pro =====>");
+            System.out.println(productDetail.toString());
             return "productDetail/view-update";
         }
         productDetailService.updateProduct(productDetail);
@@ -153,5 +157,20 @@ public class ProductDetailController {
         return "/productDetail/proDetail_viewSearch";
     }
 
+    @GetMapping("return-delete")
+    public String viewDelete(Model model, @RequestParam(name = "pageNo", defaultValue = "0", required = false) Integer pageNo) {
+        Page<ProductDetail> productDetails = productDetailService.getReturnDelete(pageNo, 5);
+        model.addAttribute("productDetails", productDetails.getContent());
+        model.addAttribute("productDetailPages", productDetails.getTotalPages());
+        model.addAttribute("pageNumber", pageNo);
+        return "productDetail/view-delete-productdetail";
+    }
+
+    // khoi phuc du lieu
+    @GetMapping("return-productdetail/{id}")
+    public String returnProductDetail(Model model, @PathVariable("id") Long id) {
+        productDetailService.returnProductDetail(id);
+        return "redirect:/productDetails/display";
+    }
 
 }

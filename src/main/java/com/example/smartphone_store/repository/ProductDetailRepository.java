@@ -13,7 +13,9 @@ public interface ProductDetailRepository extends JpaRepository<ProductDetail, Lo
     @Query(value = "SELECT Id, Code, Name, DateCreate, Describe , DateUpdate, PersonCreate, PersonUpdate, Status, Id_Capacity, Id_Color, Id_Manufacture, Id_Category, Id_Battery, Id_Chip, Id_Ram, Id_Screen, Id_Product FROM ProductDetail WHERE Status = 0 ", nativeQuery = true)
     Page<ProductDetail> getPageProductDetails(Pageable pageable);
 
-    @Query(value = "SELECT Id, Code, Name, DateCreate, Describe , DateUpdate, PersonCreate, PersonUpdate, Status, Id_Capacity, Id_Color, Id_Manufacture, Id_Category, Id_Battery, Id_Chip, Id_Ram, Id_Screen, Id_Product FROM ProductDetail WHERE Status = 1 ", nativeQuery = true)
+    @Query(value = "SELECT Id, Code, Name, DateCreate, Describe , DateUpdate, PersonCreate, PersonUpdate, " +
+            " Status, Id_Capacity, Id_Color, Id_Manufacture, Id_Category, Id_Battery, Id_Chip, Id_Ram, Id_Screen, " +
+            " Id_Product FROM ProductDetail WHERE Status = 1 ", nativeQuery = true)
     Page<ProductDetail> getReturnProductDetails(Pageable pageable);
 
     @Query(value = "SELECT * FROM ProductDetail WHERE ((Code LIKE %?1% OR Name LIKE %?1% OR " +

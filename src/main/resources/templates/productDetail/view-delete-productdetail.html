@@ -25,35 +25,26 @@
 </div>
 <hr/>
 <div class="container">
-    <a th:href="@{/productDetails/view-add}" class="btn btn-outline-secondary">ADD</a>
-    <a th:href="@{/productDetails/return-delete}" class="btn btn-outline-secondary">VIEW-DELETE</a>
+    <a th:href="@{/productDetails/display}" class="btn btn-outline-secondary">Trang Chu</a>
+<!--    <a th:href="@{/productDetails/return-delete}" class="btn btn-outline-secondary">VIEW-DELETE</a>-->
 </div>
 <hr/>
 <div class="container">
-    <div class="form-group row">
-        <form th:action="@{/productDetails/search}" method="get">
-            <div class="row">
-                <div class="col-1">
-                    <button type="submit" class="btn btn-outline-secondary">SEARCH</button>
-                </div>
-                <div class="col-11">
-                    <input class="form-control" name="search" type="text"/>
-                </div>
-            </div>
-        </form>
-    </div>
+<!--    <div class="form-group row">-->
+<!--        <form th:action="@{/productDetails/search}" method="get">-->
+<!--            <div class="row">-->
+<!--                <div class="col-1">-->
+<!--                    <button type="submit" class="btn btn-outline-secondary">SEARCH</button>-->
+<!--                </div>-->
+<!--                <div class="col-11">-->
+<!--                    <input class="form-control" name="search" type="text"/>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </form>-->
+<!--    </div>-->
 </div>
 <hr/>
-<!--<div class="container">-->
-<!--  <form th:action="@{/capacity/upload}" method="POST" enctype="multipart/form-data">-->
-<!--    <label class="col-sm-2 col-form-label">IMPORT EXCEL:</label>-->
-<!--    <input type="file" class="form-control" name="file" accept=".xlsx, .xls"/>-->
-<!--    <br>-->
-<!--    <button type="submit" class="btn btn-outline-secondary">Upload</button>-->
-<!--    <span th:text="${messageUpload}" style="color: red"></span>-->
-<!--    <span th:text="${error}" style="color: red"></span>-->
-<!--  </form>-->
-<!--</div>-->
+
 <hr/>
 <div>
     <table class="table table-bordered table-striped">
@@ -91,10 +82,10 @@
             <td th:text="${pr.ram.name}"></td>
             <td th:text="${pr.status == 0 ? 'Hoat dong' : 'Khong hoat dong'}"></td>
             <td>
-                <a th:href="@{/productDetails/remove/{id}(id=${pr.id})}" class="btn btn-success"
-                   onclick="return confirmSubmit()">Remove</a>
-                <a th:href="@{/productDetails/view-update/{id}(id=${pr.id})}" class="btn btn-warning"
-                   onclick="return confirmSubmit()">Edit</a>
+<!--                <a th:href="@{/productDetails/remove/{id}(id=${pr.id})}" class="btn btn-success"-->
+<!--                   onclick="return confirmSubmit()">Remove</a>-->
+                <a th:href="@{/productDetails/return-productdetail/{id}(id=${pr.id})}" class="btn btn-warning"
+                   onclick="return confirmSubmit()">Return</a>
             </td>
         </tr>
         </tbody>
@@ -106,11 +97,11 @@
         <ul class="pagination">
             <!--trang đầu-->
             <li class="page-item">
-                <a class="page-link" th:href="@{/productDetails/display(pageNo=0)}">Fist</a>
+                <a class="page-link" th:href="@{/productDetails/return-delete(pageNo=0)}">Fist</a>
             </li>
             <!--Previous-->
             <li class="page-item" th:if="${pageNumber>0}">
-                <a class="page-link" th:href="@{/productDetails/display(pageNo=${pageNumber} -1)}">Previous</a>
+                <a class="page-link" th:href="@{/productDetails/return-delete(pageNo=${pageNumber} -1)}">Previous</a>
             </li>
             <li class="page-item" th:if="${pageNumber == 0}">
                 <a class="page-link" th:disabled="true">Previous</a>
@@ -120,12 +111,12 @@
             <div th:each="index : ${#numbers.sequence(0, productDetailPages - 1)}">
                 <li class="page-item">
                     <a class="page-link"
-                       th:href="@{/productDetails/display(pageNo=${index})}" th:text="${index+1}"></a>
+                       th:href="@{/productDetails/return-delete(pageNo=${index})}" th:text="${index+1}"></a>
                 </li>
             </div>
             <!--Next-->
             <li class="page-item" th:if="${pageNumber < (productDetailPages -1)}">
-                <a class="page-link" th:href="@{/productDetails/display(pageNo=${pageNumber} +1)}">Next</a>
+                <a class="page-link" th:href="@{/productDetails/return-delete(pageNo=${pageNumber} +1)}">Next</a>
             </li>
             <li class="page-item" th:if="${pageNumber == (productDetailPages -1)}">
                 <a class="page-link" th:disabled="true">Next</a>
@@ -133,7 +124,7 @@
             <!--trang cuối-->
             <li class="page-item">
                 <a class="page-link"
-                   th:href="@{/productDetails/display(pageNo=${productDetailPages -1})}">Last</a>
+                   th:href="@{/productDetails/return-delete(pageNo=${productDetailPages -1})}">Last</a>
             </li>
         </ul>
     </nav>
