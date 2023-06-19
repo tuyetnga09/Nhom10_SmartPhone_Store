@@ -67,4 +67,10 @@ public class ProductDetailServiceImpl implements ProductDetailService {
         productDetail.setStatus(productDetailId.getStatus());
         return productDetailRepository.save(productDetail);
     }
+
+    @Override
+    public Page<ProductDetail> viewSeachAllProductDetail(String search, Integer pageNo, Integer size) {
+        Pageable pageable = PageRequest.of(pageNo, size);
+        return productDetailRepository.viewSeachAllProductDetails(search, pageable);
+    }
 }

@@ -23,4 +23,6 @@ public interface ProductDetailService {
     Page<ProductDetail> getReturnDelete(Integer pageNo, Integer size);
 
     ProductDetail updateProduct(ProductDetail productDetail);
+
+    Page<ProductDetail> viewSeachAllProductDetail(String search, Integer pageNo, Integer size);
 }

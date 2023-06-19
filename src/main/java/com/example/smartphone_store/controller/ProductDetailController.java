@@ -142,5 +142,16 @@ public class ProductDetailController {
         return "redirect:/productDetails/display";
     }
 
+    @GetMapping("search")
+    public String searchProductDetail(Model model,
+                                      @RequestParam(value = "search", required = false) String search,
+                                      @RequestParam(value = "pageNo", defaultValue = "0") Integer pageNo) {
+        Page<ProductDetail> productDetails = productDetailService.viewSeachAllProductDetail(search, pageNo, 5);
+        model.addAttribute("productDetails", productDetails.getContent());
+        model.addAttribute("productDetailPages", productDetails.getTotalPages());
+        model.addAttribute("pageNumber", pageNo);
+        return "/productDetail/proDetail_viewSearch";
+    }
+
 
 }
