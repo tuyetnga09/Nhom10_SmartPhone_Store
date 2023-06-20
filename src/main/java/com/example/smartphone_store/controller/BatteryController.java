@@ -1,8 +1,13 @@
 package com.example.smartphone_store.controller;
 
 import com.example.smartphone_store.entity.Battery;
+import com.example.smartphone_store.entity.Capacity;
 import com.example.smartphone_store.service.BatteryService;
 import jakarta.validation.Valid;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -14,6 +19,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.time.LocalDate;
 
 @Controller
 @RequestMapping("/battery/")
@@ -112,5 +122,39 @@ public class BatteryController {
         model.addAttribute("pageNumber", pageNo);
         return "/battery/batteries_viewSearch";
     }
+
+    @PostMapping("upload")
+    public String uploadExcel(@RequestParam("file") MultipartFile file, Model model) {
+        try {
+            InputStream inputStream = file.getInputStream();
+            Workbook workbook = new XSSFWorkbook(inputStream);
+            Sheet sheet = workbook.getSheetAt(0); // Dữ liệu nằm trong sheet dầu tiên
+
+            for (Row row : sheet) {
+                if (row.getRowNum() == 0) {
+                    continue; // Bỏ qua header
+                }
+
+                Battery battery = new Battery();
+                battery.setCode(row.getCell(0).getStringCellValue());
+                battery.setName(row.getCell(1).getStringCellValue());
+                battery.setDateCreate(LocalDate.now());
+                battery.setDateUpdate(LocalDate.now());
+                battery.setPersonCreate(row.getCell(2).getStringCellValue());
+                battery.setPersonUpdate(row.getCell(3).getStringCellValue());
+                battery.setStatus(0);
+                batteryService.addBattery(battery);
+            }
+            workbook.close();
+
+            model.addAttribute("messageUpload", "Du lieu duoc them thanh cong");
+            return "redirect:/battery/display";
+        } catch (IOException e) {
+            e.printStackTrace();
+            model.addAttribute("error", "Du lieu them khong thanh cong");
+            return "redirect:/battery/display";
+        }
+    }
+
 
 }

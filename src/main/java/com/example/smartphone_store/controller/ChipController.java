@@ -5,6 +5,10 @@ import com.example.smartphone_store.entity.Chip;
 import com.example.smartphone_store.service.BatteryService;
 import com.example.smartphone_store.service.ChipService;
 import jakarta.validation.Valid;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -16,6 +20,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.time.LocalDate;
 
 @Controller
 @RequestMapping("/chip/")
@@ -113,6 +122,39 @@ public class ChipController {
         model.addAttribute("chipPages", chipList.getTotalPages());
         model.addAttribute("pageNumber", pageNo);
         return "/chip/chip_viewSearch";
+    }
+
+    @PostMapping("upload")
+    public String uploadExcel(@RequestParam("file") MultipartFile file, Model model) {
+        try {
+            InputStream inputStream = file.getInputStream();
+            Workbook workbook = new XSSFWorkbook(inputStream);
+            Sheet sheet = workbook.getSheetAt(0); // Dữ liệu nằm trong sheet dầu tiên
+
+            for (Row row : sheet) {
+                if (row.getRowNum() == 0) {
+                    continue; // Bỏ qua header
+                }
+
+                Chip chip = new Chip();
+                chip.setCode(row.getCell(0).getStringCellValue());
+                chip.setName(row.getCell(1).getStringCellValue());
+                chip.setDateCreate(LocalDate.now());
+                chip.setDateUpdate(LocalDate.now());
+                chip.setPersonCreate(row.getCell(2).getStringCellValue());
+                chip.setPersonUpdate(row.getCell(3).getStringCellValue());
+                chip.setStatus(0);
+                chipService.addChip(chip);
+            }
+            workbook.close();
+
+            model.addAttribute("messageUpload", "Du lieu duoc them thanh cong");
+            return "redirect:/chip/display";
+        } catch (IOException e) {
+            e.printStackTrace();
+            model.addAttribute("error", "Du lieu them khong thanh cong");
+            return "redirect:/chip/display";
+        }
     }
 
 }
