@@ -4,6 +4,10 @@ import com.example.smartphone_store.entity.Screen;
 import com.example.smartphone_store.entity.Size;
 import com.example.smartphone_store.service.SizeService;
 import jakarta.validation.Valid;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -15,7 +19,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -131,5 +139,38 @@ public class SizeController {
         model.addAttribute("seachUri", seach);
 
         return "size/view-seach";
+    }
+
+    @PostMapping("upload")
+    public String uploadExcel(@RequestParam("file") MultipartFile file, Model model) {
+        try {
+            InputStream inputStream = file.getInputStream();
+            Workbook workbook = new XSSFWorkbook(inputStream);
+            Sheet sheet = workbook.getSheetAt(0); // Dữ liệu nằm trong sheet dầu tiên
+
+            for (Row row : sheet) {
+                if (row.getRowNum() == 0) {
+                    continue; // Bỏ qua header
+                }
+
+                Size size = new Size();
+                size.setCode(row.getCell(0).getStringCellValue());
+                size.setName(row.getCell(1).getStringCellValue());
+                size.setDateCreate(LocalDate.now());
+                size.setDateUpdate(LocalDate.now());
+                size.setPersonCreate(row.getCell(2).getStringCellValue());
+                size.setPersonUpdate(row.getCell(3).getStringCellValue());
+                size.setStatus(0);
+                sizeService.save(size);
+            }
+            workbook.close();
+
+            model.addAttribute("messageUpload", "Du lieu duoc them thanh cong");
+            return "redirect:/size/hien-thi";
+        } catch (IOException e) {
+            e.printStackTrace();
+            model.addAttribute("error", "Du lieu them khong thanh cong");
+            return "redirect:/size/hien-thi";
+        }
     }
 }

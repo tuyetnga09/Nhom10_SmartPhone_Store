@@ -35,6 +35,19 @@
             </form>
         </div>
     </section>
+    </hr>
+
+    <div class="container">
+        <form th:action="@{/ram/upload}" method="POST" enctype="multipart/form-data">
+            <label class="col-sm-2 col-form-label">IMPORT EXCEL:</label>
+            <input type="file" class="form-control" name="file" accept=".xlsx, .xls"/>
+            <br>
+            <button type="submit" class="btn btn-outline-secondary">Upload</button>
+            <span th:text="${messageUpload}" style="color: red"></span>
+            <span th:text="${error}" style="color: red"></span>
+        </form>
+    </div>
+    </hr>
     <table class="table">
         <thead>
         <tr>
@@ -93,7 +106,7 @@
 
             <!--                số thứ tự trang-->
             <!--                dùng for i trong thymleaf-->
-            <div th:each="index : ${#numbers.sequence(0, ramTotalPages-1)}">
+            <div th:each="index : ${#numbers.sequence(0, ramTotalPages - 1)}">
                 <li class="page-item">
                     <a class="page-link"
                        th:href="@{/ram/hien-thi(pageNo=${index})}" th:text="${index+1}"></a>
