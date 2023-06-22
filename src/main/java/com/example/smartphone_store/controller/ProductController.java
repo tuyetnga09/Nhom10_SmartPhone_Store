@@ -35,7 +35,7 @@ public class ProductController {
     }
 
     @PostMapping(value = "/store")
-    public String store(@ModelAttribute @Valid Product product, Model model, BindingResult result) {
+    public String store(Model model, @ModelAttribute @Valid Product product, BindingResult result) {
         if (result.hasErrors()) {
             model.addAttribute("product", product);
             model.addAttribute("list_images", this.imagesService.findAll(0));

@@ -6,41 +6,51 @@
     <title>Title</title>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg bg-body-tertiary" th:fragment="menu">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">Navbar</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Dropdown
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled">Disabled</a>
-                </li>
-            </ul>
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
+<div class="container" th:fragment="menu">
+    <header class="auto-layout">
+        <div class="logo">
+            <div>
+                <a href=""><i class="bi bi-list"></i></a>
+            </div>
+            <div>
+                <img src="/img/Logo.png" alt="" class="img-logo">
+            </div>
+        </div>
+        <div class="search">
+            <form action="" class="search">
+                <div class="box-search">
+                    <input type="search" name="" class="input-search">
+                </div>
+                <div>
+                    <button type="submit" class="search-button">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </div>
             </form>
         </div>
-    </div>
-</nav>
+        <div class="menu-icon">
+            <div>
+                <a href=""><i class="bi bi-person-fill"></i></a>
+            </div>
+            <div>
+                <a href=""><i class="bi bi-bag-check-fill"></i></a>
+            </div>
+        </div>
+    </header>
+    <nav class="menu-function">
+        <ul>
+            <li>
+                <i class="bi bi-card-list"></i>&ensp; Danh mục
+            </li>
+            <li>
+                <i class="bi bi-telephone-fill"></i>&ensp; Phone
+            </li>
+            <li>
+                <i class="bi bi-car-front-fill"></i>&ensp; Tra cứu đơn hàng
+            </li>
+        </ul>
+    </nav>
+</div>
 </body>
+<script th:src="@{/lib/bootstrap.bundle.min.js}"></script>
 </html>

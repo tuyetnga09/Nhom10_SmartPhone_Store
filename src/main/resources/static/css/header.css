@@ -1,0 +1,103 @@
+:root{
+    --grey-100: #EEF0F4;
+    --white: #FFF;
+    --primary-600: #319DFF;
+    --primary-700: #0077E4;
+}
+
+.auto-layout {
+    display: flex;
+    height: 96px;
+    padding: 24px;
+    justify-content: center;
+    align-items: center;
+    gap: 60px;
+    align-self: stretch;
+}
+
+.logo{
+    display: flex;
+    width: 300px;
+    align-items: center;
+    gap: 18px;
+}
+
+.img-logo{
+    display: flex;
+    padding: 2px 16px 11px 16px;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+}
+
+.search{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1 0 0;
+}
+
+.input-search{
+    display: flex;
+    height: 45px;
+    padding: 10px 0px 10px 12px;
+    justify-content: space-between;
+    align-items: center;
+    flex: 1 0 0;
+
+    border-radius: 20px 0px 0px 20px;
+    border: 1px solid var(--primary-600);
+    background: var(--white);
+}
+
+.search-button{
+    display: flex;
+    height: 45px;
+    padding: 0 15px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+
+    border-radius: 0 20px 20px 0;
+    border: 1px solid var(--primary-600);
+    background: var(--primary-600);
+}
+
+.menu-icon{
+    display: flex;
+    padding: 24px;
+    justify-content: center;
+    align-items: center;
+    gap: 60px;
+    align-self: stretch;
+
+    background: var(--white);
+}
+
+.menu-function{
+    display: flex;
+    padding: 0 240px;
+    justify-content: center;
+    align-items: center;
+    align-self: stretch;
+    background: var(--primary-600);
+}
+
+ul{
+    display: flex;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    flex: 1 0 0;
+}
+
+li{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1 0 0;
+
+    border-right: 1px solid var(--primary-700);
+    background: var(--primary-600);
+    color: var(--white);
+}
