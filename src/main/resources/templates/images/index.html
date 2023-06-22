@@ -11,71 +11,79 @@
 </head>
 <body>
 <div class="container">
-    <div class="row" th:replace="~{layout/header :: menu}"></div>
     <div class="row" style="margin-top: 20px">
-        <div class="col-md-4"></div>
-        <div class="col-md-4">
-            <form enctype="multipart/form-data" th:action="@{/images/store}" method="post" th:object="${image}">
-                <div class="mb-3">
-                    <label class="form-label">Image Files</label>
-                    <input type="file" class="form-control" accept="image/*" th:field="*{fileImages}">
-                    <div class="alert alert-warning" th:if="${#fields.hasErrors('fileImages')}" th:errors="*{fileImages}"></div>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Describe</label>
-                    <div class="form-floating">
-                        <textarea class="form-control" placeholder="Leave a comment here" th:field="*{describe}"></textarea>
+            <div class="row" th:replace="~{layout/header :: menu}"></div>
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <form enctype="multipart/form-data" th:action="@{/images/store}" method="post" th:object="${image}">
+                    <div class="mb-3">
+                        <label class="form-label">Image Files</label>
+                        <input type="file" class="form-control" accept="image/*" th:field="*{fileImages}">
+                        <div class="alert alert-warning" th:if="${#fields.hasErrors('fileImages')}"
+                             th:errors="*{fileImages}"></div>
                     </div>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Person Create</label>
-                    <input type="text" class="form-control" th:field="*{personCreate}" required>
-                    <div class="alert alert-warning" th:if="${#fields.hasErrors('personCreate')}" th:errors="*{personCreate}"></div>
-                </div>
-                <button type="submit" class="btn btn-success">Submit</button>
-            </form>
+                    <div class="mb-3">
+                        <label class="form-label">Describe</label>
+                        <div class="form-floating">
+                            <textarea class="form-control" placeholder="Leave a comment here"
+                                      th:field="*{describe}"></textarea>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Person Create</label>
+                        <input type="text" class="form-control" th:field="*{personCreate}" required>
+                        <div class="alert alert-warning" th:if="${#fields.hasErrors('personCreate')}"
+                             th:errors="*{personCreate}"></div>
+                    </div>
+                    <button type="submit" class="btn btn-success">Submit</button>
+                </form>
+            </div>
+            <div class="col-md-4">
+                <form th:action="@{/images/upload}" method="post">
+                    <div class="mb-3">
+                        <label class="form-label">Excel File Input</label>
+                        <input type="file" class="form-control"
+                               accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                               name="excelFile">
+                    </div>
+                    <button type="submit" class="btn btn-success">Upload</button>
+                </form>
+            </div>
         </div>
-        <div class="col-md-4">
-            <form th:action="@{/images/upload}" method="post">
-                <div class="mb-3">
-                    <label class="form-label">Excel File Input</label>
-                    <input type="file" class="form-control" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" name="excelFile">
-                </div>
-                <button type="submit" class="btn btn-success">Upload</button>
-            </form>
+        <div class="row">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Images</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Person Create</th>
+                    <th scope="col">Person Update</th>
+                    <th scope="col">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="im, stave : ${list}">
+                    <th scope="row" th:text="${stave.index + 1}">1</th>
+                    <td>
+                        <img th:src="@{${im.linkImage}}" style="width: 300px; height: 188px" alt="Không tìm thấy ảnh!">
+                    </td>
+                    <td th:text="${im.nameImage}">Otto</td>
+                    <td th:text="${im.personCreate}">@mdo</td>
+                    <td th:text="${im.personUpate}">@mdo</td>
+                    <td>
+                        <a th:href="@{'/images/details/' + ${im.id}}" class="btn btn-primary">Details</a>
+                        <a th:href="@{'/images/edit/' + ${im.id}}" class="btn btn-warning">Update</a>
+                        <a th:href="@{'/images/delete/' + ${im.id}}" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
-    </div>
-    <div class="row">
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Images</th>
-                <th scope="col">Name</th>
-                <th scope="col">Person Create</th>
-                <th scope="col">Person Update</th>
-                <th scope="col">Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="im, stave : ${list}">
-                <th scope="row" th:text="${stave.index + 1}">1</th>
-                <td>
-                    <img th:src="@{${im.linkImage}}" style="width: 300px; height: 188px" alt="Không tìm thấy ảnh!">
-                </td>
-                <td th:text="${im.nameImage}">Otto</td>
-                <td th:text="${im.personCreate}">@mdo</td>
-                <td th:text="${im.personUpate}">@mdo</td>
-                <td>
-                    <a th:href="@{'/images/details/' + ${im.id}}" class="btn btn-primary">Details</a>
-                    <a th:href="@{'/images/edit/' + ${im.id}}" class="btn btn-warning">Update</a>
-                    <a th:href="@{'/images/delete/' + ${im.id}}" class="btn btn-danger">Delete</a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
     </div>
 </div>
-<script th:src="@{/lib/bootstrap.bundle.min.js}"></script>
 </body>
+<script th:src="@{/lib/bootstrap.bundle.min.js}"></script>
+
 </html>
