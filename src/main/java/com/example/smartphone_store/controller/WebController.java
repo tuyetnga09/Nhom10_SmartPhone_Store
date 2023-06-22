@@ -9,4 +9,9 @@ public class WebController {
     public String home(){
         return "pages/trang_chu";
     }
+
+    @GetMapping("/login")
+    public String login(){
+        return "pages/login";
+    }
 }
