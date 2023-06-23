@@ -91,7 +91,7 @@ ul{
     flex: 1 0 0;
 }
 
-li{
+.danhmuc{
     display: flex;
     justify-content: center;
     align-items: center;
