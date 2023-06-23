@@ -4,83 +4,181 @@
     --primary-600: #319DFF;
     --primary-700: #0077E4;
     --grey-800: #3B4758;
+    --grey-900: #1D232C;
+    --grey-700: #586A84;
+    --grey-600: #7D8FA9;
 }
 
 .layout1{
     display: flex;
-    width: 1922px;
     height: 96px;
     padding: 0px 240px;
     justify-content: space-between;
     align-items: center;
+
+    background: var(--grey-800);
 }
 
-.eamil{
+.describe{
+    color: var(--white);
+    font-size: 18px;
+    font-family: Roboto;
+    font-weight: 700;
+}
+
+.form-sendMail{
+    display: flex;
+    width: 540px;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+
+    border-radius: 20px;
+}
+
+.input-mail{
     display: flex;
     height: 40px;
     padding: 13px 12px;
     align-items: center;
     flex: 1 0 0;
+
     border-radius: 20px 0px 0px 20px;
+    background: var(--white);
+}
+
+.sendButton{
+    display: flex;
+    height: 40px;
+    padding: 0px 15px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+
+    border-radius: 0px 20px 20px 0px;
+    background: var(--primary-600);
 }
 
 .layout2{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+}
+
+.layout3{
     display: flex;
     padding: 20px 240px 40px 240px;
     justify-content: flex-end;
     align-items: flex-start;
     gap: 20px;
     align-self: stretch;
+
+    background: var(--white);
 }
 
-.logo{
+.firt-cart{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 40px;
+    flex: 1 0 0;
+
+    background: var(--white, #FFF);
+}
+
+.cart-img{
     display: flex;
     align-items: center;
     gap: 12px;
     align-self: stretch;
 }
 
-.info{
+.logo{
+    width: 201.176px;
+    height: 45.882px;
+    flex-shrink: 0;
+}
+
+.info-shop{
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 30px;
+    gap: 10px;
 }
 
-.categories{
+.titi{
+    color: var(--grey-900, #1D232C);
+
+    /* Roboto 16px/Roboto_medium_16px */
+    font-size: 16px;
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+}
+
+.ez{
+    color: var(--grey-700);
+
+    /* Roboto 14px/Roboto_regular_14px */
+    font-size: 14px;
+    font-family: Roboto, sans-serif;
+}
+
+.info-shop-icon{
+    display: flex;
+    padding: 0px 24px 0px 0px;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.info-shop-icon div {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.second-card{
     display: flex;
     width: 272px;
     padding: 20px 0px 0px 0px;
     flex-direction: column;
     align-items: flex-start;
     gap: 30px;
+
+    background: var(--white);
 }
 
-.link{
+.second-card span{
+    color: var(--grey-900, #1D232C);
+
+    /* Roboto 16px/Roboto_medium_16px */
+    font-size: 16px;
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+}
+
+.second-card div{
     display: flex;
-    width: 272px;
-    padding: 20px 0px 0px 0px;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 30px;
+    width: 170px;
+    height: 16px;
+    justify-content: center;
+    align-items: center;
 }
 
-.service{
-    display: flex;
-    width: 272px;
-    padding: 20px 0px 0px 0px;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 30px;
-}
-
-.layout3{
+.last-layout{
     display: flex;
     padding: 8px 240px;
     justify-content: space-between;
     align-items: center;
     align-self: stretch;
-    border-top: 1px solid var(--grey-100, #EEF0F4);
+
+    border-top: 1px solid var(--grey-100);
+    background: var(--white);
 }
 
-
+.last-layout span{
+    color: var(--grey-600);
+    font-size: 14px;
+    font-family: Roboto;
+}
