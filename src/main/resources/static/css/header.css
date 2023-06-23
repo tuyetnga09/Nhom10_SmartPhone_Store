@@ -13,6 +13,7 @@
     align-items: center;
     gap: 60px;
     align-self: stretch;
+    background: var(--white);
 }
 
 .logo{
