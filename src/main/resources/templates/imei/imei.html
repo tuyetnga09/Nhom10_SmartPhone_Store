@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Imei</title>
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+            crossorigin="anonymous"
+    />
+</head>
+<body>
+<section>
+    <div class="container">
+        <h1 style="text-align: center">Manager Imei</h1>
+        <!--        <form th:action="@{/color/upload}" method="POST" enctype="multipart/form-data">-->
+        <!--            <label class="col-sm-2 col-form-label">IMPORT EXCEL:</label>-->
+        <!--            <input type="file" class="form-control" name="file" accept=".xlsx, .xls"/>-->
+        <!--            <br>-->
+        <!--            <button type="submit" class="btn btn-outline-secondary">Upload</button>-->
+        <!--            <span th:text="${messageUpload}" style="color: red"></span>-->
+        <!--            <span th:text="${error}" style="color: red"></span>-->
+        <!--        </form>-->
+        <!--        <form th:action="@{/color/search}" method="get">-->
+        <!--            <div class="input-group mb-3">-->
+        <!--                <span class="input-group-text" id="inputGroup-sizing-default"-->
+        <!--                >Search</span-->
+        <!--                >-->
+        <!--                <input-->
+        <!--                        type="text"-->
+        <!--                        class="form-control"-->
+        <!--                        aria-label="Sizing example input"-->
+        <!--                        aria-describedby="inputGroup-sizing-default"-->
+        <!--                        name="keyword"-->
+        <!--                />-->
+        <!--            </div>-->
+        <!--            <button type="submit" class="btn btn-primary">Search</button>-->
+        <a th:href="@{/imei/view-add}" role="button" class="btn btn-success">Add</a>
+        <!--            <a th:href="@{/color/view-delete}" role="button" class="btn btn-danger">View Delete</a>-->
+        <!--        </form>-->
+        <!--        <hr/>-->
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">STT</th>
+                <th scope="col">Code</th>
+                <th scope="col">Ngày thêm</th>
+                <th scope="col">Ngày bán</th>
+                <th scope="col">Người bán</th>
+                <th scope="col">Người sửa</th>
+                <th scope="col">Trạng thái</th>
+                <th scope="col">Sản phẩm chi tiết</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="i, index : ${imeis}">
+                <th scope="row" th:text="${index.count}"></th>
+                <td th:text="${i.code}"></td>
+                <td th:text="${i.dateAdd}"></td>
+                <td th:text="${i.saleDate}"></td>
+                <td th:text="${i.personSale}"></td>
+                <td th:text="${i.personUpdate}"></td>
+                <td th:text="${i.status == 0 ? 'Hoạt động' : 'Không hoạt động'}"></td>
+                <td th:text="${i.productDetail.name}"></td>
+                <!--                <td>-->
+                <!--                    <a-->
+                <!--                            th:href="@{/color/view-update/{id}(id=${cl.id})}"-->
+                <!--                            role="button"-->
+                <!--                            class="btn btn-warning"-->
+                <!--                    >Update</a-->
+                <!--                    >-->
+                <!--                    <a th:href="@{/color/delete/{id}(id=${cl.id})}" role="button" class="btn btn-danger"-->
+                <!--                       onclick="return confirmButton()">Delete</a>-->
+                <!--                </td>-->
+            </tr>
+            </tbody>
+        </table>
+        <nav aria-label="...">
+            <ul class="pagination">
+                <!--                trang đầu-->
+                <li class="page-item">
+                    <a class="page-link" th:href="@{/imei/(page=0)}">Fist</a>
+                </li>
+                <!--Previous-->
+                <li class="page-item" th:if="${pageNumber>0}">
+                    <a class="page-link" th:href="@{/imei/(page=${pageNumber} -1)}">Previous</a>
+                </li>
+                <li class="page-item" th:if="${pageNumber == 0}">
+                    <a class="page-link" th:disabled="true">Previous</a>
+                </li>
+
+                <!--                số thứ tự trang-->
+                <!--                dùng for i trong thymleaf-->
+                <div th:each="index : ${#numbers.sequence(0, imeiPages - 1)}">
+                    <li class="page-item">
+                        <a class="page-link"
+                           th:href="@{/imei/(page=${index})}" th:text="${index+1}"></a>
+                    </li>
+                </div>
+
+                <!--       Next         -->
+                <li class="page-item" th:if="${pageNumber < (imeiPages -1)}">
+                    <a class="page-link" th:href="@{/imeis/(page=${pageNumber} +1)}">Next</a>
+                </li>
+                <li class="page-item" th:if="${pageNumber == (imeiPages -1)}">
+                    <a class="page-link" th:disabled="true">Next</a>
+                </li>
+
+                <!--                trang cuối-->
+                <li class="page-item">
+                    <a class="page-link"
+                       th:href="@{/imei/(page=${imeiPages -1})}">Last</a>
+                </li>
+            </ul>
+        </nav>
+
+    </div>
+</section>
+</body>
+<script>
+    function confirmButton() {
+        var result = confirm("Bạn chắc chắn muốn xóa?");
+        if (result) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+</script>
+</html>
