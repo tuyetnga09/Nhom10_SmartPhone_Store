@@ -6,6 +6,8 @@
     <meta charset="UTF-8">
     <title>Product index</title>
     <link rel="stylesheet" th:href="@{/lib/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
 </head>
 <body>
 <div class="container">
@@ -96,6 +98,9 @@
         </table>
     </div>
 </div>
+<!--footer start-->
+<div class="row" th:replace="~{layout/footer :: footer}"></div>
+<!--footer end-->
 <script th:src="@{/lib/bootstrap.bundle.min.js}"></script>
 </body>
 </html>

@@ -11,8 +11,13 @@
             integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
             crossorigin="anonymous"
     />
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
 </head>
 <body>
+<!-- header start -->
+<div class="row" th:replace="~{layout/header :: menu}"></div>
+<!-- header end -->
 <section>
     <div class="container">
         <h1 style="text-align: center">Manager Color</h1>
@@ -120,6 +125,9 @@
 
     </div>
 </section>
+<!--footer start-->
+<div class="row" th:replace="~{layout/footer :: footer}"></div>
+<!--footer end-->
 </body>
 <script>
     function confirmButton() {

@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <title>Product Update</title>
     <link rel="stylesheet" th:href="@{/css/plugin/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
 </head>
 <body>
 <div class="container">
@@ -53,6 +55,9 @@
         <div class="col-md-4"></div>
     </div>
 </div>
+<!--footer start-->
+<div class="row" th:replace="~{layout/footer :: footer}"></div>
+<!--footer end-->
 <script th:src="@{/js/plugin/bootstrap.bundle.min.js}"></script>
 </body>
 </html>
