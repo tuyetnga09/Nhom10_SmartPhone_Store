@@ -77,6 +77,7 @@
             <th scope="col">Product</th>
             <th scope="col">Ram</th>
             <th scope="col">Status</th>
+            <th scope="col">Quantity</th>
             <th scope="col">Function</th>
         </tr>
         </thead>
@@ -95,6 +96,7 @@
             <td th:text="${pr.ram.name}"></td>
             <td th:text="${pr.ram.name}"></td>
             <td th:text="${pr.status == 0 ? 'Hoat dong' : 'Khong hoat dong'}"></td>
+            <td th:text="${pr.product.quantity}"></td>
             <td>
                 <a th:href="@{/productDetails/remove/{id}(id=${pr.id})}" class="btn btn-success"
                    onclick="return confirmSubmit()">Remove</a>
