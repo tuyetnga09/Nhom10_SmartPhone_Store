@@ -2,14 +2,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Category</title>
+    <title>Imei</title>
     <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
             rel="stylesheet"
             integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
             crossorigin="anonymous"/>
-    <link rel="stylesheet" th:href="@{/css/header.css}">
-    <link rel="stylesheet" th:href="@{/css/footer.css}">
 </head>
 <script>
     function confirmSubmit() {
@@ -24,46 +22,45 @@
     }
 </script>
 <body>
-<!-- header start -->
-<div class="row" th:replace="~{layout/header :: menu}"></div>
-<!-- header end -->
 <div class="container text-center">
-    <div><h1>Category Add</h1></div>
+    <div><h1>Imei Add</h1></div>
 </div>
 <hr/>
 <div class="container">
-    <a th:href="@{/category/display}" class="btn btn-outline-secondary">DISPLAY</a>
+    <a th:href="@{/imei/display}" class="btn btn-outline-secondary">DISPLAY</a>
 </div>
 <hr/>
 <div class="container">
-    <form th:action="@{/category/add}" method="post" th:object="${Cate}">
+    <form th:action="@{/imei/add}" method="post" th:object="${imei}">
         <div class="form-group row">
             <label class="col-sm-2 col-form-label">CODE:</label>
             <input class="form-control" name="code" type="text" th:field="*{code}"/>
-            <span th:errors="*{code}" style="color: red;"></span>
-            <span th:text="${messege}" style="color: red"></span>
+            <span th:errors="*{code}" style="color: red"></span>
+            <span th:text="${message}" style="color: red"></span>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Product Details:</label>
+            <select class="form-control" name="productDetail.id" th:field="*{productDetail.id}">
+                <option th:each="productDetail : ${productDetailList}" th:value="${productDetail.id}"
+                        th:text="${productDetail.name}"></option>
+            </select>
+
+            <span th:errors="*{productDetail.id}" style="color: red"></span>
         </div>
         <div class="form-group row">
-            <label class="col-sm-2 col-form-label">NAME:</label>
-            <input class="form-control" name="name" type="text" th:field="*{name}"/>
-            <span th:errors="*{name}" style="color: red;"></span>
-        </div>
-        <div class="form-group row">
-            <label class="col-sm-2 col-form-label">PersonCreate:</label>
-            <input class="form-control" name="personCreate" type="text" th:field="*{personCreate}"/>
-            <span th:errors="*{personCreate}" style="color: red;"></span>
+            <label class="col-sm-2 col-form-label">Person Sale:</label>
+            <input class="form-control" name="personSale" type="text" th:field="*{personSale}"/>
+            <span th:errors="*{personSale}" style="color: red"></span>
         </div>
         <div class="form-group row">
             <label class="col-sm-2 col-form-label">PersonUpdate:</label>
             <input class="form-control" name="personUpdate" type="text" th:field="*{personUpdate}"/>
-            <span th:errors="*{personUpdate}" style="color: red;"></span>
+            <span th:errors="*{personUpdate}" style="color: red"></span>
         </div>
         <br/>
         <button type="submit" class="btn btn-outline-secondary" onclick="return confirmSubmit()">ADD</button>
     </form>
 </div>
-<!--footer start-->
-<div class="row" th:replace="~{layout/footer :: footer}"></div>
-<!--footer end-->
 </body>
 </html>
