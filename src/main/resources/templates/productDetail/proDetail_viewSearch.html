@@ -50,6 +50,7 @@
         <tr>
             <th scope="col">ID</th>
             <th scope="col">Code</th>
+            <th scope="col">Images</th>
             <th scope="col">Name</th>
             <th scope="col">DateCreate</th>
             <th scope="col">DateUpdate</th>
@@ -68,6 +69,9 @@
         <tr th:each="pr : ${productDetails}">
             <td th:text="${pr.id}"></td>
             <td th:text="${pr.code}"></td>
+            <td>
+                <img th:src="@{${pr.product.idImages.linkImage}}" alt="Không tìm thấy ảnh!">
+            </td>
             <td th:text="${pr.name}"></td>
             <td th:text="${pr.dateCreate}"></td>
             <td th:text="${pr.dateUpdate}"></td>
