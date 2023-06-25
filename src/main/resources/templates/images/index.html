@@ -5,36 +5,33 @@
 <head>
     <meta charset="UTF-8">
     <title>Images Index</title>
-    <link rel="stylesheet" th:href="@{/lib/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/plugin/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 </head>
 <body>
 <div class="container">
     <div class="row" style="margin-top: 20px">
-            <div class="row" th:replace="~{layout/header :: menu}"></div>
+        <div class="row" th:replace="~{layout/header :: menu}"></div>
         <div class="row">
             <div class="col-md-4"></div>
             <div class="col-md-4">
-                <form enctype="multipart/form-data" th:action="@{/images/store}" method="post" th:object="${image}">
+                <form enctype="multipart/form-data" th:action="@{/images/store}" method="post">
                     <div class="mb-3">
                         <label class="form-label">Image Files</label>
-                        <input type="file" class="form-control" accept="image/*" th:field="*{fileImages}">
-                        <div class="alert alert-warning" th:if="${#fields.hasErrors('fileImages')}"
-                             th:errors="*{fileImages}"></div>
+                        <input type="file" class="form-control" accept="image/*" name="fileImages">
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Describe</label>
                         <div class="form-floating">
                             <textarea class="form-control" placeholder="Leave a comment here"
-                                      th:field="*{describe}"></textarea>
+                                      name="describe"></textarea>
                         </div>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Person Create</label>
-                        <input type="text" class="form-control" th:field="*{personCreate}" required>
-                        <div class="alert alert-warning" th:if="${#fields.hasErrors('personCreate')}"
-                             th:errors="*{personCreate}"></div>
+                        <input type="text" class="form-control" name="personCreate" required>
                     </div>
                     <button type="submit" class="btn btn-success">Submit</button>
                 </form>
@@ -67,7 +64,8 @@
                 <tr th:each="im, stave : ${list}">
                     <th scope="row" th:text="${stave.index + 1}">1</th>
                     <td>
-                        <img th:src="@{${im.linkImage}}" style="width: 300px; height: 188px" alt="Không tìm thấy ảnh!">
+                        <img th:src="@{'/images/' +  ${im.nameImage}}" style="width: 300px; height: 188px"
+                             alt="Không tìm thấy ảnh!">
                     </td>
                     <td th:text="${im.nameImage}">Otto</td>
                     <td th:text="${im.personCreate}">@mdo</td>
@@ -81,9 +79,9 @@
                 </tbody>
             </table>
         </div>
+        <div class="row" th:replace="~{layout/footer :: footer}"></div>
     </div>
 </div>
+<script th:src="@{/js/plugin/bootstrap.bundle.min.js}"></script>
 </body>
-<script th:src="@{/lib/bootstrap.bundle.min.js}"></script>
-
 </html>

@@ -13,6 +13,7 @@
     align-items: center;
     gap: 60px;
     align-self: stretch;
+    background: var(--white);
 }
 
 .logo{
@@ -44,9 +45,8 @@
     justify-content: space-between;
     align-items: center;
     flex: 1 0 0;
-
     border-radius: 20px 0px 0px 20px;
-    border: 1px solid var(--primary-600);
+    border: 1px solid #00bca7;
     background: var(--white);
 }
 
@@ -57,10 +57,9 @@
     justify-content: center;
     align-items: center;
     gap: 8px;
-
     border-radius: 0 20px 20px 0;
-    border: 1px solid var(--primary-600);
-    background: var(--primary-600);
+    border: 1px solid #00bca7;
+    background: #00bca7;
 }
 
 .menu-icon{
@@ -80,10 +79,10 @@
     justify-content: center;
     align-items: center;
     align-self: stretch;
-    background: var(--primary-600);
+    background: #00bca7;
 }
 
-.menu{
+.ul-header{
     display: flex;
     padding: 10px;
     justify-content: center;
@@ -96,8 +95,7 @@
     justify-content: center;
     align-items: center;
     flex: 1 0 0;
-
-    border-right: 1px solid var(--primary-700);
-    background: var(--primary-600);
+    border-right: 1px solid gray;
+    background: #00bca7;
     color: var(--white);
 }

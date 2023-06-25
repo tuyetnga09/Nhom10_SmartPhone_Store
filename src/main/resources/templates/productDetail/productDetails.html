@@ -8,6 +8,8 @@
             rel="stylesheet"
             integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
             crossorigin="anonymous"/>
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
 </head>
 <script>
     function confirmSubmit() {
@@ -20,6 +22,9 @@
     }
 </script>
 <body>
+<!-- header start -->
+<div class="row" th:replace="~{layout/header :: menu}"></div>
+<!-- header end -->
 <div class="container text-center">
     <div><h1>Product Details</h1></div>
 </div>
@@ -61,6 +66,7 @@
         <tr>
             <th scope="col">ID</th>
             <th scope="col">Code</th>
+            <th scope="col">Images</th>
             <th scope="col">Name</th>
             <th scope="col">DateCreate</th>
             <th scope="col">DateUpdate</th>
@@ -72,6 +78,7 @@
             <th scope="col">Product</th>
             <th scope="col">Ram</th>
             <th scope="col">Status</th>
+            <th scope="col">Quantity</th>
             <th scope="col">Function</th>
         </tr>
         </thead>
@@ -79,6 +86,9 @@
         <tr th:each="pr : ${productDetails}">
             <td th:text="${pr.id}"></td>
             <td th:text="${pr.code}"></td>
+            <td>
+                <img th:src="@{${pr.product.idImages.linkImage}}" alt="Không tìm thấy ảnh!">
+            </td>
             <td th:text="${pr.name}"></td>
             <td th:text="${pr.dateCreate}"></td>
             <td th:text="${pr.dateUpdate}"></td>
@@ -90,6 +100,7 @@
             <td th:text="${pr.ram.name}"></td>
             <td th:text="${pr.ram.name}"></td>
             <td th:text="${pr.status == 0 ? 'Hoat dong' : 'Khong hoat dong'}"></td>
+            <td th:text="${pr.product.quantity}"></td>
             <td>
                 <a th:href="@{/productDetails/remove/{id}(id=${pr.id})}" class="btn btn-success"
                    onclick="return confirmSubmit()">Remove</a>
@@ -138,6 +149,8 @@
         </ul>
     </nav>
 </div>
-
+<!--footer start-->
+<div class="row" th:replace="~{layout/footer :: footer}"></div>
+<!--footer end-->
 </body>
 </html>
