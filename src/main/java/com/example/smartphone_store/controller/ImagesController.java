@@ -22,11 +22,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 
 @Controller
 @RequestMapping(value = "/images")
@@ -45,19 +50,16 @@ public class ImagesController {
     }
 
     @PostMapping(value = "/store")
-    public String store(@Valid ImagesDAO imagesDAO, BindingResult result, Model model) throws IOException {
-        if (result.hasErrors()) {
-            model.addAttribute("image", imagesDAO);
-            model.addAttribute("list", this.service.findAll(0));
-            return "images/index";
-        }
-        Path fileNameAndPath = Paths.get(UPLOAD_DIRECTORY, imagesDAO.getFileImages().getOriginalFilename());
-        Files.write(fileNameAndPath, imagesDAO.getFileImages().getBytes());
+    public String store(@RequestParam(name = "fileImages") MultipartFile fileImages,
+                        @RequestParam(name = "describe") String describe,
+                        @RequestParam(name = "personCreate") String personCreate,
+                        Model model) throws IOException {
+        saveImage(fileImages);
         Images image = new Images();
-        image.setLinkImage("/images/" + imagesDAO.getFileImages().getOriginalFilename());
-        image.setNameImage(imagesDAO.getFileImages().getOriginalFilename());
-        image.setDescribe(imagesDAO.getDescribe());
-        image.setPersonCreate(imagesDAO.getPersonCreate());
+        image.setLinkImage("/images/" + fileImages.getOriginalFilename());
+        image.setNameImage(fileImages.getOriginalFilename());
+        image.setDescribe(describe);
+        image.setPersonCreate(personCreate);
         this.service.save(image);
         return "redirect:/images/index";
     }
@@ -86,11 +88,24 @@ public class ImagesController {
                     continue;
                 }
                 Path fileNamePath = Paths.get(UPLOAD_DIRECTORY, row.getCell(0).getStringCellValue());
+
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         return "images/index";
+    }
+
+    public void saveImage(MultipartFile file) throws IOException {
+        Path fileNameAndPath = Paths.get(UPLOAD_DIRECTORY, file.getOriginalFilename());
+        File fileImages = new File(fileNameAndPath.toString());
+        if (!fileImages.exists()) {
+            FileOutputStream fos = new FileOutputStream(fileImages);
+            fos.write(file.getBytes());
+            fos.close();
+        } else {
+            Files.write(fileNameAndPath, file.getBytes());
+        }
     }
 
 }
