@@ -83,7 +83,7 @@
     background: var(--primary-600);
 }
 
-ul{
+.menu{
     display: flex;
     padding: 10px;
     justify-content: center;
