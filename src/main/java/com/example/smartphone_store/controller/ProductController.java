@@ -4,6 +4,10 @@ import com.example.smartphone_store.entity.Product;
 import com.example.smartphone_store.service.impl.ImagesService;
 import com.example.smartphone_store.service.impl.ProductService;
 import jakarta.validation.Valid;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +17,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Date;
 
 @Controller
@@ -73,6 +81,33 @@ public class ProductController {
     public String delete(@PathVariable Long id) {
         this.productService.delete(id);
         return "redirect:/product/index";
+    }
+
+    @PostMapping("/upload")
+    public String upload(@RequestParam(name = "excelFile") MultipartFile file){
+        try{
+            InputStream inputStream = file.getInputStream();
+            Workbook workbook =  new XSSFWorkbook(inputStream);
+            Sheet sheet = workbook.getSheetAt(0);
+            for (Row row : sheet){
+                if (row.getRowNum() == 0){
+                    continue;
+                }
+                Product product = new Product();
+                product.setCode(row.getCell(0).getStringCellValue());
+                product.setName(row.getCell(1).getStringCellValue());
+                product.setImportPrice(row.getCell(2).getNumericCellValue());
+                product.setPrice(row.getCell(3).getNumericCellValue());
+                product.setQuantity((int)row.getCell(4).getNumericCellValue());
+                product.setPersonCreate(row.getCell(5).getStringCellValue());
+                product.setIdImages(imagesService.findById((long)row.getCell(6).getNumericCellValue()));
+                productService.save(product);
+            }
+            workbook.close();
+            return "redirect:/product/index";
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }
