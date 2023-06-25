@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @Repository
 public interface CapacityRepository extends JpaRepository<Capacity, Integer> {
 
-    @Query(value = "SELECT Id, Code, Name, DateCreate, DateUpdate, PersonCreate, PersonUpdate, Status FROM Capacity WHERE Status = 0 ", nativeQuery = true)
+    @Query(value = "SELECT Id, Code, Name, DateCreate, DateUpdate, PersonCreate, PersonUpdate, Status FROM Capacity WHERE Status = 0 ORDER BY DateCreate DESC, Id DESC", nativeQuery = true)
     Page<Capacity> getPageCapacity(Pageable pageable);
 
     @Query(value = "SELECT Id, Code, Name, DateCreate, DateUpdate, PersonCreate, PersonUpdate, Status FROM Capacity WHERE Status = 1 ", nativeQuery = true)

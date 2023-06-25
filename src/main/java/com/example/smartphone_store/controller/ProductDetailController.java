@@ -2,12 +2,15 @@ package com.example.smartphone_store.controller;
 
 import com.example.smartphone_store.entity.Battery;
 import com.example.smartphone_store.entity.Capacity;
+import com.example.smartphone_store.entity.Imei;
+import com.example.smartphone_store.entity.Product;
 import com.example.smartphone_store.entity.ProductDetail;
 import com.example.smartphone_store.service.BatteryService;
 import com.example.smartphone_store.service.CapacityService;
 import com.example.smartphone_store.service.CategoryService;
 import com.example.smartphone_store.service.ChipService;
 import com.example.smartphone_store.service.ColorService;
+import com.example.smartphone_store.service.ImeiService;
 import com.example.smartphone_store.service.ManufactureService;
 import com.example.smartphone_store.service.ProductDetailService;
 import com.example.smartphone_store.service.RamService;
@@ -25,6 +28,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.util.List;
 
 @Controller
 @RequestMapping("/productDetails/")
@@ -49,6 +56,9 @@ public class ProductDetailController {
     private RamService ramService;
     @Autowired
     private ScreenService screenService;
+
+    @Autowired
+    private ImeiService imeiService;
 
     @GetMapping("display")
     public String getAllProductDetails(Model model, @RequestParam(value = "pageNo", defaultValue = "0") Integer pageNo) {
@@ -84,22 +94,39 @@ public class ProductDetailController {
         return "/productDetail/productDetail-view-add";
     }
 
+    // add số lượng sản phẩm theo imei
     @PostMapping("add")
-    public String addProductDetail(Model model, @Valid @ModelAttribute("proDetail") ProductDetail productDetail, BindingResult result) {
-        if (result.hasErrors()) {
-            return "/productDetail/productDetail-view-add";
-        } else {
-            for (ProductDetail productDetail1 : productDetailService.getAll()) {
-                if (productDetail.getCode().equals(productDetail1.getCode())) {
-                    model.addAttribute("message", "(*) Mã đang trùng");
-                    return "/productDetail/productDetail-view-add";
-                }
-            }
-        }
+    public String addProductDetail(Model model, @ModelAttribute("proDetail") ProductDetail productDetail,
+                                   @RequestParam("imeiFile") MultipartFile imeiFile) {
+        try {
+            // Thêm chi tiết sản phẩm vào cơ sở dữ liệu
+            productDetailService.addProductDetail(productDetail);
 
-        productDetailService.addProductDetail(productDetail);
-        return "redirect:/productDetails/display";
+            // Đọc file Excel và lấy danh sách IMEI từ file
+            List<String> imeis = ExcelUtil.extractImeisFromExcel(imeiFile);
+            int quantity = imeis.size();
+
+            // Tạo danh sách IMEI và gắn cho chi tiết sản phẩm
+            for (String imei : imeis) {
+                Imei newImei = new Imei();
+                newImei.setCode(imei);
+                newImei.setProductDetail(productDetail);
+                imeiService.addImei(newImei);
+            }
+
+            // Cập nhật số lượng sản phẩm
+            Product product = productDetail.getProduct();
+            product.setQuantity(product.getQuantity() + quantity);
+            productService.update(product);
+
+            return "redirect:/productDetails/display";
+        } catch (IOException e) {
+            e.printStackTrace();
+            model.addAttribute("message", "Lỗi khi đọc file Excel.");
+            return "/productDetail/productDetail-view-add";
+        }
     }
+
 
     @GetMapping("remove/{id}")
     public String removeProductDetail(@PathVariable("id") Long id) {

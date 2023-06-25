@@ -14,4 +14,9 @@ public class WebController {
     public String login(){
         return "pages/login";
     }
+
+    @GetMapping("/single-product")
+    public String singleProduct(){
+        return "pages/single_product";
+    }
 }
