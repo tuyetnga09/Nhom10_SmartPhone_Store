@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -97,13 +98,16 @@ public class ProductDetailController {
     // add số lượng sản phẩm theo imei
     @PostMapping("add")
     public String addProductDetail(Model model, @ModelAttribute("proDetail") ProductDetail productDetail,
-                                   @RequestParam("imeiFile") MultipartFile imeiFile) {
+                                   @RequestParam(value = "imeiFile", required = false) MultipartFile imeiFile) {
         try {
             // Thêm chi tiết sản phẩm vào cơ sở dữ liệu
             productDetailService.addProductDetail(productDetail);
 
-            // Đọc file Excel và lấy danh sách IMEI từ file
-            List<String> imeis = ExcelUtil.extractImeisFromExcel(imeiFile);
+            // Đọc file Excel và lấy danh sách IMEI từ file (nếu có)
+            List<String> imeis = new ArrayList<>();
+            if (imeiFile != null && !imeiFile.isEmpty()) {
+                imeis = ExcelUtil.extractImeisFromExcel(imeiFile);
+            }
             int quantity = imeis.size();
 
             // Tạo danh sách IMEI và gắn cho chi tiết sản phẩm
@@ -126,7 +130,6 @@ public class ProductDetailController {
             return "/productDetail/productDetail-view-add";
         }
     }
-
 
     @GetMapping("remove/{id}")
     public String removeProductDetail(@PathVariable("id") Long id) {

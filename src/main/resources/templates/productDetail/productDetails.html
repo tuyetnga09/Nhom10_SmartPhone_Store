@@ -87,7 +87,8 @@
             <td th:text="${pr.id}"></td>
             <td th:text="${pr.code}"></td>
             <td>
-                <img th:src="@{${pr.product.idImages.linkImage}}" alt="Không tìm thấy ảnh!">
+                <img th:src="@{${pr.product.idImages.linkImage}}" style="width: 50px; height: 70px"
+                     alt="Không tìm thấy ảnh!">
             </td>
             <td th:text="${pr.name}"></td>
             <td th:text="${pr.dateCreate}"></td>
@@ -96,7 +97,7 @@
             <td th:text="${pr.personUpdate}"></td>
             <td th:text="${pr.capacity.name}"></td>
             <td th:text="${pr.color.name}"></td>
-            <td th:text="${pr.product.idImages.linkImage}"></td>
+            <td th:text="${pr.category.name}"></td>
             <td th:text="${pr.ram.name}"></td>
             <td th:text="${pr.ram.name}"></td>
             <td th:text="${pr.status == 0 ? 'Hoat dong' : 'Khong hoat dong'}"></td>
