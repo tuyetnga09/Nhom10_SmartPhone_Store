@@ -36,7 +36,7 @@
 </div>
 <hr/>
 <div class="container">
-    <form th:action="@{/productDetails/add}" method="post" th:object="${proDetail}">
+    <form th:action="@{/productDetails/add}" method="post" enctype="multipart/form-data" th:object="${proDetail}">
         <div class="form-group row">
             <label class="col-sm-2 col-form-label">CODE:</label>
             <input class="form-control" name="code" type="text" th:field="*{code}"/>
@@ -48,7 +48,6 @@
             <input class="form-control" name="name" type="text" th:field="*{name}"/>
             <span th:errors="*{name}" style="color: red"></span>
         </div>
-        <
         <div class="form-group row">
             <label class="col-sm-2 col-form-label">CAPACITY:</label>
             <select class="form-control" name="capacity" th:field="*{capacity}">
@@ -139,6 +138,11 @@
             <span th:errors="*{personUpdate}" style="color: red"></span>
         </div>
         <br/>
+        <div class="form-group">
+            <label for="imeiFile">File Excel IMEI:</label>
+            <input type="file" class="form-control-file" id="imeiFile" name="imeiFile" accept=".xlsx, .xls">
+        </div>
+        </br>
         <button type="submit" class="btn btn-outline-secondary" onclick="return confirmSubmit()">ADD</button>
     </form>
 </div>
