@@ -25,4 +25,6 @@ public interface ProductDetailService {
     void updateProduct(ProductDetail productDetail);
 
     Page<ProductDetail> viewSeachAllProductDetail(String search, Integer pageNo, Integer size);
+
+    ProductDetail findByCode(String code);
 }

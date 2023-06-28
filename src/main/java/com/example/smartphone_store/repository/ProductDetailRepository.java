@@ -23,4 +23,6 @@ public interface ProductDetailRepository extends JpaRepository<ProductDetail, Lo
             " PersonUpdate LIKE %?1%) AND Status = 0)", nativeQuery = true)
     Page<ProductDetail> viewSeachAllProductDetails(String search, Pageable pageable);
 
+    ProductDetail findByCode(String code);
+
 }

@@ -94,8 +94,6 @@ public class ProductDetailController {
         model.addAttribute("product", productService.getAll());
         return "/productDetail/productDetail-view-add";
     }
-
-    // add số lượng sản phẩm theo imei
     @PostMapping("add")
     public String addProductDetail(Model model, @ModelAttribute("proDetail") ProductDetail productDetail,
                                    @RequestParam(value = "imeiFile", required = false) MultipartFile imeiFile) {
@@ -105,10 +103,12 @@ public class ProductDetailController {
 
             // Đọc file Excel và lấy danh sách IMEI từ file (nếu có)
             List<String> imeis = new ArrayList<>();
+            int quantity = 1; // Số lượng mặc định
+
             if (imeiFile != null && !imeiFile.isEmpty()) {
                 imeis = ExcelUtil.extractImeisFromExcel(imeiFile);
+                quantity = imeis.size();
             }
-            int quantity = imeis.size();
 
             // Tạo danh sách IMEI và gắn cho chi tiết sản phẩm
             for (String imei : imeis) {

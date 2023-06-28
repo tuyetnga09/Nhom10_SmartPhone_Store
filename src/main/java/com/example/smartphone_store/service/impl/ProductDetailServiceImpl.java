@@ -74,4 +74,9 @@ public class ProductDetailServiceImpl implements ProductDetailService {
         Pageable pageable = PageRequest.of(pageNo, size);
         return productDetailRepository.viewSeachAllProductDetails(search, pageable);
     }
+
+    @Override
+    public ProductDetail findByCode(String code) {
+        return productDetailRepository.findByCode(code);
+    }
 }
