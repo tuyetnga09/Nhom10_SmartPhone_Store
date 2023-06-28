@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ColorRepository extends JpaRepository<Color, Long> {
 
-    @Query(value = "SELECT ID, Code, Name, DateCreate, DateUpdate, PersonCreate, PersonUpdate, Status FROM Color WHERE Status = 0", nativeQuery = true)
+    @Query(value = "SELECT ID, Code, Name, DateCreate, DateUpdate, PersonCreate, PersonUpdate, Status FROM Color WHERE Status = 0 ORDER BY DateCreate DESC, Id DESC", nativeQuery = true)
     Page<Color> getColorStatusZero(Pageable pageable);
 
     @Query(value = "SELECT ID, Code, Name, DateCreate, DateUpdate, PersonCreate, PersonUpdate, Status FROM Color WHERE Status = 1", nativeQuery = true)

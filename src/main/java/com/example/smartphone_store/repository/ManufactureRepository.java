@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ManufactureRepository extends JpaRepository<Manufacture, Long> {
 
-    @Query(value = "SELECT ID, Code, Name, DateCreate, DateUpdate, PersonCreate, PersonUpdate, Status FROM Manufacture WHERE Status = 0", nativeQuery = true)
+    @Query(value = "SELECT ID, Code, Name, DateCreate, DateUpdate, PersonCreate, PersonUpdate, Status FROM Manufacture WHERE Status = 0 ORDER BY DateCreate DESC, Id DESC", nativeQuery = true)
     Page<Manufacture> getManufactureStatusZero(Pageable pageable);
 
     @Query(value = "SELECT ID, Code, Name, DateCreate, DateUpdate, PersonCreate, PersonUpdate, Status FROM Manufacture WHERE Status = 1", nativeQuery = true)
