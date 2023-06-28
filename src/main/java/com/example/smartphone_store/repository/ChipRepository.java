@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ChipRepository extends JpaRepository<Chip, Long> {
-    @Query(value = "SELECT Id, Code, Name, DateCreate, DateUpdate, PersonCreate, PersonUpdate, Status FROM Chip WHERE Status = 0 ", nativeQuery = true)
+    @Query(value = "SELECT Id, Code, Name, DateCreate, DateUpdate, PersonCreate, PersonUpdate, Status FROM Chip WHERE Status = 0 ORDER BY DateCreate DESC, Id DESC", nativeQuery = true)
     Page<Chip> getPageChip(Pageable pageable);
 
     @Query(value = "SELECT Id, Code, Name, DateCreate, DateUpdate, PersonCreate, PersonUpdate, Status FROM Chip WHERE Status = 1 ", nativeQuery = true)

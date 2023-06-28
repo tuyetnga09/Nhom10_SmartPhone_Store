@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 public interface SizeRepository extends JpaRepository<Size, Long> {
 
 
-    @Query(value = "SELECT * FROM Size WHERE Status =?1", nativeQuery = true)
+    @Query(value = "SELECT * FROM Size WHERE Status =?1 ORDER BY DateCreate DESC, Id DESC", nativeQuery = true)
     Page<Size> viewShowActivityRam(Integer status, Pageable pageable);
 
     @Query(value = "SELECT * FROM Size WHERE ((Code LIKE %?1% OR Name LIKE %?1% OR " +

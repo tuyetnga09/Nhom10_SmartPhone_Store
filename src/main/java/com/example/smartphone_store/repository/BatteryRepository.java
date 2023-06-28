@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BatteryRepository extends JpaRepository<Battery, Long> {
-    @Query(value = "SELECT Id, Code, Name, DateCreate, DateUpdate, PersonCreate, PersonUpdate, Status FROM Battery WHERE Status = 0 ", nativeQuery = true)
+    @Query(value = "SELECT Id, Code, Name, DateCreate, DateUpdate, PersonCreate, PersonUpdate, Status FROM Battery WHERE Status = 0 ORDER BY DateCreate DESC, Id DESC", nativeQuery = true)
     Page<Battery> getPageBattery(Pageable pageable);
 
     @Query(value = "SELECT Id, Code, Name, DateCreate, DateUpdate, PersonCreate, PersonUpdate, Status FROM Battery WHERE Status = 1 ", nativeQuery = true)

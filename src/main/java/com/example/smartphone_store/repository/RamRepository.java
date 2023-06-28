@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RamRepository extends JpaRepository<Ram, Long> {
 
-    @Query(value = "SELECT * FROM Ram WHERE Status =?1", nativeQuery = true)
+    @Query(value = "SELECT * FROM Ram WHERE Status =?1 ORDER BY DateCreate DESC, Id DESC", nativeQuery = true)
     Page<Ram> viewShowActivityRam(Integer status, Pageable pageable);
 
     @Query(value = "SELECT * FROM Ram WHERE ((Code LIKE %?1% OR Name LIKE %?1% OR " +

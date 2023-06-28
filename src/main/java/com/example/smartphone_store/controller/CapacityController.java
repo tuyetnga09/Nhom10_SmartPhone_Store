@@ -129,6 +129,10 @@ public class CapacityController {
             InputStream inputStream = file.getInputStream();
             Workbook workbook = new XSSFWorkbook(inputStream);
             Sheet sheet = workbook.getSheetAt(0); // Dữ liệu nằm trong sheet dầu tiên
+
+//            int addedCount = 0;
+//            int skippedCount = 0;
+
             for (Row row : sheet) {
                 if (row.getRowNum() == 0) {
                     continue; // Bỏ qua header
@@ -142,7 +146,15 @@ public class CapacityController {
                 capacity.setPersonCreate(row.getCell(2).getStringCellValue());
                 capacity.setPersonUpdate(row.getCell(3).getStringCellValue());
                 capacity.setStatus(0);
+
+
+//                if (capacityRepository.existsByCode(capacity.getCode())) {
+//                    skippedCount++;
+//                    continue;
+//                }
+
                 capacityService.addCapacity(capacity);
+//                addedCount++;
             }
             workbook.close();
 
