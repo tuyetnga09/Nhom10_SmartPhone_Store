@@ -117,13 +117,18 @@
 
         <div class="form-group row">
 <!--            <label class="col-sm-2 col-form-label">PersonUpdate:</label>-->
-            <input class="form-control"  type="hidden" th:field="*{personCreate}"/>
-<!--            <span th:errors="*{personUpdate}" style="color: red"></span>-->
+            <input class="form-control" type="hidden" th:field="*{personCreate}"/>
+            <!--            <span th:errors="*{personUpdate}" style="color: red"></span>-->
         </div>
         <div class="form-group row">
             <label class="col-sm-2 col-form-label">PersonUpdate:</label>
             <input class="form-control" name="personUpdate" type="text" th:field="*{personUpdate}"/>
             <span th:errors="*{personUpdate}" style="color: red"></span>
+        </div>
+        <br/>
+        <div class="form-group">
+            <label for="imeiFile">File IMEI</label>
+            <input type="file" class="form-control" id="imeiFile" name="imeiFile">
         </div>
         <br/>
         <button type="submit" class="btn btn-outline-secondary">UPDATE</button>

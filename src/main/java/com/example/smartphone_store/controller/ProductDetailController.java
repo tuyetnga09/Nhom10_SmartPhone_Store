@@ -156,7 +156,32 @@ public class ProductDetailController {
 
     @PostMapping("update")
     public String updateProductDetail(Model model, @Valid @ModelAttribute("proDetail") ProductDetail productDetail,
-                                      BindingResult result) {
+                                      BindingResult result, @RequestParam(value = "imeiFile", required = false) MultipartFile imeiFile) {
+        try {
+            int additionalQuantity = 0; // Số lượng bổ sung từ file IMEI
+
+            if (imeiFile != null && !imeiFile.isEmpty()) {
+                // Đọc file IMEI và thực hiện các thao tác cập nhật
+                List<String> imeis = ExcelUtil.extractImeisFromExcel(imeiFile);
+                additionalQuantity = imeis.size();
+            }
+
+            // Lấy sản phẩm từ cơ sở dữ liệu
+            Product product = productDetail.getProduct();
+
+            // Cập nhật số lượng sản phẩm
+            int currentQuantity = product.getQuantity();
+            int updatedQuantity = currentQuantity + additionalQuantity;
+            product.setQuantity(updatedQuantity);
+            productService.update(product);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            model.addAttribute("message", "Lỗi khi đọc file IMEI.");
+            return "/productDetail/view-update";
+        }
+
+        // Tiếp tục xử lý cập nhật thông tin sản phẩm
         if (result.hasErrors()) {
             model.addAttribute("proDetail", productDetail);
             model.addAttribute("capacities", capacityService.getAll());
@@ -168,13 +193,13 @@ public class ProductDetailController {
             model.addAttribute("ram", ramService.getAll());
             model.addAttribute("screen", screenService.getAll());
             model.addAttribute("product", productService.getAll());
-            System.out.println("hi pro =====>");
-            System.out.println(productDetail.toString());
             return "productDetail/view-update";
         }
+
         productDetailService.updateProduct(productDetail);
         return "redirect:/productDetails/display";
     }
+
 
     @GetMapping("search")
     public String searchProductDetail(Model model,
