@@ -97,5 +97,8 @@
     flex: 1 0 0;
     border-right: 1px solid gray;
     background: #00bca7;
+}
+
+.danhmuc a{
     color: var(--white);
 }
