@@ -4,9 +4,12 @@ import com.example.smartphone_store.entity.Images;
 import com.example.smartphone_store.repository.ImagesRepository;
 import com.example.smartphone_store.service.IImages;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 
 @Service
 public class ImagesService implements IImages {
@@ -15,8 +18,13 @@ public class ImagesService implements IImages {
     private ImagesRepository repository;
 
     @Override
-    public List<Images> findAll(int status) {
-        return this.repository.selectByStatus(status);
+    public Page<Images> selectAll(int status, Pageable pageable) {
+        return this.repository.selectByStatus(status, pageable);
+    }
+
+    @Override
+    public List<Images> findByStatus(int status) {
+        return this.repository.findByStatus(status);
     }
 
     @Override

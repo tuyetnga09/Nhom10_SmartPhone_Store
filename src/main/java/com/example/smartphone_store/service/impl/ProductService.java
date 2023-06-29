@@ -4,6 +4,8 @@ import com.example.smartphone_store.entity.Product;
 import com.example.smartphone_store.repository.ProductRepository;
 import com.example.smartphone_store.service.IProduct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,8 +17,13 @@ public class ProductService implements IProduct {
     private ProductRepository repository;
 
     @Override
-    public List<Product> selectByStatus(int status) {
-        return this.repository.selectByStatus(status);
+    public Page<Product> selectByStatus(int status, Pageable pageable) {
+        return this.repository.selectByStatus(status, pageable);
+    }
+
+    @Override
+    public List<Product> findByStatus(int status) {
+        return this.repository.findByStatus(status);
     }
 
     @Override

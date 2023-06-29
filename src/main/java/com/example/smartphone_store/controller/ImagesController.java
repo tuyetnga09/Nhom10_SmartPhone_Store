@@ -12,6 +12,8 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -43,9 +45,12 @@ public class ImagesController {
     private ImagesService service;
 
     @GetMapping(value = "/index")
-    public String index(Model model) {
+    public String index(Model model, @RequestParam(value = "pageIndex", defaultValue = "0") int pageIndex) {
+        Pageable page = PageRequest.of(pageIndex, 5);
         model.addAttribute("image", new ImagesDAO());
-        model.addAttribute("list", this.service.findAll(0));
+        model.addAttribute("list", this.service.selectAll(0, page).getContent());
+        model.addAttribute("pageSize", this.service.selectAll(0, page).getTotalPages());
+        model.addAttribute("pageNumber", pageIndex);
         return "images/index";
     }
 
@@ -66,8 +71,6 @@ public class ImagesController {
 
     @GetMapping(value = "/details/{id}")
     public String details(Model model, @PathVariable Long id) {
-
-        model.addAttribute("list", this.service.findAll(0));
         return "images/index";
     }
 

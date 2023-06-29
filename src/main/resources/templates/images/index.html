@@ -79,6 +79,30 @@
                 </tbody>
             </table>
         </div>
+        <div class="row">
+            <nav aria-label="Page number example">
+                <ul class="pagination">
+                    <li class="page-item" th:if="${pageNumber>0}">
+                        <a class="page-link" th:href="@{/images/index(pageIndex=${pageNumber} -1)}">Previous</a>
+                    </li>
+                    <li class="page-item" th:unless="${pageNumber>0}">
+                        <a class="page-link" disabled="true">Previous</a>
+                    </li>
+                    <div th:each="index : ${#numbers.sequence(0, pageSize-1)}">
+                        <li class="page-item">
+                            <a class="page-link" th:href="@{/images/index(pageIndex=${index})}"
+                               th:text="${index} + 1"></a>
+                        </li>
+                    </div>
+                    <li class="page-item" th:if="${pageNumber} < ${pageSize}  - 1">
+                        <a class="page-link" th:href="@{/images/index(pageIndex=${pageNumber} +1)}">Next</a>
+                    </li>
+                    <li class="page-item" th:unless="${pageNumber} < ${pageSize}  - 1">
+                        <a class="page-link" disabled="true">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
         <div class="row" th:replace="~{layout/footer :: footer}"></div>
     </div>
 </div>

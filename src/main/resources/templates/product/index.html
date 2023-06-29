@@ -103,12 +103,36 @@
                 <td th:text="${pr.personUpdate}">@mdo</td>
                 <td>
                     <a th:href="@{'/product/details/' + ${pr.id}}" class="btn btn-primary">Details</a>
-                    <a th:href="@{'/product/edit/' + ${pr.id}}" class="btn btn-primary">Edit</a>
-                    <a th:href="@{'/product/delete/' + ${pr.id}}" class="btn btn-primary">Delete</a>
+                    <a th:href="@{'/product/edit/' + ${pr.id}}" class="btn btn-warning">Edit</a>
+                    <a th:href="@{'/product/delete/' + ${pr.id}}" class="btn btn-danger">Delete</a>
                 </td>
             </tr>
             </tbody>
         </table>
+    </div>
+    <div class="row">
+        <nav aria-label="Page number example">
+            <ul class="pagination">
+                <li class="page-item" th:if="${pageNumber>0}">
+                    <a class="page-link" th:href="@{/product/index(pageIndex=${pageNumber} -1)}">Previous</a>
+                </li>
+                <li class="page-item" th:unless="${pageNumber>0}">
+                    <a class="page-link" disabled="true">Previous</a>
+                </li>
+                <div th:each="index : ${#numbers.sequence(0, pageSize-1)}">
+                    <li class="page-item">
+                        <a class="page-link" th:href="@{/product/index(pageIndex=${index})}"
+                           th:text="${index} + 1"></a>
+                    </li>
+                </div>
+                <li class="page-item" th:if="${pageNumber} < ${pageSize}  - 1">
+                    <a class="page-link" th:href="@{/product/index(pageIndex=${pageNumber} +1)}">Next</a>
+                </li>
+                <li class="page-item" th:unless="${pageNumber} < ${pageSize}  - 1">
+                    <a class="page-link" disabled="true">Next</a>
+                </li>
+            </ul>
+        </nav>
     </div>
 </div>
 <!--footer start-->

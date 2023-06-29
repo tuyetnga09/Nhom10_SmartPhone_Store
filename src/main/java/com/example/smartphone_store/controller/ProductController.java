@@ -9,6 +9,8 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -35,19 +37,25 @@ public class ProductController {
     private ImagesService imagesService;
 
     @GetMapping(value = "/index")
-    public String index(Model model) {
+    public String index(Model model, @RequestParam(value = "pageIndex", defaultValue = "0") int pageIndex) {
+        Pageable page = PageRequest.of(pageIndex, 5);
         model.addAttribute("product", new Product());
-        model.addAttribute("list_images", this.imagesService.findAll(0));
-        model.addAttribute("list_product", this.productService.selectByStatus(0));
+        model.addAttribute("list_images", this.imagesService.findByStatus(0));
+        model.addAttribute("list_product", this.productService.selectByStatus(0, page).getContent());
+        model.addAttribute("pageSize", this.productService.selectByStatus(0, page).getTotalPages());
+        model.addAttribute("pageNumber", pageIndex);
         return "product/index";
     }
 
     @PostMapping(value = "/store")
-    public String store(Model model, @ModelAttribute @Valid Product product, BindingResult result) {
+    public String store(Model model, @ModelAttribute @Valid Product product, BindingResult result, @RequestParam(value = "pageIndex", defaultValue = "0") int pageIndex) {
         if (result.hasErrors()) {
+            Pageable page = PageRequest.of(pageIndex, 5);
             model.addAttribute("product", product);
-            model.addAttribute("list_images", this.imagesService.findAll(0));
-            model.addAttribute("list_product", this.productService.selectByStatus(0));
+            model.addAttribute("list_images", this.imagesService.findByStatus(0));
+            model.addAttribute("list_product", this.productService.selectByStatus(0, page).getContent());
+            model.addAttribute("pageSize", this.productService.selectByStatus(0, page).getTotalPages());
+            model.addAttribute("pageNumber", pageIndex);
             return "product/index";
         }
         this.productService.save(product);
@@ -55,18 +63,21 @@ public class ProductController {
     }
 
     @GetMapping(value = "/details/{id}")
-    public String details(@PathVariable Long id, Model model){
+    public String details(@PathVariable Long id, Model model, @RequestParam(value = "pageIndex", defaultValue = "0") int pageIndex){
+        Pageable page = PageRequest.of(pageIndex, 5);
         model.addAttribute("product", this.productService.findById(id));
-        model.addAttribute("list_images", this.imagesService.findAll(0));
-        model.addAttribute("list_product", this.productService.selectByStatus(0));
+        model.addAttribute("list_images", this.imagesService.findByStatus(0));
+        model.addAttribute("list_product", this.productService.selectByStatus(0, page).getContent());
+        model.addAttribute("pageSize", this.productService.selectByStatus(0, page).getTotalPages());
+        model.addAttribute("pageNumber", pageIndex);
         return "product/index";
     }
 
     @GetMapping(value = "/edit/{id}")
     public String edit(@PathVariable Long id, Model model){
         model.addAttribute("product", this.productService.findById(id));
-        model.addAttribute("list_images", this.imagesService.findAll(0));
-        model.addAttribute("list_product", this.productService.selectByStatus(0));
+        model.addAttribute("list_images", this.imagesService.findByStatus(0));
+        model.addAttribute("list_product", this.productService.findById(id));
         return "product/edit";
     }
 
