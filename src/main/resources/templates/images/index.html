@@ -64,7 +64,7 @@
                 <tr th:each="im, stave : ${list}">
                     <th scope="row" th:text="${stave.index + 1}">1</th>
                     <td>
-                        <img th:src="@{'/images/' +  ${im.nameImage}}" style="width: 300px; height: 188px"
+                        <img th:src="@{'/images/' +  ${im.nameImage}}" style="width: 100px"
                              alt="Không tìm thấy ảnh!">
                     </td>
                     <td th:text="${im.nameImage}">Otto</td>

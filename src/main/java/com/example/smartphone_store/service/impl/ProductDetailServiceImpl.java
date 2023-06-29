@@ -79,4 +79,19 @@ public class ProductDetailServiceImpl implements ProductDetailService {
     public ProductDetail findByCode(String code) {
         return productDetailRepository.findByCode(code);
     }
+
+    @Override
+    public List<ProductDetail> getTop10NewProductDetail() {
+        return productDetailRepository.getTop10NewProductDetails();
+    }
+
+    @Override
+    public List<ProductDetail> getBestSelling() {
+        return productDetailRepository.getBestSelling();
+    }
+
+    @Override
+    public List<ProductDetail> getLineProductDetail() {
+        return productDetailRepository.getLineProductDetail();
+    }
 }
