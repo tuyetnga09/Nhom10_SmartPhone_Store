@@ -15,7 +15,6 @@ public interface ProductDetailRepository extends JpaRepository<ProductDetail, Lo
     @Query(value = "SELECT Id, Code, Name, DateCreate, Describe , DateUpdate, PersonCreate, PersonUpdate, Status, Id_Capacity, Id_Color, Id_Manufacture, Id_Category, Id_Battery, Id_Chip, Id_Ram, Id_Screen, Id_Product FROM ProductDetail WHERE Status = 0 ORDER BY DateCreate DESC, Id DESC", nativeQuery = true)
     Page<ProductDetail> getPageProductDetails(Pageable pageable);
 
-
     @Query(value = "SELECT Id, Code, Name, DateCreate, Describe , DateUpdate, PersonCreate, PersonUpdate, " +
             " Status, Id_Capacity, Id_Color, Id_Manufacture, Id_Category, Id_Battery, Id_Chip, Id_Ram, Id_Screen, " +
             " Id_Product FROM ProductDetail WHERE Status = 1 ", nativeQuery = true)
@@ -34,5 +33,10 @@ public interface ProductDetailRepository extends JpaRepository<ProductDetail, Lo
     @Query(value = "SELECT Id, Code, Name, DateCreate, Describe , DateUpdate, PersonCreate, PersonUpdate, Status, Id_Capacity, Id_Color, Id_Manufacture, Id_Category, Id_Battery, Id_Chip, Id_Ram, Id_Screen, Id_Product FROM ProductDetail WHERE Status = 0", nativeQuery = true)
     List<ProductDetail> getBestSelling();
 
-    List<ProductDetail> findByProductCode(String productCode);
+    @Query(value = "SELECT Id, Code, Name, DateCreate, Describe , DateUpdate, PersonCreate, PersonUpdate, Status, Id_Capacity, Id_Color, Id_Manufacture, Id_Category, Id_Battery, Id_Chip, Id_Ram, Id_Screen, Id_Product \n" +
+            "FROM ProductDetail WHERE\n" +
+            "Status = 0 ", nativeQuery = true)
+    List<ProductDetail> getLineProductDetail();
+
+    List<ProductDetail> findProductDetailByStatusAndProductId(Integer status, Long id);
 }

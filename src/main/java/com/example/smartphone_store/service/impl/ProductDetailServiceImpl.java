@@ -91,8 +91,12 @@ public class ProductDetailServiceImpl implements ProductDetailService {
     }
 
     @Override
-    public List<ProductDetail> findByProductCode(String productCode) {
-        return productDetailRepository.findByProductCode(productCode);
+    public List<ProductDetail> getLineProductDetail() {
+        return productDetailRepository.getLineProductDetail();
     }
 
+    @Override
+    public List<ProductDetail> findProductDetailByStatusAndProductId(Integer status, Long id) {
+        return productDetailRepository.findProductDetailByStatusAndProductId(status, id);
+    }
 }
