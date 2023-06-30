@@ -1,6 +1,7 @@
 package com.example.smartphone_store.repository;
 
 import com.example.smartphone_store.entity.Battery;
+import com.example.smartphone_store.entity.Category;
 import com.example.smartphone_store.entity.Chip;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,4 +22,5 @@ public interface ChipRepository extends JpaRepository<Chip, Long> {
             " PersonUpdate LIKE %?1%) AND Status = 0)", nativeQuery = true)
     Page<Chip> viewSearchAllChip(String search, Pageable pageable);
 
+    Chip findByCode(String code);
 }

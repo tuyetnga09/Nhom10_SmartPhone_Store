@@ -1,6 +1,7 @@
 package com.example.smartphone_store.controller;
 
 import com.example.smartphone_store.entity.Battery;
+import com.example.smartphone_store.entity.Capacity;
 import com.example.smartphone_store.entity.Chip;
 import com.example.smartphone_store.service.BatteryService;
 import com.example.smartphone_store.service.ChipService;
@@ -129,32 +130,44 @@ public class ChipController {
         try {
             InputStream inputStream = file.getInputStream();
             Workbook workbook = new XSSFWorkbook(inputStream);
-            Sheet sheet = workbook.getSheetAt(0); // Dữ liệu nằm trong sheet dầu tiên
+            Sheet sheet = workbook.getSheetAt(0); // Dữ liệu nằm trong sheet đầu tiên
 
             for (Row row : sheet) {
                 if (row.getRowNum() == 0) {
                     continue; // Bỏ qua header
                 }
 
-                Chip chip = new Chip();
-                chip.setCode(row.getCell(0).getStringCellValue());
-                chip.setName(row.getCell(1).getStringCellValue());
-                chip.setDateCreate(LocalDate.now());
-                chip.setDateUpdate(LocalDate.now());
-                chip.setPersonCreate(row.getCell(2).getStringCellValue());
-                chip.setPersonUpdate(row.getCell(3).getStringCellValue());
-                chip.setStatus(0);
-                chipService.addChip(chip);
+                String code = row.getCell(0).getStringCellValue();
+                Chip chip = chipService.findByCode(code);
+
+                if (chip != null) {
+                    // Battery đã tồn tại, cập nhật thông tin
+                    chip.setName(row.getCell(1).getStringCellValue());
+                    chip.setDateUpdate(LocalDate.now());
+                    chip.setPersonUpdate(row.getCell(3).getStringCellValue());
+                    chipService.updateChip(chip);
+                } else {
+                    // Battery chưa tồn tại, thêm mới
+                    Chip newChip = new Chip();
+                    newChip.setCode(code);
+                    newChip.setName(row.getCell(1).getStringCellValue());
+                    newChip.setDateCreate(LocalDate.now());
+                    newChip.setDateUpdate(LocalDate.now());
+                    newChip.setPersonCreate(row.getCell(2).getStringCellValue());
+                    newChip.setPersonUpdate(row.getCell(3).getStringCellValue());
+                    newChip.setStatus(0);
+                    chipService.addChip(newChip);
+                }
             }
+
             workbook.close();
 
-            model.addAttribute("messageUpload", "Du lieu duoc them thanh cong");
+            model.addAttribute("messageUpload", "Dữ liệu được thêm thành công");
             return "redirect:/chip/display";
         } catch (IOException e) {
             e.printStackTrace();
-            model.addAttribute("error", "Du lieu them khong thanh cong");
+            model.addAttribute("error", "Dữ liệu thêm không thành công");
             return "redirect:/chip/display";
         }
     }
-
 }

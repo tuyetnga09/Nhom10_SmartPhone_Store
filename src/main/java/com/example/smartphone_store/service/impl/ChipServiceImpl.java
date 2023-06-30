@@ -73,4 +73,9 @@ public class ChipServiceImpl implements ChipService {
         Pageable pageable = PageRequest.of(pageNo, size);
         return chipRepository.viewSearchAllChip(search, pageable);
     }
+
+    @Override
+    public Chip findByCode(String code) {
+        return chipRepository.findByCode(code);
+    }
 }

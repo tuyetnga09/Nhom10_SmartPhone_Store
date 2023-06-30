@@ -27,4 +27,5 @@ public interface ChipService {
 
     Page<Chip> viewSearchAllBattery(String search, Integer pageNo, Integer size);
 
+    Chip findByCode(String code);
 }
