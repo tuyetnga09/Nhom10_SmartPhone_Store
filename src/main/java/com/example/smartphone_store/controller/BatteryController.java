@@ -128,33 +128,45 @@ public class BatteryController {
         try {
             InputStream inputStream = file.getInputStream();
             Workbook workbook = new XSSFWorkbook(inputStream);
-            Sheet sheet = workbook.getSheetAt(0); // Dữ liệu nằm trong sheet dầu tiên
+            Sheet sheet = workbook.getSheetAt(0); // Dữ liệu nằm trong sheet đầu tiên
 
             for (Row row : sheet) {
                 if (row.getRowNum() == 0) {
                     continue; // Bỏ qua header
                 }
 
-                Battery battery = new Battery();
-                battery.setCode(row.getCell(0).getStringCellValue());
-                battery.setName(row.getCell(1).getStringCellValue());
-                battery.setDateCreate(LocalDate.now());
-                battery.setDateUpdate(LocalDate.now());
-                battery.setPersonCreate(row.getCell(2).getStringCellValue());
-                battery.setPersonUpdate(row.getCell(3).getStringCellValue());
-                battery.setStatus(0);
-                batteryService.addBattery(battery);
+                String code = row.getCell(0).getStringCellValue();
+                Battery existingBattery = batteryService.findByCode(code);
+
+                if (existingBattery != null) {
+                    // Battery đã tồn tại, cập nhật thông tin
+                    existingBattery.setName(row.getCell(1).getStringCellValue());
+                    existingBattery.setDateUpdate(LocalDate.now());
+                    existingBattery.setPersonUpdate(row.getCell(3).getStringCellValue());
+                    batteryService.updateBattery(existingBattery);
+                } else {
+                    // Battery chưa tồn tại, thêm mới
+                    Battery newBattery = new Battery();
+                    newBattery.setCode(code);
+                    newBattery.setName(row.getCell(1).getStringCellValue());
+                    newBattery.setDateCreate(LocalDate.now());
+                    newBattery.setDateUpdate(LocalDate.now());
+                    newBattery.setPersonCreate(row.getCell(2).getStringCellValue());
+                    newBattery.setPersonUpdate(row.getCell(3).getStringCellValue());
+                    newBattery.setStatus(0);
+                    batteryService.addBattery(newBattery);
+                }
             }
+
             workbook.close();
 
-            model.addAttribute("messageUpload", "Du lieu duoc them thanh cong");
+            model.addAttribute("messageUpload", "Dữ liệu được thêm thành công");
             return "redirect:/battery/display";
         } catch (IOException e) {
             e.printStackTrace();
-            model.addAttribute("error", "Du lieu them khong thanh cong");
+            model.addAttribute("error", "Dữ liệu thêm không thành công");
             return "redirect:/battery/display";
         }
     }
-
 
 }

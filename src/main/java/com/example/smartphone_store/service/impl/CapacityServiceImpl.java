@@ -77,4 +77,9 @@ public class CapacityServiceImpl implements CapacityService {
     public void delete(Integer id) {
         capacityRepository.deleteById(id);
     }
+
+    @Override
+    public Capacity findByCode(String code) {
+        return capacityRepository.findByCode(code);
+    }
 }

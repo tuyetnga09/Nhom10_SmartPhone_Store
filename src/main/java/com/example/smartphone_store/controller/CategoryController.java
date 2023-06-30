@@ -128,38 +128,44 @@ public class CategoryController {
         try {
             InputStream inputStream = file.getInputStream();
             Workbook workbook = new XSSFWorkbook(inputStream);
-            Sheet sheet = workbook.getSheetAt(0); // Dữ liệu nằm trong sheet dầu tiên
+            Sheet sheet = workbook.getSheetAt(0); // Dữ liệu nằm trong sheet đầu tiên
 
             for (Row row : sheet) {
                 if (row.getRowNum() == 0) {
                     continue; // Bỏ qua header
                 }
 
-                Category category = new Category();
-                category.setCode(row.getCell(0).getStringCellValue());
-                category.setName(row.getCell(1).getStringCellValue());
-                category.setDateCreate(LocalDate.now());
-                category.setDateUpdate(LocalDate.now());
-                category.setPersonCreate(row.getCell(2).getStringCellValue());
-                category.setPersonUpdate(row.getCell(3).getStringCellValue());
-                category.setStatus(0);
+                String code = row.getCell(0).getStringCellValue();
+                Category category = categoryService.findByCode(code);
 
-//                if (capacityRepository.existsByCode(capacity.getCode())) {
-//                    model.addAttribute("error", "Duplicate code: " + capacity.getCode());
-//                    return "error";
-//                }
-
-                categoryService.addCategory(category);
+                if (category != null) {
+                    // Battery đã tồn tại, cập nhật thông tin
+                    category.setName(row.getCell(1).getStringCellValue());
+                    category.setDateUpdate(LocalDate.now());
+                    category.setPersonUpdate(row.getCell(3).getStringCellValue());
+                    categoryService.updateCategory(category);
+                } else {
+                    // Battery chưa tồn tại, thêm mới
+                    Category newCategory = new Category();
+                    newCategory.setCode(code);
+                    newCategory.setName(row.getCell(1).getStringCellValue());
+                    newCategory.setDateCreate(LocalDate.now());
+                    newCategory.setDateUpdate(LocalDate.now());
+                    newCategory.setPersonCreate(row.getCell(2).getStringCellValue());
+                    newCategory.setPersonUpdate(row.getCell(3).getStringCellValue());
+                    newCategory.setStatus(0);
+                    categoryService.addCategory(newCategory);
+                }
             }
+
             workbook.close();
 
-            model.addAttribute("messageUpload", "Du lieu duoc them thanh cong");
+            model.addAttribute("messageUpload", "Dữ liệu được thêm thành công");
             return "redirect:/category/display";
         } catch (IOException e) {
             e.printStackTrace();
-            model.addAttribute("error", "Du lieu them khong thanh cong");
+            model.addAttribute("error", "Dữ liệu thêm không thành công");
             return "redirect:/category/display";
-//            return "/capacity/capacities";
         }
     }
 

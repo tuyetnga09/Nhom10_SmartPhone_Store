@@ -75,4 +75,9 @@ public class BatterServiceImpl implements BatteryService {
         Pageable pageable = PageRequest.of(pageNo, size);
         return batteryRepository.viewSeachAllBattery(seach, pageable);
     }
+
+    @Override
+    public Battery findByCode(String code) {
+        return batteryRepository.findByCode(code);
+    }
 }

@@ -1,6 +1,7 @@
 package com.example.smartphone_store.repository;
 
 import com.example.smartphone_store.entity.Battery;
+import com.example.smartphone_store.entity.ProductDetail;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -19,5 +20,7 @@ public interface BatteryRepository extends JpaRepository<Battery, Long> {
             " DateCreate LIKE %?1% OR DateUpdate LIKE %?1% OR PersonCreate LIKE %?1% OR" +
             " PersonUpdate LIKE %?1%) AND Status = 0)", nativeQuery = true)
     Page<Battery> viewSeachAllBattery(String seach, Pageable pageable);
+
+    Battery findByCode(String code);
 
 }

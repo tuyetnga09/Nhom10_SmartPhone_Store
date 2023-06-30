@@ -1,5 +1,6 @@
 package com.example.smartphone_store.controller;
 
+import com.example.smartphone_store.entity.Battery;
 import com.example.smartphone_store.entity.Capacity;
 import com.example.smartphone_store.service.CapacityService;
 import jakarta.validation.Valid;
@@ -128,44 +129,44 @@ public class CapacityController {
         try {
             InputStream inputStream = file.getInputStream();
             Workbook workbook = new XSSFWorkbook(inputStream);
-            Sheet sheet = workbook.getSheetAt(0); // Dữ liệu nằm trong sheet dầu tiên
-
-//            int addedCount = 0;
-//            int skippedCount = 0;
+            Sheet sheet = workbook.getSheetAt(0); // Dữ liệu nằm trong sheet đầu tiên
 
             for (Row row : sheet) {
                 if (row.getRowNum() == 0) {
                     continue; // Bỏ qua header
                 }
 
-                Capacity capacity = new Capacity();
-                capacity.setCode(row.getCell(0).getStringCellValue());
-                capacity.setName(row.getCell(1).getStringCellValue());
-                capacity.setDateCreate(LocalDate.now());
-                capacity.setDateUpdate(LocalDate.now());
-                capacity.setPersonCreate(row.getCell(2).getStringCellValue());
-                capacity.setPersonUpdate(row.getCell(3).getStringCellValue());
-                capacity.setStatus(0);
+                String code = row.getCell(0).getStringCellValue();
+                Capacity existingCapacity = capacityService.findByCode(code);
 
-
-//                if (capacityRepository.existsByCode(capacity.getCode())) {
-//                    skippedCount++;
-//                    continue;
-//                }
-
-                capacityService.addCapacity(capacity);
-//                addedCount++;
+                if (existingCapacity != null) {
+                    // Battery đã tồn tại, cập nhật thông tin
+                    existingCapacity.setName(row.getCell(1).getStringCellValue());
+                    existingCapacity.setDateUpdate(LocalDate.now());
+                    existingCapacity.setPersonUpdate(row.getCell(3).getStringCellValue());
+                    capacityService.updateCapacity(existingCapacity);
+                } else {
+                    // Battery chưa tồn tại, thêm mới
+                    Capacity newCapacity = new Capacity();
+                    newCapacity.setCode(code);
+                    newCapacity.setName(row.getCell(1).getStringCellValue());
+                    newCapacity.setDateCreate(LocalDate.now());
+                    newCapacity.setDateUpdate(LocalDate.now());
+                    newCapacity.setPersonCreate(row.getCell(2).getStringCellValue());
+                    newCapacity.setPersonUpdate(row.getCell(3).getStringCellValue());
+                    newCapacity.setStatus(0);
+                    capacityService.addCapacity(newCapacity);
+                }
             }
+
             workbook.close();
 
-            model.addAttribute("messageUpload", "Du lieu duoc them thanh cong");
+            model.addAttribute("messageUpload", "Dữ liệu được thêm thành công");
             return "redirect:/capacity/display";
         } catch (IOException e) {
             e.printStackTrace();
-            model.addAttribute("error", "Du lieu them khong thanh cong");
+            model.addAttribute("error", "Dữ liệu thêm không thành công");
             return "redirect:/capacity/display";
-//            return "/capacity/capacities";
         }
     }
-
 }

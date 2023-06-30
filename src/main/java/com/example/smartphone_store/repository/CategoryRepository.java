@@ -18,4 +18,6 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
 
     @Query(value = "SELECT Id, Code, Name, DateCreate, DateUpdate, PersonCreate, PersonUpdate, Status FROM Category WHERE Code LIKE %?1% OR Name LIKE %?1% OR DateCreate LIKE %?1% OR DateUpdate LIKE %?1% OR PersonCreate LIKE %?1% OR PersonUpdate LIKE %?1% AND Status = 0", nativeQuery = true)
     Page<Category> searchCategory(String search, Pageable pageable);
+
+    Category findByCode(String code);
 }

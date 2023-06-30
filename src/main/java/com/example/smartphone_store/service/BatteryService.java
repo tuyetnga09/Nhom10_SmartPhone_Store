@@ -2,6 +2,7 @@ package com.example.smartphone_store.service;
 
 import com.example.smartphone_store.entity.Battery;
 import com.example.smartphone_store.entity.Capacity;
+import com.example.smartphone_store.entity.ProductDetail;
 import com.example.smartphone_store.entity.Ram;
 import org.springframework.data.domain.Page;
 
@@ -28,4 +29,5 @@ public interface BatteryService {
 
     Page<Battery> viewSeachAllBattery(String seach, Integer pageNo, Integer size);
 
+    Battery findByCode(String code);
 }

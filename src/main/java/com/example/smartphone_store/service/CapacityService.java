@@ -1,5 +1,6 @@
 package com.example.smartphone_store.service;
 
+import com.example.smartphone_store.entity.Battery;
 import com.example.smartphone_store.entity.Capacity;
 import org.springframework.data.domain.Page;
 
@@ -25,4 +26,6 @@ public interface CapacityService {
     Capacity getOne(Integer id);
 
     void delete(Integer id);
+
+    Capacity findByCode(String code);
 }

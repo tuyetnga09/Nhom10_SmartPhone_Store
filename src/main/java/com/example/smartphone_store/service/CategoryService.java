@@ -1,5 +1,6 @@
 package com.example.smartphone_store.service;
 
+import com.example.smartphone_store.entity.Capacity;
 import com.example.smartphone_store.entity.Category;
 import org.springframework.data.domain.Page;
 
@@ -25,4 +26,6 @@ public interface CategoryService {
     Category getOne(Integer id);
 
     void delete(Integer id);
+
+    Category findByCode(String code);
 }
