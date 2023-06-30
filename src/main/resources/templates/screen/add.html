@@ -64,34 +64,6 @@
                         th:field="*{personCreate}"
                 />
             </div>
-            <div class="input-group mb-3">
-            <span class="input-group-text" id="inputGroup-sizing-default"
-            >Person Update</span
-            >
-                <input
-                        type="text"
-                        class="form-control"
-                        aria-label="Sizing example input"
-                        aria-describedby="inputGroup-sizing-default"
-                        th:field="*{personUpdate}"
-                />
-            </div>
-            <div class="input-group mb-3">
-            <span class="input-group-text" id="inputGroup-sizing-default"
-            >Status</span>
-                <input
-                        type="radio"
-                        name="status"
-                        value="0"
-                        th:field="*{status}"
-                />Hoạt Động
-                <input
-                        type="radio"
-                        name="status"
-                        value="1"
-                        th:field="*{status}"
-                />Không Hoạt Động
-            </div>
             <button type="submit" class="btn btn-primary" onclick="return confirmAdd()">Add</button>
 <!--            <a href="color-view-add.html" role="button" class="btn btn-success"-->
 <!--            >Add</a-->
