@@ -53,7 +53,7 @@ public class ProductService implements IProduct {
 
     @Override
     public List<Product> getLineProduct() {
-        return repository.getLineProduct();
+        return null;
     }
 
 }
