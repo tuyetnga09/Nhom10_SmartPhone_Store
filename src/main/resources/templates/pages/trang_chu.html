@@ -33,7 +33,9 @@
                         <div class="sidebar_widget catrgorie mb-35">
                             <h3>THỂ LOẠI</h3>
                             <ul th:each="pr : ${productList}">
-                                <a th:href="@{/product/{id}(id=${pr.id})}"><i class="fa fa-caret-right"></i><span th:text="${pr.name}"></span></a>
+                                <a th:href="@{/product/{id}(id=${pr.id})}"><i class="fa fa-caret-right"></i><span
+                                        th:text="${pr.name}"
+                                        style="color: white; margin-left: 20px; font-size: 17px"></span></a>
                             </ul>
                         </div>
                         <!--categorie menu end-->
