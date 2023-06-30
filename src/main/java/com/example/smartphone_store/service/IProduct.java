@@ -1,6 +1,7 @@
 package com.example.smartphone_store.service;
 
 import com.example.smartphone_store.entity.Product;
+import com.example.smartphone_store.entity.ProductDetail;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -22,4 +23,5 @@ public interface IProduct {
 
     List<Product> getAll();
 
+    List<Product> getLineProduct();
 }

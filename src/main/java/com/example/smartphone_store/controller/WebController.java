@@ -1,6 +1,9 @@
 package com.example.smartphone_store.controller;
 
+import com.example.smartphone_store.entity.Product;
 import com.example.smartphone_store.entity.ProductDetail;
+import com.example.smartphone_store.repository.ProductRepository;
+import com.example.smartphone_store.service.IProduct;
 import com.example.smartphone_store.service.ProductDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +18,8 @@ import java.util.stream.Collectors;
 public class WebController {
     @Autowired
     private ProductDetailService productDetailService;
+    @Autowired
+    private IProduct productService;
 
     @GetMapping("/home")
     public String home(Model model){
@@ -24,8 +29,8 @@ public class WebController {
         List<ProductDetail> listBestSelling = productDetailService.getBestSelling();
         model.addAttribute("bestSelling", listBestSelling);
 
-        List<ProductDetail> listLineProductDetail = productDetailService.getLineProductDetail();
-        model.addAttribute("lineProductDetail", listLineProductDetail);
+        List<Product> listLineProduct = productService.getLineProduct();
+        model.addAttribute("lineProduct", listLineProduct);
 
         return "pages/trang_chu";
     }

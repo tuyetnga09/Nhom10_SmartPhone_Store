@@ -51,4 +51,9 @@ public class ProductService implements IProduct {
         return repository.findAll();
     }
 
+    @Override
+    public List<Product> getLineProduct() {
+        return repository.getLineProduct();
+    }
+
 }

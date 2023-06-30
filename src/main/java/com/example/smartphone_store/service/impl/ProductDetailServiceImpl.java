@@ -90,12 +90,6 @@ public class ProductDetailServiceImpl implements ProductDetailService {
         return productDetailRepository.getBestSelling();
     }
 
-
-    @Override
-    public List<ProductDetail> getLineProductDetail() {
-        return productDetailRepository.getLineProductDetail();
-    }
-
     @Override
     public List<ProductDetail> findByProductCode(String productCode) {
         return productDetailRepository.findByProductCode(productCode);

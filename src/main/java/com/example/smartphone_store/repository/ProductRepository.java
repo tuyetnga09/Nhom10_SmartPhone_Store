@@ -1,6 +1,7 @@
 package com.example.smartphone_store.repository;
 
 import com.example.smartphone_store.entity.Product;
+import com.example.smartphone_store.entity.ProductDetail;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -24,5 +25,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Modifying
     @Query("update Product set status = 1 where id = ?1")
     void delete(Long id);
+
+    @Query(value = "SELECT Id, Code, Name,ImportPrice, Price, Quantity,DateCreate, DateUpdate, PersonCreate, PersonUpdate, Status, Id_Images FROM Product WHERE Status = 0", nativeQuery = true)
+    List<Product> getLineProduct();
 
 }
