@@ -33,4 +33,6 @@ public interface ProductDetailService {
     List<ProductDetail> getBestSelling();
 
     List<ProductDetail> getLineProductDetail();
+
+    List<ProductDetail> findByProductCode(String productCode);
 }
