@@ -76,4 +76,9 @@ public class SizeServiceImpl implements SizeService {
         Pageable pageable = PageRequest.of(pageNo, size);
         return sizeRepository.viewSeachAllRam(seach, pageable);
     }
+
+    @Override
+    public Size findByCode(String code) {
+        return sizeRepository.findByCode(code);
+    }
 }

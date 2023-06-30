@@ -1,6 +1,7 @@
 package com.example.smartphone_store.service;
 
 
+import com.example.smartphone_store.entity.Capacity;
 import com.example.smartphone_store.entity.Ram;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,5 +28,7 @@ public interface RamService {
     Page<Ram> viewShowActivityRam(Integer status, Integer pageNo, Integer size);
 
     Page<Ram> viewSeachAllRam(String seach, Integer pageNo, Integer size);
+
+    Ram findByCode(String code);
 
 }

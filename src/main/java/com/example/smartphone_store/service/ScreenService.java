@@ -1,5 +1,6 @@
 package com.example.smartphone_store.service;
 
+import com.example.smartphone_store.entity.Ram;
 import com.example.smartphone_store.entity.Screen;
 import org.springframework.data.domain.Page;
 
@@ -26,4 +27,7 @@ public interface ScreenService {
     Page<Screen> viewShowActivityScreen(Integer status, Integer pageNo, Integer size);
 
     Page<Screen> viewSeachAllScreen(String seach, Integer pageNo, Integer size);
+
+    Screen findByCode(String code);
+
 }

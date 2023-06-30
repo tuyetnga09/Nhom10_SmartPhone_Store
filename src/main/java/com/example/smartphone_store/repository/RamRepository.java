@@ -1,5 +1,6 @@
 package com.example.smartphone_store.repository;
 
+import com.example.smartphone_store.entity.Capacity;
 import com.example.smartphone_store.entity.Ram;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,5 +18,8 @@ public interface RamRepository extends JpaRepository<Ram, Long> {
             " DateCreate LIKE %?1% OR DateUpdate LIKE %?1% OR PersonCreate LIKE %?1% OR" +
             " PersonUpdate LIKE %?1%) AND Status = 0)", nativeQuery = true)
     Page<Ram> viewSeachAllRam(String seach, Pageable pageable);
+
+    Ram findByCode(String code);
+
 
 }

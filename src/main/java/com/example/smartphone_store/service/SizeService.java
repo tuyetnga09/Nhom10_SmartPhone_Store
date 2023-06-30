@@ -1,5 +1,6 @@
 package com.example.smartphone_store.service;
 
+import com.example.smartphone_store.entity.Screen;
 import com.example.smartphone_store.entity.Size;
 import org.springframework.data.domain.Page;
 
@@ -26,4 +27,7 @@ public interface SizeService {
     Page<Size> viewShowActivitySize(Integer status, Integer pageNo, Integer size);
 
     Page<Size> viewSeachAllSize(String seach, Integer pageNo, Integer size);
+
+    Size findByCode(String code);
+
 }

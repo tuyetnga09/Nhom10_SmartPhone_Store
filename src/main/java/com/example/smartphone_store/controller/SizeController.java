@@ -1,5 +1,6 @@
 package com.example.smartphone_store.controller;
 
+import com.example.smartphone_store.entity.Ram;
 import com.example.smartphone_store.entity.Screen;
 import com.example.smartphone_store.entity.Size;
 import com.example.smartphone_store.service.SizeService;
@@ -153,15 +154,27 @@ public class SizeController {
                     continue; // Bỏ qua header
                 }
 
-                Size size = new Size();
-                size.setCode(row.getCell(0).getStringCellValue());
-                size.setName(row.getCell(1).getStringCellValue());
-                size.setDateCreate(LocalDate.now());
-                size.setDateUpdate(LocalDate.now());
-                size.setPersonCreate(row.getCell(2).getStringCellValue());
-                size.setPersonUpdate(row.getCell(3).getStringCellValue());
-                size.setStatus(0);
-                sizeService.save(size);
+                String code = row.getCell(0).getStringCellValue();
+                Size existingSize = sizeService.findByCode(code);
+
+                if (existingSize != null) {
+                    // Size đã tồn tại, cập nhật thông tin
+                    existingSize.setName(row.getCell(1).getStringCellValue());
+                    existingSize.setDateUpdate(LocalDate.now());
+                    existingSize.setPersonUpdate(row.getCell(3).getStringCellValue());
+                    sizeService.update(existingSize);
+                } else {
+                    // Size chưa tồn tại, thêm mới
+                    Size size = new Size();
+                    size.setCode(row.getCell(0).getStringCellValue());
+                    size.setName(row.getCell(1).getStringCellValue());
+                    size.setDateCreate(LocalDate.now());
+                    size.setDateUpdate(LocalDate.now());
+                    size.setPersonCreate(row.getCell(2).getStringCellValue());
+                    size.setPersonUpdate(row.getCell(3).getStringCellValue());
+                    size.setStatus(0);
+                    sizeService.save(size);
+                }
             }
             workbook.close();
 

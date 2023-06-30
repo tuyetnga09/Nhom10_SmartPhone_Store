@@ -1,6 +1,7 @@
 package com.example.smartphone_store.controller;
 
 import com.example.smartphone_store.entity.Battery;
+import com.example.smartphone_store.entity.Capacity;
 import com.example.smartphone_store.entity.Ram;
 import com.example.smartphone_store.service.RamService;
 import jakarta.validation.Valid;
@@ -155,15 +156,27 @@ public class RamController {
                     continue; // Bỏ qua header
                 }
 
-                Ram ram = new Ram();
-                ram.setCode(row.getCell(0).getStringCellValue());
-                ram.setName(row.getCell(1).getStringCellValue());
-                ram.setDateCreate(LocalDate.now());
-                ram.setDateUpdate(LocalDate.now());
-                ram.setPersonCreate(row.getCell(2).getStringCellValue());
-                ram.setPersonUpdate(row.getCell(3).getStringCellValue());
-                ram.setStatus(0);
-                ramService.save(ram);
+                String code = row.getCell(0).getStringCellValue();
+                Ram existingRam = ramService.findByCode(code);
+
+                if (existingRam != null) {
+                    // Ram đã tồn tại, cập nhật thông tin
+                    existingRam.setName(row.getCell(1).getStringCellValue());
+                    existingRam.setDateUpdate(LocalDate.now());
+                    existingRam.setPersonUpdate(row.getCell(3).getStringCellValue());
+                    ramService.update(existingRam);
+                } else {
+                    // Ram chưa tồn tại, thêm mới
+                    Ram ram = new Ram();
+                    ram.setCode(row.getCell(0).getStringCellValue());
+                    ram.setName(row.getCell(1).getStringCellValue());
+                    ram.setDateCreate(LocalDate.now());
+                    ram.setDateUpdate(LocalDate.now());
+                    ram.setPersonCreate(row.getCell(2).getStringCellValue());
+                    ram.setPersonUpdate(row.getCell(3).getStringCellValue());
+                    ram.setStatus(0);
+                    ramService.save(ram);
+                }
             }
             workbook.close();
 

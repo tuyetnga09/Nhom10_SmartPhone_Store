@@ -79,4 +79,9 @@ public class RamServiceImpl implements RamService {
         Pageable pageable = PageRequest.of(pageNo, size);
         return ramRepository.viewSeachAllRam(seach, pageable);
     }
+
+    @Override
+    public Ram findByCode(String code) {
+        return ramRepository.findByCode(code);
+    }
 }

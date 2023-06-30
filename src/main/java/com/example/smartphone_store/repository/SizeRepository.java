@@ -1,5 +1,6 @@
 package com.example.smartphone_store.repository;
 
+import com.example.smartphone_store.entity.Screen;
 import com.example.smartphone_store.entity.Size;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,4 +19,7 @@ public interface SizeRepository extends JpaRepository<Size, Long> {
             " DateCreate LIKE %?1% OR DateUpdate LIKE %?1% OR PersonCreate LIKE %?1% OR" +
             " PersonUpdate LIKE %?1%) AND Status = 0)", nativeQuery = true)
     Page<Size> viewSeachAllRam(String seach, Pageable pageable);
+
+    Size findByCode(String code);
+
 }

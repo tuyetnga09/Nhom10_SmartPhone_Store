@@ -153,15 +153,27 @@ public class ScreenController {
                     continue; // Bỏ qua header
                 }
 
-                Screen screen = new Screen();
-                screen.setCode(row.getCell(0).getStringCellValue());
-                screen.setName(row.getCell(1).getStringCellValue());
-                screen.setDateCreate(LocalDate.now());
-                screen.setDateUpdate(LocalDate.now());
-                screen.setPersonCreate(row.getCell(2).getStringCellValue());
-                screen.setPersonUpdate(row.getCell(3).getStringCellValue());
-                screen.setStatus(0);
-                screenService.save(screen);
+                String code = row.getCell(0).getStringCellValue();
+                Screen existingScreen = screenService.findByCode(code);
+
+                if (existingScreen != null) {
+                    // Screen đã tồn tại, cập nhật thông tin
+                    existingScreen.setName(row.getCell(1).getStringCellValue());
+                    existingScreen.setDateUpdate(LocalDate.now());
+                    existingScreen.setPersonUpdate(row.getCell(3).getStringCellValue());
+                    screenService.update(existingScreen);
+                } else {
+                    // Screen chưa tồn tại, thêm mới
+                    Screen screen = new Screen();
+                    screen.setCode(row.getCell(0).getStringCellValue());
+                    screen.setName(row.getCell(1).getStringCellValue());
+                    screen.setDateCreate(LocalDate.now());
+                    screen.setDateUpdate(LocalDate.now());
+                    screen.setPersonCreate(row.getCell(2).getStringCellValue());
+                    screen.setPersonUpdate(row.getCell(3).getStringCellValue());
+                    screen.setStatus(0);
+                    screenService.save(screen);
+                }
             }
             workbook.close();
 

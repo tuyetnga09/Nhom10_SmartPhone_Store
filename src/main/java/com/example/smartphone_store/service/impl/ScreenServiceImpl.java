@@ -76,4 +76,9 @@ public class ScreenServiceImpl implements ScreenService {
         Pageable pageable = PageRequest.of(pageNo, size);
         return screenRepository.viewSeachAllScreen(seach, pageable);
     }
+
+    @Override
+    public Screen findByCode(String code) {
+        return screenRepository.findByCode(code);
+    }
 }
