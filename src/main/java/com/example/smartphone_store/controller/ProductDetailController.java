@@ -94,6 +94,7 @@ public class ProductDetailController {
         model.addAttribute("product", productService.getAll());
         return "/productDetail/productDetail-view-add";
     }
+
     @PostMapping("add")
     public String addProductDetail(Model model, @ModelAttribute("proDetail") ProductDetail productDetail,
                                    @RequestParam(value = "imeiFile", required = false) MultipartFile imeiFile) {
@@ -156,48 +157,123 @@ public class ProductDetailController {
 
     @PostMapping("update")
     public String updateProductDetail(Model model, @Valid @ModelAttribute("proDetail") ProductDetail productDetail,
-                                      BindingResult result, @RequestParam(value = "imeiFile", required = false) MultipartFile imeiFile) {
-        try {
-            int additionalQuantity = 0; // Số lượng bổ sung từ file IMEI
+                                      @RequestParam(value = "imeiFile", required = false) MultipartFile imeiFile, BindingResult result) {
 
+        //Lưu ý: khi update phải kiểm tra imei đó đã tồn tại trên dòng sản phẩm khác chưa
+        //       kiểm tra mã imei có sai, vượt quá ký tự trong sql hay không
+        try {
+            int quantity = 0; // Số lượng bổ sung từ file IMEI
+            List<String> imeis = new ArrayList<>();
             if (imeiFile != null && !imeiFile.isEmpty()) {
                 // Đọc file IMEI và thực hiện các thao tác cập nhật
-                List<String> imeis = ExcelUtil.extractImeisFromExcel(imeiFile);
-                additionalQuantity = imeis.size();
+                imeis = ExcelUtil.extractImeisFromExcel(imeiFile);
             }
 
-            // Lấy sản phẩm từ cơ sở dữ liệu
-            Product product = productDetail.getProduct();
+            //list imei không phải của productDetail update
+            List<CharSequence> listImeifindByIdProductDetail = imeiService.getImeiByIdProductDetail(productDetail.getProduct().getId());
 
-            // Cập nhật số lượng sản phẩm
-            int currentQuantity = product.getQuantity();
-            int updatedQuantity = currentQuantity + additionalQuantity;
-            product.setQuantity(updatedQuantity);
-            productService.update(product);
+            // find ra đối tượng product
+            Product product = productService.findById(productDetail.getProduct().getId());
 
+            // getAll code imei
+            List<CharSequence> imeiList = imeiService.findByCodeImei(productDetail.getProduct().getId());
+
+            //list code imei vượt qua 20 ký tự (tạo list rỗng để tý add vào)
+            List<String> imeiIsBigger = new ArrayList<>();
+
+            //list code imei đã tồn tại trên dòng sp khác (tạo list rỗng để tý add vào)
+            List<Imei> listImeiAlreadyExistsElsewhere = new ArrayList<>();
+
+
+            int listImeisSize = imeis.size();
+            int listSizeImeifindByIdProductDetail = listImeifindByIdProductDetail.size();
+
+            for (int i = 0; i < listImeisSize; i++) {
+                //add imei vượt qua 20 ký tự ra list mới
+                if (imeis.get(i).trim().length() > 20) {
+                    // nếu vượt quá ký tự thì add voà list xong thông báo
+                    imeiIsBigger.add(imeis.get(i));
+                }
+                // kiểm tra imei đã tồn tại trên dòng máy khác hay chưa hay chưa
+                if (imeiIsBigger.isEmpty()) {
+                    if (listImeifindByIdProductDetail.contains(imeis.get(i).trim())) {
+                        //nếu trùng thì add imei đó vào list xong thông báo
+                        List<Imei> findImei = imeiService.findByCode(imeis.get(i).trim());
+                            listImeiAlreadyExistsElsewhere.add(findImei.get(0));
+                    }
+                }
+            }
+            System.out.println(listImeiAlreadyExistsElsewhere.size()+" =======================>" +listImeiAlreadyExistsElsewhere.toString());
+
+            //nếu thoả mãn điều kiện thì cho update hoặc add imei mới
+            if (imeiIsBigger.isEmpty() && listImeiAlreadyExistsElsewhere.isEmpty()) {
+                for (int i = 0; i < listImeisSize; i++) {
+                    if (imeis.get(i).trim().isEmpty()){
+                        continue;
+                    }
+                    if (imeiList.contains(imeis.get(i).trim())) {
+                        List<Imei> findImei = imeiService.findByCode(imeis.get(i).trim());
+                        findImei.get(0).setCode(imeis.get(i).trim());
+                        imeiService.update(findImei.get(0));
+                    } else {
+                        quantity = quantity + 1;
+                        Imei newImei = new Imei();
+                        newImei.setCode(imeis.get(i).trim());
+                        newImei.setProductDetail(productDetail);
+                        imeiService.addImei(newImei);
+                    }
+                }
+                // Cập nhật số lượng sản phẩm
+                int currentQuantity = product.getQuantity();
+                int updatedQuantity = currentQuantity + quantity;
+                product.setQuantity(updatedQuantity);
+                productService.update(product);
+
+                // Tiếp tục xử lý cập nhật thông tin sản phẩm
+                if (result.hasErrors()) {
+                    model.addAttribute("proDetail", productDetail);
+                    model.addAttribute("capacities", capacityService.getAll());
+                    model.addAttribute("color", colorService.getAll());
+                    model.addAttribute("manufacturer", manufactureService.getAll());
+                    model.addAttribute("category", categoryService.getAll());
+                    model.addAttribute("battery", batteryService.getAll());
+                    model.addAttribute("chip", chipService.getAll());
+                    model.addAttribute("ram", ramService.getAll());
+                    model.addAttribute("screen", screenService.getAll());
+                    model.addAttribute("product", productService.getAll());
+                    return "productDetail/view-update";
+                }
+                productDetailService.updateProduct(productDetail);
+                return "redirect:/productDetails/display";
+            } else {
+                //các mục trên form
+                model.addAttribute("proDetail", productDetail);
+                model.addAttribute("capacities", capacityService.getAll());
+                model.addAttribute("color", colorService.getAll());
+                model.addAttribute("manufacturer", manufactureService.getAll());
+                model.addAttribute("category", categoryService.getAll());
+                model.addAttribute("battery", batteryService.getAll());
+                model.addAttribute("chip", chipService.getAll());
+                model.addAttribute("ram", ramService.getAll());
+                model.addAttribute("screen", screenService.getAll());
+                model.addAttribute("product", productService.getAll());
+
+                //thông báo lỗi vượt quá 20 ký tự
+                model.addAttribute("errorImeiIsGreaterThan20Characters", !imeiIsBigger.isEmpty());
+                model.addAttribute("listErrorImeiIsGreaterThan20Characters", imeiIsBigger);
+
+                //thông báo lỗi imei đã có trên dòng máy khác
+                model.addAttribute("errorImeiAlreadyExistsElsewhere", !listImeiAlreadyExistsElsewhere.isEmpty());
+                model.addAttribute("listErrorImeiAlreadyExistsElsewhere", listImeiAlreadyExistsElsewhere);
+
+
+                return "productDetail/view-update";
+            }
         } catch (IOException e) {
             e.printStackTrace();
             model.addAttribute("message", "Lỗi khi đọc file IMEI.");
             return "/productDetail/view-update";
         }
-
-        // Tiếp tục xử lý cập nhật thông tin sản phẩm
-        if (result.hasErrors()) {
-            model.addAttribute("proDetail", productDetail);
-            model.addAttribute("capacities", capacityService.getAll());
-            model.addAttribute("color", colorService.getAll());
-            model.addAttribute("manufacturer", manufactureService.getAll());
-            model.addAttribute("category", categoryService.getAll());
-            model.addAttribute("battery", batteryService.getAll());
-            model.addAttribute("chip", chipService.getAll());
-            model.addAttribute("ram", ramService.getAll());
-            model.addAttribute("screen", screenService.getAll());
-            model.addAttribute("product", productService.getAll());
-            return "productDetail/view-update";
-        }
-
-        productDetailService.updateProduct(productDetail);
-        return "redirect:/productDetails/display";
     }
 
 

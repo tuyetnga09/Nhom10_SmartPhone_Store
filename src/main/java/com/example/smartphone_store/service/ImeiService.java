@@ -14,6 +14,15 @@ public interface ImeiService {
 
     void addImei(Imei imei);
 
+    void update(Imei imei);
+
     List<Imei> getAll();
 
+    List<Imei> findByCode(String code);
+
+    List<CharSequence> findByCodeImei(Long idProductDetail);
+
+    // lấy ra list all tất cả các trường imei không phải cua Id_produc cần update để kiểm tra tính tồn tại của mã imei đó
+    // trên dòng sản phẩm khác
+    List<CharSequence> getImeiByIdProductDetail(Long idProductDetail);
 }

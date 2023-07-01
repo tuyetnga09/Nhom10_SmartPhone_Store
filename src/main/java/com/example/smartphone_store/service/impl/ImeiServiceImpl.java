@@ -27,12 +27,38 @@ public class ImeiServiceImpl implements ImeiService {
     public void addImei(Imei imei) {
         imei.setDateAdd(java.time.LocalDate.now());
         imei.setSaleDate(java.time.LocalDate.now());
-        imei.setStatus(1);
+        imei.setStatus(0);
+        imeiRepository.save(imei);
+    }
+
+    @Override
+    public void update(Imei imei) {
+
+
+        imei.setSaleDate(java.time.LocalDate.now());
+        imei.setStatus(0);
         imeiRepository.save(imei);
     }
 
     @Override
     public List<Imei> getAll() {
         return imeiRepository.findAll();
+    }
+
+    @Override
+    public List<Imei> findByCode(String code) {
+        return imeiRepository.findByCode(code);
+    }
+
+    @Override
+    public List<CharSequence> findByCodeImei(Long idProductDetail) {
+        return imeiRepository.findByCodeImei(idProductDetail);
+    }
+
+    // lấy ra list all tất cả các trường imei không phải cua Id_produc cần update để kiểm tra tính tồn tại của mã imei đó
+    // trên dòng sản phẩm khác
+    @Override
+    public List<CharSequence> getImeiByIdProductDetail(Long idProductDetail) {
+        return imeiRepository.getImeiByIdProductDetail(idProductDetail);
     }
 }
