@@ -1,3 +1,5 @@
+DROP DATABASE SMART_PHONE_STORE_N7
+GO 
 CREATE DATABASE SMART_PHONE_STORE_N7
 GO
 USE SMART_PHONE_STORE_N7
@@ -14,8 +16,6 @@ CREATE TABLE Capacity(
     Status INT DEFAULT NULL
 )
 --color 
-SELECT * from ProductDetail
-select * from Color
 CREATE TABLE Color(
     Id bigint PRIMARY KEY IDENTITY(1,1),
     Code NVARCHAR(20) NOT NULL,
@@ -104,19 +104,6 @@ CREATE TABLE Size(
     PersonUpdate  NVARCHAR(200) DEFAULT NULL,
     Status INT DEFAULT NULL
 )
--- Images
-CREATE TABLE Images(
-     Id bigint PRIMARY KEY IDENTITY(1,1),
-     LinkImage NVARCHAR(250) DEFAULT NULL,
-     NameImage NVARCHAR(100) DEFAULT NULL,
-     Describe NVARCHAR(250) DEFAULT NULL,
-      DateCreate DATE DEFAULT NULL,
-    DateUpdate  DATE DEFAULT NULL,
-    PersonCreate NVARCHAR(200) DEFAULT NULL,
-    PersonUpdate  NVARCHAR(200) DEFAULT NULL,
-    Status INT DEFAULT NULL
-)
-
 --Product 
 CREATE TABLE Product(
  Id bigint PRIMARY KEY IDENTITY(1,1),
@@ -129,14 +116,24 @@ CREATE TABLE Product(
     DateUpdate  DATE DEFAULT NULL,
     PersonCreate NVARCHAR(200) DEFAULT NULL,
     PersonUpdate  NVARCHAR(200) DEFAULT NULL,
-    Status INT DEFAULT NULL,
-    Id_Images BIGINT DEFAULT NULL,
-     FOREIGN KEY ( Id_Images) REFERENCES Images(Id)
+    Status INT DEFAULT NULL
 )
+-- Images
+CREATE TABLE Images(
+     Id bigint PRIMARY KEY IDENTITY(1,1),
+     LinkImage NVARCHAR(250) DEFAULT NULL,
+     NameImage NVARCHAR(100) DEFAULT NULL,
+     Describe NVARCHAR(250) DEFAULT NULL,
+      DateCreate DATE DEFAULT NULL,
+    DateUpdate  DATE DEFAULT NULL,
+    PersonCreate NVARCHAR(200) DEFAULT NULL,
+    PersonUpdate  NVARCHAR(200) DEFAULT NULL,
+    Status INT DEFAULT NULL,
+    Id_Product BIGINT DEFAULT NULL,
+   FOREIGN KEY (Id_Product) REFERENCES Product(Id)
+)
+
 -- ProductDetail 
-IF OBJECT_ID('ProductDetail') IS NOT NULL
-DROP TABLE ProductDetail 
-GO
 CREATE TABLE ProductDetail (
     Id bigint PRIMARY KEY IDENTITY(1,1),
     Code NVARCHAR(20) NOT NULL,
@@ -180,145 +177,6 @@ CREATE TABLE Imei(
     Id_ProductDetail BIGINT DEFAULT NULL, 
     FOREIGN KEY (Id_ProductDetail) REFERENCES ProductDetail(Id)
 )
-SELECT * from Product 
-select * from ProductDetail JOIN Product ON ProductDetail.Id = Product.Id
-
-SELECT Id, Code, DateAddded, SaleDate, PersonSale, PersonUpdate, Status, Id_ProductDetail FROM Imei
-select * from ProductDetail
-select * from Imei
-INSERT INTO SMART_PHONE_STORE_N7.dbo.Capacity
-(Code, Name, DateCreate, DateUpdate, PersonCreate, PersonUpdate, Status)
-VALUES('CP1', 'Capacity 1', GETDATE(), GETDATE(), 'Pham Tuyet Nga', 'Nguyen Hong Phong', 1);
-INSERT INTO SMART_PHONE_STORE_N7.dbo.Capacity
-(Code, Name, DateCreate, DateUpdate, PersonCreate, PersonUpdate, Status)
-VALUES('CP2', 'Capacity 2', GETDATE(), GETDATE(), 'Hoang Van Hieu', 'Dieu Thuy', 1);
-INSERT INTO SMART_PHONE_STORE_N7.dbo.Capacity
-(Code, Name, DateCreate, DateUpdate, PersonCreate, PersonUpdate, Status)
-VALUES('CP3', 'Capacity 3', GETDATE(), GETDATE(), 'Tran Cong Minh', 'Nguyen  Trung Hieu', 0);
-
-
-INSERT INTO SMART_PHONE_STORE_N7.dbo.Battery
-(Code, Name, DateCreate, DateUpdate, PersonCreate, PersonUpdate, Status)
-VALUES('BT1', 'Battery',GETDATE(), GETDATE(), 'Tran Cong Minh', 'Nguyen  Trung Hieu', 0);
-INSERT INTO SMART_PHONE_STORE_N7.dbo.Battery
-(Code, Name, DateCreate, DateUpdate, PersonCreate, PersonUpdate, Status)
-VALUES('BT2', 'Battery 2',GETDATE(), GETDATE(),'Hoang Van Hieu', 'Dieu Thuy', 1);
-INSERT INTO SMART_PHONE_STORE_N7.dbo.Battery
-(Code, Name, DateCreate, DateUpdate, PersonCreate, PersonUpdate, Status)
-VALUES('BT3', 'Battery 3',GETDATE(), GETDATE(),'Pham Tuyet Nga', 'Nguyen Hong Phong', 1);
-
-
-INSERT INTO SMART_PHONE_STORE_N7.dbo.Images
-(LinkImage, NameImage, [Describe], DateCreate, DateUpdate, PersonCreate, PersonUpdate, Status)
-VALUES('image1', 'anh_dt1.img', 'Iphone 11 - Mau xanh', GETDATE(), GETDATE(),'Pham Tuyet Nga', 'Nguyen Hong Phong', 1);
-
-
-INSERT INTO SMART_PHONE_STORE_N7.dbo.Product
-(Code, Name, ImportPrice, Price, Quantity, DateCreate, DateUpdate, PersonCreate, PersonUpdate, Status, Id_Images)
-VALUES('Product1', 'Iphone 12', 1500000, 2500000, 30, GETDATE(), GETDATE(),'Pham Tuyet Nga', 'Nguyen Hong Phong', 1, 1);
-INSERT INTO SMART_PHONE_STORE_N7.dbo.Product
-(Code, Name, ImportPrice, Price, Quantity, DateCreate, DateUpdate, PersonCreate, PersonUpdate, Status, Id_Images)
-VALUES('Product2', 'Iphone 13', 2500000, 3500000, 35, GETDATE(), GETDATE(),'Tran Cong Minh', 'Nguyen  Trung Hieu', 0, 1);
-INSERT INTO SMART_PHONE_STORE_N7.dbo.Product
-(Code, Name, ImportPrice, Price, Quantity, DateCreate, DateUpdate, PersonCreate, PersonUpdate, Status, Id_Images)
-VALUES('Product3', 'Iphone 14', 3000000, 3500000, 35, GETDATE(), GETDATE(),'Hoang Van Hieu', 'Dieu Thuy', 1, 1);
-
-INSERT INTO SMART_PHONE_STORE_N7.dbo.Category
-(Code, Name, DateCreate, DateUpdate, PersonCreate, PersonUpdate, Status)
-VALUES('CT1', 'Iphone Japan', GETDATE(), GETDATE(),'Pham Tuyet Nga', 'Nguyen Hong Phong', 1);
-INSERT INTO SMART_PHONE_STORE_N7.dbo.Category
-(Code, Name, DateCreate, DateUpdate, PersonCreate, PersonUpdate, Status)
-VALUES('CT2', 'Iphone China', GETDATE(), GETDATE(),'Tran Cong Minh', 'Nguyen  Trung Hieu', 0);
-INSERT INTO SMART_PHONE_STORE_N7.dbo.Category
-(Code, Name, DateCreate, DateUpdate, PersonCreate, PersonUpdate, Status)
-VALUES('CT3', 'Iphone US', GETDATE(), GETDATE(),'Hoang Van Hieu', 'Dieu Thuy', 1);
-
-INSERT INTO SMART_PHONE_STORE_N7.dbo.Chip
-(Code, Name, DateCreate, DateUpdate, PersonCreate, PersonUpdate, Status)
-VALUES('Chip 1', 'Chip M1',GETDATE(), GETDATE(),'Hoang Van Hieu', 'Dieu Thuy', 1)
-INSERT INTO SMART_PHONE_STORE_N7.dbo.Chip
-(Code, Name, DateCreate, DateUpdate, PersonCreate, PersonUpdate, Status)
-VALUES('Chip 2', 'Chip Intel',GETDATE(), GETDATE(),'Pham Tuyet Nga', 'Nguyen Hong Phong', 1)
-INSERT INTO SMART_PHONE_STORE_N7.dbo.Chip
-(Code, Name, DateCreate, DateUpdate, PersonCreate, PersonUpdate, Status)
-VALUES('Chip 1', 'Chip Pro',GETDATE(), GETDATE(),'Tran Cong Minh', 'Nguyen  Trung Hieu', 0)
-
-INSERT INTO SMART_PHONE_STORE_N7.dbo.Color
-(Code, Name, DateCreate, DateUpdate, PersonCreate, PersonUpdate, Status)
-VALUES('color1', 'Green',GETDATE(), GETDATE(),'Tran Cong Minh', 'Nguyen  Trung Hieu', 0)
-INSERT INTO SMART_PHONE_STORE_N7.dbo.Color
-(Code, Name, DateCreate, DateUpdate, PersonCreate, PersonUpdate, Status)
-VALUES('color2', 'PINK',GETDATE(), GETDATE(),'Pham Tuyet Nga', 'Nguyen Hong Phong', 1)
-INSERT INTO SMART_PHONE_STORE_N7.dbo.Color
-(Code, Name, DateCreate, DateUpdate, PersonCreate, PersonUpdate, Status)
-VALUES('color3', 'Black',GETDATE(), GETDATE(),'Hoang Van Hieu', 'Dieu Thuy', 1)
-
-INSERT INTO SMART_PHONE_STORE_N7.dbo.Ram
-(Code, Name, DateCreate, DateUpdate, PersonCreate, PersonUpdate, Status)
-VALUES('Ram 1', '64G', GETDATE(), GETDATE(),'Hoang Van Hieu', 'Dieu Thuy', 1);
-INSERT INTO SMART_PHONE_STORE_N7.dbo.Ram
-(Code, Name, DateCreate, DateUpdate, PersonCreate, PersonUpdate, Status)
-VALUES('Ram 2', '120G', GETDATE(), GETDATE(),'Tran Cong Minh', 'Nguyen  Trung Hieu', 0);
-INSERT INTO SMART_PHONE_STORE_N7.dbo.Ram
-(Code, Name, DateCreate, DateUpdate, PersonCreate, PersonUpdate, Status)
-VALUES('Ram 3', '250G', GETDATE(), GETDATE(),'Pham Tuyet Nga', 'Nguyen Hong Phong', 1);
-
-
-INSERT INTO SMART_PHONE_STORE_N7.dbo.Manufacture
-(Code, Name, DateCreate, DateUpdate, PersonCreate, PersonUpdate, Status)
-VALUES('MN1', 'Manufacture 1', GETDATE(), GETDATE(),'Pham Tuyet Nga', 'Nguyen Hong Phong', 1);
-INSERT INTO SMART_PHONE_STORE_N7.dbo.Manufacture
-(Code, Name, DateCreate, DateUpdate, PersonCreate, PersonUpdate, Status)
-VALUES('MN2', 'Manufacture 2', GETDATE(), GETDATE(),'Tran Cong Minh', 'Nguyen  Trung Hieu', 0)
-INSERT INTO SMART_PHONE_STORE_N7.dbo.Manufacture
-(Code, Name, DateCreate, DateUpdate, PersonCreate, PersonUpdate, Status)
-VALUES('MN3', 'Manufacture 3', GETDATE(), GETDATE(),'Hoang Van Hieu', 'Dieu Thuy', 1);
-
-
-INSERT INTO SMART_PHONE_STORE_N7.dbo.Screen
-(Code, Name, DateCreate, DateUpdate, PersonCreate, PersonUpdate, Status)
-VALUES('Screen 1', '1220 HZ',GETDATE(), GETDATE(),'Pham Tuyet Nga', 'Nguyen Hong Phong', 1);
-INSERT INTO SMART_PHONE_STORE_N7.dbo.Screen
-(Code, Name, DateCreate, DateUpdate, PersonCreate, PersonUpdate, Status)
-VALUES('Screen 2', '1420 HZ',GETDATE(), GETDATE(),'Tran Cong Minh', 'Nguyen  Trung Hieu', 0)
-INSERT INTO SMART_PHONE_STORE_N7.dbo.Screen
-(Code, Name, DateCreate, DateUpdate, PersonCreate, PersonUpdate, Status)
-VALUES('Screen 2', '1440 HZ',GETDATE(), GETDATE(),'Hoang Van Hieu', 'Dieu Thuy', 1);
-
-INSERT INTO SMART_PHONE_STORE_N7.dbo.[Size]
-(Code, Name, DateCreate, DateUpdate, PersonCreate, PersonUpdate, Status)
-VALUES('Size 1', '15 cm',GETDATE(), GETDATE(),'Hoang Van Hieu', 'Dieu Thuy', 1);
-INSERT INTO SMART_PHONE_STORE_N7.dbo.[Size]
-(Code, Name, DateCreate, DateUpdate, PersonCreate, PersonUpdate, Status)
-VALUES('Size 2', '20 cm',GETDATE(), GETDATE(),'Pham Tuyet Nga', 'Nguyen Hong Phong', 1);
-INSERT INTO SMART_PHONE_STORE_N7.dbo.[Size]
-(Code, Name, DateCreate, DateUpdate, PersonCreate, PersonUpdate, Status)
-VALUES('Size 3', '25 cm',GETDATE(), GETDATE(),'Tran Cong Minh', 'Nguyen  Trung Hieu', 0);
-
-INSERT INTO SMART_PHONE_STORE_N7.dbo.ProductDetail
-(Code, Name, DateCreate, DateUpdate, PersonCreate, PersonUpdate, [Describe], Status, Id_Capacity, Id_Color, Id_Manufacture, Id_Category, Id_Battery, Id_Chip, Id_Ram, Id_Screen, Id_Size, Id_Product)
-VALUES('ProductDetail 1', 'Iphone 11', GETDATE(), GETDATE(),'Tran Cong Minh', 'Nguyen  Trung Hieu' , 'Dien thoai ban chay nhaT apple smart', 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO SMART_PHONE_STORE_N7.dbo.ProductDetail
-(Code, Name, DateCreate, DateUpdate, PersonCreate, PersonUpdate, [Describe], Status, Id_Capacity, Id_Color, Id_Manufacture, Id_Category, Id_Battery, Id_Chip, Id_Ram, Id_Screen, Id_Size, Id_Product)
-VALUES('ProductDetail 2', 'Iphone 12', GETDATE(), GETDATE(),'Tran Xuan Vu', 'Pham Tuyet Nga' , 'Dien thoai dung top 1 T3', 1, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO SMART_PHONE_STORE_N7.dbo.ProductDetail
-(Code, Name, DateCreate, DateUpdate, PersonCreate, PersonUpdate, [Describe], Status, Id_Capacity, Id_Color, Id_Manufacture, Id_Category, Id_Battery, Id_Chip, Id_Ram, Id_Screen, Id_Size, Id_Product)
-VALUES('ProductDetail 3', 'Iphone 10', GETDATE(), GETDATE(),'Hoang Van Hieu', 'Dieu Thuy' , 'Dien thoai dung top 1 T4', 1, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO SMART_PHONE_STORE_N7.dbo.ProductDetail
-(Code, Name, DateCreate, DateUpdate, PersonCreate, PersonUpdate, [Describe], Status, Id_Capacity, Id_Color, Id_Manufacture, Id_Category, Id_Battery, Id_Chip, Id_Ram, Id_Screen, Id_Size, Id_Product)
-VALUES('ProductDetail 4', 'Iphone 13', GETDATE(),  GETDATE(),'Tran Cong Minh', 'Nguyen  Hong Phong' , 'Dien thoai dung top 1 T5', 1, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-select * from ProductDetail
-SELECT Id, Code,Name,  DateCreate, DateUpdate, PersonCreate, PersonUpdate, Status, (select Name from Capacity where Id = 1) , Id_Color from [ProductDetail]
-INSERT INTO SMART_PHONE_STORE_N7.dbo.Imei
-(Code, DateAddded, SaleDate, PersonSale, PersonUpdate, Status, Id_ProductDetail)
-VALUES('8KexzpY8s',  GETDATE(),  GETDATE(), 'Tran Xuan Vu', 'Pham Tuyet Nga', 1, NULL);
-INSERT INTO SMART_PHONE_STORE_N7.dbo.Imei
-(Code, DateAddded, SaleDate, PersonSale, PersonUpdate, Status, Id_ProductDetail)
-VALUES('1ybP!pmJm',  GETDATE(),  GETDATE(), 'Pham Huu Thanh', 'Pham Tuyet Nga', 0, NULL);
-INSERT INTO SMART_PHONE_STORE_N7.dbo.Imei
-(Code, DateAddded, SaleDate, PersonSale, PersonUpdate, Status, Id_ProductDetail)
-VALUES('8KexzpY8s',  GETDATE(),  GETDATE(), 'Tran Xuan Vu', 'Nguyen The Quy', 1, NULL);
-
 -- DB bán hàng GD 2
 CREATE TABLE Position(
       Id bigint PRIMARY KEY IDENTITY(1,1),
