@@ -36,6 +36,7 @@ public class RamServiceImpl implements RamService {
     @Override
     public void save(Ram ram) {
         ram.setDateCreate(java.time.LocalDate.now());
+        ram.setStatus(0);
         ramRepository.save(ram);
     }
 

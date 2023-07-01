@@ -35,6 +35,7 @@ public class ScreenServiceImpl implements ScreenService {
     @Override
     public void save(Screen screen) {
         screen.setDateCreate(java.time.LocalDate.now());
+        screen.setStatus(0);
         screenRepository.save(screen);
     }
 

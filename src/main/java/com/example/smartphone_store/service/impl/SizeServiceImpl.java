@@ -35,6 +35,7 @@ public class SizeServiceImpl implements SizeService {
     @Override
     public void save(Size size) {
         size.setDateCreate(java.time.LocalDate.now());
+        size.setStatus(0);
         sizeRepository.save(size);
     }
 
