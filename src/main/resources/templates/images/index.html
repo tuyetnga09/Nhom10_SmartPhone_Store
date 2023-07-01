@@ -20,7 +20,7 @@
                 <form enctype="multipart/form-data" th:action="@{/images/store}" method="post">
                     <div class="mb-3">
                         <label class="form-label">Image Files</label>
-                        <input type="file" class="form-control" accept="image/*" name="fileImages">
+                        <input type="file" class="form-control" accept="image/*" name="fileImages" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Describe</label>
@@ -28,6 +28,12 @@
                             <textarea class="form-control" placeholder="Leave a comment here"
                                       name="describe"></textarea>
                         </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Product</label>
+                        <select class="form-select" name="idProduct">
+                            <option th:each="pr : ${list_product}" th:value="${pr.id}" th:text="${pr.name}">One</option>
+                        </select>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Person Create</label>
@@ -55,19 +61,21 @@
                     <th scope="col">#</th>
                     <th scope="col">Images</th>
                     <th scope="col">Name</th>
+                    <th scope="col">Product</th>
                     <th scope="col">Person Create</th>
                     <th scope="col">Person Update</th>
                     <th scope="col">Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="im, stave : ${list}">
+                <tr th:each="im, stave : ${list_images}">
                     <th scope="row" th:text="${stave.index + 1}">1</th>
                     <td>
                         <img th:src="@{'/images/' +  ${im.nameImage}}" style="width: 100px"
                              alt="Không tìm thấy ảnh!">
                     </td>
                     <td th:text="${im.nameImage}">Otto</td>
+                    <td th:text="${im.idProduct.name}">Otto</td>
                     <td th:text="${im.personCreate}">@mdo</td>
                     <td th:text="${im.personUpate}">@mdo</td>
                     <td>

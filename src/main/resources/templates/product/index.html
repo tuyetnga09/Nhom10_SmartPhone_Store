@@ -51,12 +51,6 @@
                     <div class="alert alert-warning" th:if="${#fields.hasErrors('personCreate')}"
                          th:errors="*{personCreate}"></div>
                 </div>
-                <div class="mb-3">
-                    <label class="form-label">Images</label>
-                    <select class="form-select" th:field="*{idImages}">
-                        <option th:each="im : ${list_images}" th:value="${im.id}" th:text="${im.nameImage}">One</option>
-                    </select>
-                </div>
                 <button class="btn btn-success">Add</button>
             </form>
         </div>
@@ -78,7 +72,6 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Code</th>
-                <th scope="col">Images</th>
                 <th scope="col">Name</th>
                 <th scope="col">Import Price</th>
                 <th scope="col">Price</th>
@@ -92,9 +85,6 @@
             <tr th:each="pr, stave : ${list_product}">
                 <th scope="row" th:text="${stave.index + 1}">1</th>
                 <td th:text="${pr.code}">Mark</td>
-                <td>
-                    <img th:src="@{${pr.idImages.linkImage}}" style="width: 200px" alt="Không tìm thấy ảnh!">
-                </td>
                 <td th:text="${pr.name}">@mdo</td>
                 <td th:text="${pr.importPrice}">@mdo</td>
                 <td th:text="${pr.price}">@mdo</td>

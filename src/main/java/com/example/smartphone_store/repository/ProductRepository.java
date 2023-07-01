@@ -14,7 +14,7 @@ import java.util.List;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
-    @Query("select pr from Product pr where pr.status = ?1 order by pr.dateCreate DESC")
+    @Query("select pr from Product pr where pr.status = ?1 order by pr.id, pr.dateCreate DESC")
     Page<Product> selectByStatus(int status, Pageable pageable);
 
     @Query("select pr from Product pr where pr.status = ?1")
@@ -24,5 +24,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Modifying
     @Query("update Product set status = 1 where id = ?1")
     void delete(Long id);
+
+    @Query("select pr.code from Product pr")
+    List<String> selectCode();
 
 }

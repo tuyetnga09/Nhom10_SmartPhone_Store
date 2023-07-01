@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"><head>
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
     <meta charset="UTF-8">
     <title>Product Update</title>
     <link rel="stylesheet" th:href="@{/css/plugin/bootstrap.min.css}">
@@ -43,13 +44,7 @@
                     <label class="form-label">Person Update</label>
                     <input type="text" class="form-control" th:field="*{personUpdate}">
                 </div>
-                <div class="mb-3">
-                    <label class="form-label">Images</label>
-                    <select class="form-select" th:field="*{idImages}">
-                        <option th:each="im : ${list_images}" th:value="${im.id}" th:text="${im.nameImage}">One</option>
-                    </select>
-                </div>
-                <button class="btn btn-success">Update</button>
+                <button type="submit" class="btn btn-success">Update</button>
             </form>
         </div>
         <div class="col-md-4"></div>

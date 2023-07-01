@@ -2,7 +2,9 @@ package com.example.smartphone_store.controller;
 
 import com.example.smartphone_store.DAO.ImagesDAO;
 import com.example.smartphone_store.entity.Images;
+import com.example.smartphone_store.entity.Product;
 import com.example.smartphone_store.service.impl.ImagesService;
+import com.example.smartphone_store.service.impl.ProductService;
 import jakarta.validation.Valid;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.*;
@@ -34,6 +36,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.List;
 
 @Controller
 @RequestMapping(value = "/images")
@@ -42,14 +45,20 @@ public class ImagesController {
     public static String UPLOAD_DIRECTORY = System.getProperty("user.dir") + "/src/main/resources/static/images";
 
     @Autowired
-    private ImagesService service;
+    private ImagesService imagesService;
+
+    @Autowired
+    private ProductService productService;
+
+
 
     @GetMapping(value = "/index")
     public String index(Model model, @RequestParam(value = "pageIndex", defaultValue = "0") int pageIndex) {
         Pageable page = PageRequest.of(pageIndex, 5);
         model.addAttribute("image", new ImagesDAO());
-        model.addAttribute("list", this.service.selectAll(0, page).getContent());
-        model.addAttribute("pageSize", this.service.selectAll(0, page).getTotalPages());
+        model.addAttribute("list_product", this.productService.findByStatus(0));
+        model.addAttribute("list_images", this.imagesService.selectAll(0, page).getContent());
+        model.addAttribute("pageSize", this.imagesService.selectAll(0, page).getTotalPages());
         model.addAttribute("pageNumber", pageIndex);
         return "images/index";
     }
@@ -57,6 +66,7 @@ public class ImagesController {
     @PostMapping(value = "/store")
     public String store(@RequestParam(name = "fileImages") MultipartFile fileImages,
                         @RequestParam(name = "describe") String describe,
+                        @RequestParam(name = "idProduct") Product idProduct,
                         @RequestParam(name = "personCreate") String personCreate,
                         Model model) throws IOException {
         saveImage(fileImages);
@@ -64,8 +74,9 @@ public class ImagesController {
         image.setLinkImage("/images/" + fileImages.getOriginalFilename());
         image.setNameImage(fileImages.getOriginalFilename());
         image.setDescribe(describe);
+        image.setIdProduct(idProduct);
         image.setPersonCreate(personCreate);
-        this.service.save(image);
+        this.imagesService.save(image);
         return "redirect:/images/index";
     }
 
@@ -76,7 +87,7 @@ public class ImagesController {
 
     @GetMapping(value = "/delete/{id}")
     public String delete(@PathVariable Long id) {
-        this.service.delete(id);
+        this.imagesService.delete(id);
         return "redirect:/images/index";
     }
 

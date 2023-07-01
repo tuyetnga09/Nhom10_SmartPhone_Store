@@ -8,6 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -18,6 +19,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.Date;
+import java.util.List;
 
 @AllArgsConstructor
 @Getter
@@ -69,9 +71,8 @@ public class Product {
     @Column(name = "Status")
     private int status;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "Id_Images")
-    private Images idImages;
+    @OneToMany(mappedBy = "idProduct", fetch = FetchType.LAZY)
+    private List<Images> idImages;
 
     public Product() {
         this.dateCreate = new Date(new java.util.Date().getTime());

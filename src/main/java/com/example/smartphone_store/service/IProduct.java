@@ -24,4 +24,5 @@ public interface IProduct {
     List<Product> getAll();
 
     List<Product> getLineProduct();
+
 }
