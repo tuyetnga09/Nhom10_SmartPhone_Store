@@ -165,6 +165,22 @@ CREATE TABLE ProductDetail (
     FOREIGN KEY (Id_Product) REFERENCES Product(Id),
      FOREIGN KEY (Id_Manufacture) REFERENCES Manufacture(Id)
 )
+--Asset Product Detail 
+    CREATE TABLE Assets(
+     Id bigint PRIMARY KEY IDENTITY(1,1),
+     LinkImage NVARCHAR(250) DEFAULT NULL,
+     NameImage NVARCHAR(100) DEFAULT NULL,
+     Describe NVARCHAR(250) DEFAULT NULL,
+      DateCreate DATE DEFAULT NULL,
+    DateUpdate  DATE DEFAULT NULL,
+    PersonCreate NVARCHAR(200) DEFAULT NULL,
+    PersonUpdate  NVARCHAR(200) DEFAULT NULL,
+    Status INT DEFAULT NULL,
+    Id_ProductDetails BIGINT DEFAULT NULL,
+      Id_ProductDetail BIGINT DEFAULT NULL, 
+    FOREIGN KEY (Id_ProductDetail) REFERENCES ProductDetail(Id)
+)
+
 -- Imei 
 CREATE TABLE Imei(
     Id bigint PRIMARY KEY IDENTITY(1,1),
