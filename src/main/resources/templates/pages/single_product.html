@@ -375,7 +375,12 @@
                             <div class="single_product">
                                 <div class="product_thumb">
                                     <a href="/single-product" th:if="${top10PD.product != null}">
-                                        <img th:src="@{'/images/' +  ${top10PD.product.idImages.nameImage}}" alt="Không tìm thấy ảnh!">
+<!--                                        <img th:src="@{'/images/' +  ${top10PD.product.idImages.nameImage}}" alt="Không tìm thấy ảnh!">-->
+                                        <div class="carousel-inner" th:each="im, stave : ${top10PD.product.idImages}">
+                                            <div class="carousel-item" th:classappend="${stave.index == 0} ? active : ''">
+                                                <img th:src="@{${im.linkImage}}" class="d-block" >
+                                            </div>
+                                        </div>
                                     </a>
                                     <div class="img_icone">
                                         <img src="assets/img/cart/span-new.png" alt="">
@@ -430,7 +435,12 @@
                             <div class="single_product">
                                 <div class="product_thumb">
                                     <a href="/single-product" th:if="${bestSelling.product != null}">
-                                        <img th:src="@{'/images/' +  ${bestSelling.product.idImages.nameImage}}" alt="Không tìm thấy ảnh!">
+<!--                                        <img th:src="@{'/images/' +  ${bestSelling.product.idImages.nameImage}}" alt="Không tìm thấy ảnh!">-->
+                                        <div class="carousel-inner" th:each="im, stave : ${bestSelling.product.idImages}">
+                                            <div class="carousel-item" th:classappend="${stave.index == 0} ? active : ''">
+                                                <img th:src="@{${im.linkImage}}" class="d-block" >
+                                            </div>
+                                        </div>
                                     </a>
                                     <div class="hot_img">
                                         <img src="assets/img/cart/span-hot.png" alt="">
