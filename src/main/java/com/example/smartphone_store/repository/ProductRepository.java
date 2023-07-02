@@ -27,5 +27,5 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Query("select pr.code from Product pr")
     List<String> selectCode();
-
+    //Hê hê hê hê
 }
