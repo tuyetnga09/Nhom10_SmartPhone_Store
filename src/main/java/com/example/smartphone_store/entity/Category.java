@@ -52,8 +52,8 @@ public class Category {
     private String personCreate;
 
     @Column(name = "PersonUpdate")
-    @NotBlank(message = "(*) Không để trống")
-    @Size(max = 200, message = "(*) Không quá 200 ký tự")
+//    @NotBlank(message = "(*) Không để trống")
+//    @Size(max = 200, message = "(*) Không quá 200 ký tự")
     private String personUpdate;
 
     @Column(name = "Status")
