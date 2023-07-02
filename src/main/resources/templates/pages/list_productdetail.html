@@ -78,8 +78,15 @@
                                         <div class="col-lg-3 col-md-4" th:each="list : ${list}">
                                             <div class="single_product">
                                                 <div class="product_thumb">
-                                                    <a href="/single-product" th:if="${list.product != null}"><img th:src="@{'/images/' +  ${list.product.idImages.nameImage}}"
-                                                                                   alt="Không tìm thấy ảnh!"></a>
+                                                    <a href="/single-product" th:if="${list.product != null}">
+                                                        <div class="carousel slide" data-bs-ride="carousel">
+                                                            <div class="carousel-inner" th:each="im, stave : ${list.product.idImages}">
+                                                                <div class="carousel-item active" th:classappend="${stave.index == 0} ? active : ''">
+                                                                    <img th:src="@{${im.linkImage}}" class="d-block" alt="...">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </a>
                                                     <div class="img_icone">
                                                         <img src="assets\img\cart\span-new.png" alt="">
                                                     </div>

@@ -77,12 +77,14 @@ public class ProductDetail {
     @ManyToOne
     @JoinColumn(name = "Id_Manufacture")
     private Manufacture manufacture;
+
     @ManyToOne
     @JoinColumn(name = "Id_Category")
     private Category category;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Id_Battery")
+    @ToString.Exclude
     private Battery battery;
 
     @ManyToOne
@@ -96,8 +98,11 @@ public class ProductDetail {
     @ManyToOne
     @JoinColumn(name = "Id_Screen")
     private Screen screen;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Id_Product")
+    @ToString.Exclude
     private Product product;
+
 }
 

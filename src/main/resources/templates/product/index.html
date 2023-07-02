@@ -73,6 +73,7 @@
                 <th scope="col">#</th>
                 <th scope="col">Code</th>
                 <th scope="col">Name</th>
+                <th scope="col">Images</th>
                 <th scope="col">Import Price</th>
                 <th scope="col">Price</th>
                 <th scope="col">Quantity</th>
@@ -86,6 +87,13 @@
                 <th scope="row" th:text="${stave.index + 1}">1</th>
                 <td th:text="${pr.code}">Mark</td>
                 <td th:text="${pr.name}">@mdo</td>
+                <td class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner" th:each="im, stave : ${pr.idImages}">
+                        <div class="carousel-item" th:classappend="${stave.index == 0} ? active : ''">
+                            <img th:src="@{${im.linkImage}}" class="d-block" style="width: 100px" alt="...">
+                        </div>
+                    </div>
+                </td>
                 <td th:text="${pr.importPrice}">@mdo</td>
                 <td th:text="${pr.price}">@mdo</td>
                 <td th:text="${pr.quantity}">@mdo</td>

@@ -64,19 +64,23 @@ public class ImagesController {
     }
 
     @PostMapping(value = "/store")
-    public String store(@RequestParam(name = "fileImages") MultipartFile fileImages,
+    public String store(@RequestParam(name = "fileImages") MultipartFile[] fileImages,
                         @RequestParam(name = "describe") String describe,
                         @RequestParam(name = "idProduct") Product idProduct,
                         @RequestParam(name = "personCreate") String personCreate,
                         Model model) throws IOException {
-        saveImage(fileImages);
-        Images image = new Images();
-        image.setLinkImage("/images/" + fileImages.getOriginalFilename());
-        image.setNameImage(fileImages.getOriginalFilename());
-        image.setDescribe(describe);
-        image.setIdProduct(idProduct);
-        image.setPersonCreate(personCreate);
-        this.imagesService.save(image);
+        for (MultipartFile file: fileImages) {
+            Path fileNameAndPath = Paths.get(UPLOAD_DIRECTORY, file.getOriginalFilename());
+            File fileImage = new File(fileNameAndPath.toString());
+            Files.write(fileNameAndPath, file.getBytes());
+            Images image = new Images();
+            image.setLinkImage("/images/" + file.getOriginalFilename());
+            image.setNameImage(file.getOriginalFilename());
+            image.setDescribe(describe);
+            image.setIdProduct(idProduct);
+            image.setPersonCreate(personCreate);
+            this.imagesService.save(image);
+        }
         return "redirect:/images/index";
     }
 
@@ -110,16 +114,8 @@ public class ImagesController {
         return "images/index";
     }
 
-    public void saveImage(MultipartFile file) throws IOException {
-        Path fileNameAndPath = Paths.get(UPLOAD_DIRECTORY, file.getOriginalFilename());
-        File fileImages = new File(fileNameAndPath.toString());
-        if (!fileImages.exists()) {
-            FileOutputStream fos = new FileOutputStream(fileImages);
-            fos.write(file.getBytes());
-            fos.close();
-        } else {
-            Files.write(fileNameAndPath, file.getBytes());
-        }
+    public void saveImage(MultipartFile[] file) throws IOException {
+
     }
 
 }
