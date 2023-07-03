@@ -165,6 +165,12 @@ CREATE TABLE ProductDetail (
     FOREIGN KEY (Id_Product) REFERENCES Product(Id),
      FOREIGN KEY (Id_Manufacture) REFERENCES Manufacture(Id)
 )
+-- Thêm dữ liệu vào bảng Product Detail
+ALTER TABLE ProductDetail
+ADD images NVARCHAR(MAX)
+ALTER TABLE ProductDetail
+ADD Price FLOAT  
+    
 --Asset Product Detail 
     CREATE TABLE Assets(
      Id bigint PRIMARY KEY IDENTITY(1,1),
