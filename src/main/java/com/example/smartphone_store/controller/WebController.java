@@ -5,6 +5,7 @@ import com.example.smartphone_store.entity.ProductDetail;
 import com.example.smartphone_store.service.ProductDetailService;
 import com.example.smartphone_store.service.impl.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,9 +34,6 @@ public class WebController {
         List<ProductDetail> listLineProductDetail = productDetailService.getLineProductDetail();
         model.addAttribute("lineProductDetail", listLineProductDetail);
 
-        List<Product> productList = productService.findByStatus(0);
-        model.addAttribute("productList", productList);
-
         return "pages/trang_chu";
     }
 
@@ -57,9 +55,21 @@ public class WebController {
 
     @GetMapping("/product/{id}")
     public String listProduct(Model model, @PathVariable("id") Long id){
+        List<Product> productList = productService.findByStatus(0);
+        model.addAttribute("productList", productList);
         List<ProductDetail> list = productDetailService.findProductDetailByStatusAndProductId(0, id);
         model.addAttribute("list", list);
 
+        return "pages/list_productdetail";
+    }
+
+    @GetMapping("/productDetail/list")
+    public String listProductDetail(Model model){
+        List<Product> productList = productService.findByStatus(0);
+        model.addAttribute("productList", productList);
+
+        Page<ProductDetail> productDetailPage = productDetailService.getPage(0, 5);
+        model.addAttribute("list", productDetailPage.getContent());
         return "pages/list_productdetail";
     }
 }
