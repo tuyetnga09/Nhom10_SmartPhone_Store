@@ -3835,7 +3835,44 @@
 	margin-bottom: 100px;
 }
 
+.breadcrumbs_area{
+	background: #FFFFFF;
+}
+
+.banner {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 999; /* Đảm bảo banner hiển thị trên các phần tử khác */
+}
+
+.banner img {
+	max-width: 100%; /* Đảm bảo hình ảnh trong banner không vượt quá chiều rộng */
+	height: auto; /* Tự động tính toán chiều cao cho hình ảnh */
+	display: block; /* Hiển thị hình ảnh dưới dạng khối */
+	margin: 0 auto; /* Canh giữa hình ảnh trong banner */
+	margin-top: 210px;
+	margin-left: 30px;
+}
+
+.banner-right {
+	position: fixed;
+	top: 0;
+	right: 0;
+	z-index: 999; /* Đảm bảo banner hiển thị trên các phần tử khác */
+}
+
+.banner-right img {
+	max-width: 100%; /* Đảm bảo hình ảnh trong banner không vượt quá chiều rộng */
+	height: auto; /* Tự động tính toán chiều cao cho hình ảnh */
+	display: block; /* Hiển thị hình ảnh dưới dạng khối */
+	margin: 0 auto; /* Canh giữa hình ảnh trong banner */
+	margin-top: 210px;
+	margin-right: 30px;
+}
+
 /*modal css end*/
+
 
 
 

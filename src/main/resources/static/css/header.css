@@ -5,6 +5,14 @@
     --primary-700: #0077E4;
 }
 
+/*.header-custumer{*/
+/*    position: fixed;*/
+/*    top: 0;*/
+/*    left: 0;*/
+/*    width: 100%;*/
+/*    z-index: 999;*/
+/*}*/
+
 .auto-layout {
     display: flex;
     height: 96px;
