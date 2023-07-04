@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Objects;
@@ -64,12 +65,14 @@ public class WebController {
     }
 
     @GetMapping("/productDetail/list")
-    public String listProductDetail(Model model){
+    public String listProductDetail(Model model, @RequestParam(value = "page", defaultValue = "0") Integer page){
         List<Product> productList = productService.findByStatus(0);
         model.addAttribute("productList", productList);
 
-        Page<ProductDetail> productDetailPage = productDetailService.getPage(0, 5);
+        Page<ProductDetail> productDetailPage = productDetailService.getPage(page, 12);
         model.addAttribute("list", productDetailPage.getContent());
+        model.addAttribute("totalPages", productDetailPage.getTotalPages());
+        model.addAttribute("pageNumber", page);
         return "pages/list_productdetail";
     }
 }

@@ -6,7 +6,8 @@
     <title>List Productdetail</title>
 
     <!-- all css here -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/plugin/bootstrap.min.css"/>
     <link rel="stylesheet" href="/css/plugin/plugin.css"/>
     <link rel="stylesheet" href="/css/plugin/bundle.css"/>
@@ -37,11 +38,13 @@
                         <img src="/assets/img/banner/banner3.jpg" class="d-block w-100" alt="...">
                     </div>
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
+                        data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Previous</span>
                 </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
+                        data-bs-slide="next">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Next</span>
                 </button>
@@ -73,10 +76,12 @@
                             <div class="list_button">
                                 <ul class="nav" role="tablist">
                                     <li>
-                                        <a class="active" data-toggle="tab" href="#large" role="tab" aria-controls="large" aria-selected="true"><i class="fa fa-th-large"></i></a>
+                                        <a class="active" data-toggle="tab" href="#large" role="tab"
+                                           aria-controls="large" aria-selected="true"><i class="fa fa-th-large"></i></a>
                                     </li>
                                     <li>
-                                        <a data-toggle="tab" href="#list" role="tab" aria-controls="list" aria-selected="false"><i class="fa fa-th-list"></i></a>
+                                        <a data-toggle="tab" href="#list" role="tab" aria-controls="list"
+                                           aria-selected="false"><i class="fa fa-th-list"></i></a>
                                     </li>
                                 </ul>
                             </div>
@@ -113,14 +118,15 @@
                                                 <div class="product_thumb">
                                                     <a href="/single-product" th:if="${list.product != null}">
                                                         <div class="carousel slide" data-bs-ride="carousel">
-<!--                                                            <div class="carousel-inner" th:each="im, stave : ${list.product.idImages}">-->
-<!--                                                                <div class="carousel-item active" th:classappend="${stave.index == 0} ? active : ''">-->
-<!--                                                                    <img th:src="@{${im.linkImage}}" class="d-block" alt="...">-->
-<!--                                                                </div>-->
-<!--                                                            </div>-->
+                                                            <!--                                                            <div class="carousel-inner" th:each="im, stave : ${list.product.idImages}">-->
+                                                            <!--                                                                <div class="carousel-item active" th:classappend="${stave.index == 0} ? active : ''">-->
+                                                            <!--                                                                    <img th:src="@{${im.linkImage}}" class="d-block" alt="...">-->
+                                                            <!--                                                                </div>-->
+                                                            <!--                                                            </div>-->
                                                             <div class="carousel-inner">
                                                                 <div class="carousel-item active">
-                                                                    <img src="/assets/img/product/product1.jpg" class="d-block" alt="...">
+                                                                    <img src="/assets/img/product/product1.jpg"
+                                                                         class="d-block" alt="...">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -129,17 +135,22 @@
                                                         <img src="assets\img\cart\span-new.png" alt="">
                                                     </div>
                                                     <div class="product_action">
-                                                            <a href="#"> <i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                                        <a href="#"> <i class="fa fa-shopping-cart"></i> Add to cart</a>
                                                     </div>
                                                 </div>
                                                 <div class="product_content">
-                                                    <span class="product_price" th:utext="${#numbers.formatInteger(list.product != null ? list.product.price : '', 0)}"></span>
-                                                    <h3 class="product_title"><a href="single-product.html" th:text="${list.name != null ? list.name : ''}"></a></h3>
+                                                    <span class="product_price"
+                                                          th:utext="${#numbers.formatInteger(list.product != null ? list.product.price : '', 0)}"></span>
+                                                    <h3 class="product_title"><a href="single-product.html"
+                                                                                 th:text="${list.name != null ? list.name : ''}"></a>
+                                                    </h3>
                                                 </div>
                                                 <div class="product_info">
                                                     <ul>
-                                                        <li><a href="#" title=" Add to Wishlist ">Add to Wishlist</a></li>
-                                                        <li><a href="#" data-toggle="modal" data-target="#modal_box" title="Quick view">View Detail</a></li>
+                                                        <li><a href="#" title=" Add to Wishlist ">Add to Wishlist</a>
+                                                        </li>
+                                                        <li><a href="#" data-toggle="modal" data-target="#modal_box"
+                                                               title="Quick view">View Detail</a></li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -151,7 +162,8 @@
                                         <div class="row align-items-center">
                                             <div class="col-lg-4 col-md-6 col-sm-6">
                                                 <div class="product_thumb">
-                                                    <a href="single-product.html"><img src="assets\img\product\product2.jpg" alt=""></a>
+                                                    <a href="single-product.html"><img
+                                                            src="assets\img\product\product2.jpg" alt=""></a>
                                                     <div class="hot_img">
                                                         <img src="assets\img\cart\span-hot.png" alt="">
                                                     </div>
@@ -171,7 +183,10 @@
                                                     <div class="list_title">
                                                         <h3><a href="single-product.html">Lorem ipsum dolor</a></h3>
                                                     </div>
-                                                    <p class="design"> in quibusdam accusantium qui nostrum consequuntur, officia, quidem ut placeat. Officiis, incidunt eos recusandae! Facilis aliquam vitae blanditiis quae perferendis minus eligendi</p>
+                                                    <p class="design"> in quibusdam accusantium qui nostrum
+                                                        consequuntur, officia, quidem ut placeat. Officiis, incidunt eos
+                                                        recusandae! Facilis aliquam vitae blanditiis quae perferendis
+                                                        minus eligendi</p>
 
                                                     <p class="compare">
                                                         <input id="select" type="checkbox">
@@ -183,9 +198,15 @@
                                                     </div>
                                                     <div class="add_links">
                                                         <ul>
-                                                            <li><a href="#" title="add to cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
-                                                            <li><a href="#" title="add to wishlist"><i class="fa fa-heart" aria-hidden="true"></i></a></li>
-                                                            <li><a href="#" data-toggle="modal" data-target="#modal_box" title="Quick view"><i class="fa fa-eye" aria-hidden="true"></i></a></li>
+                                                            <li><a href="#" title="add to cart"><i
+                                                                    class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+                                                            </li>
+                                                            <li><a href="#" title="add to wishlist"><i
+                                                                    class="fa fa-heart" aria-hidden="true"></i></a></li>
+                                                            <li><a href="#" data-toggle="modal" data-target="#modal_box"
+                                                                   title="Quick view"><i class="fa fa-eye"
+                                                                                         aria-hidden="true"></i></a>
+                                                            </li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -196,7 +217,8 @@
                                         <div class="row align-items-center">
                                             <div class="col-lg-4 col-md-6 col-sm-6">
                                                 <div class="product_thumb">
-                                                    <a href="single-product.html"><img src="assets\img\product\product3.jpg" alt=""></a>
+                                                    <a href="single-product.html"><img
+                                                            src="assets\img\product\product3.jpg" alt=""></a>
                                                     <div class="img_icone">
                                                         <img src="assets\img\cart\span-new.png" alt="">
                                                     </div>
@@ -216,7 +238,10 @@
                                                     <div class="list_title">
                                                         <h3><a href="single-product.html">Quisque ornare dui</a></h3>
                                                     </div>
-                                                    <p class="design"> in quibusdam accusantium qui nostrum consequuntur, officia, quidem ut placeat. Officiis, incidunt eos recusandae! Facilis aliquam vitae blanditiis quae perferendis minus eligendi</p>
+                                                    <p class="design"> in quibusdam accusantium qui nostrum
+                                                        consequuntur, officia, quidem ut placeat. Officiis, incidunt eos
+                                                        recusandae! Facilis aliquam vitae blanditiis quae perferendis
+                                                        minus eligendi</p>
 
                                                     <p class="compare">
                                                         <input id="select1" type="checkbox">
@@ -228,10 +253,16 @@
                                                     </div>
                                                     <div class="add_links">
                                                         <ul>
-                                                            <li><a href="#" title="add to cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
-                                                            <li><a href="#" title="add to wishlist"><i class="fa fa-heart" aria-hidden="true"></i></a></li>
+                                                            <li><a href="#" title="add to cart"><i
+                                                                    class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+                                                            </li>
+                                                            <li><a href="#" title="add to wishlist"><i
+                                                                    class="fa fa-heart" aria-hidden="true"></i></a></li>
 
-                                                            <li><a href="#" data-toggle="modal" data-target="#modal_box" title="Quick view"><i class="fa fa-eye" aria-hidden="true"></i></a></li>
+                                                            <li><a href="#" data-toggle="modal" data-target="#modal_box"
+                                                                   title="Quick view"><i class="fa fa-eye"
+                                                                                         aria-hidden="true"></i></a>
+                                                            </li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -242,7 +273,8 @@
                                         <div class="row align-items-center">
                                             <div class="col-lg-4 col-md-6 col-sm-6">
                                                 <div class="product_thumb">
-                                                    <a href="single-product.html"><img src="assets\img\product\product4.jpg" alt=""></a>
+                                                    <a href="single-product.html"><img
+                                                            src="assets\img\product\product4.jpg" alt=""></a>
                                                     <div class="img_icone">
                                                         <img src="assets\img\cart\span-new.png" alt="">
                                                     </div>
@@ -262,7 +294,10 @@
                                                     <div class="list_title">
                                                         <h3><a href="single-product.html">Maecenas sit amet</a></h3>
                                                     </div>
-                                                    <p class="design"> in quibusdam accusantium qui nostrum consequuntur, officia, quidem ut placeat. Officiis, incidunt eos recusandae! Facilis aliquam vitae blanditiis quae perferendis minus eligendi</p>
+                                                    <p class="design"> in quibusdam accusantium qui nostrum
+                                                        consequuntur, officia, quidem ut placeat. Officiis, incidunt eos
+                                                        recusandae! Facilis aliquam vitae blanditiis quae perferendis
+                                                        minus eligendi</p>
 
                                                     <p class="compare">
                                                         <input id="select2" type="checkbox">
@@ -274,10 +309,16 @@
                                                     </div>
                                                     <div class="add_links">
                                                         <ul>
-                                                            <li><a href="#" title="add to cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
-                                                            <li><a href="#" title="add to wishlist"><i class="fa fa-heart" aria-hidden="true"></i></a></li>
+                                                            <li><a href="#" title="add to cart"><i
+                                                                    class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+                                                            </li>
+                                                            <li><a href="#" title="add to wishlist"><i
+                                                                    class="fa fa-heart" aria-hidden="true"></i></a></li>
 
-                                                            <li><a href="#" data-toggle="modal" data-target="#modal_box" title="Quick view"><i class="fa fa-eye" aria-hidden="true"></i></a></li>
+                                                            <li><a href="#" data-toggle="modal" data-target="#modal_box"
+                                                                   title="Quick view"><i class="fa fa-eye"
+                                                                                         aria-hidden="true"></i></a>
+                                                            </li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -288,7 +329,8 @@
                                         <div class="row align-items-center">
                                             <div class="col-lg-4 col-md-6 col-sm-6">
                                                 <div class="product_thumb">
-                                                    <a href="single-product.html"><img src="assets\img\product\product5.jpg" alt=""></a>
+                                                    <a href="single-product.html"><img
+                                                            src="assets\img\product\product5.jpg" alt=""></a>
                                                     <div class="img_icone">
                                                         <img src="assets\img\cart\span-new.png" alt="">
                                                     </div>
@@ -308,7 +350,10 @@
                                                     <div class="list_title">
                                                         <h3><a href="single-product.html">Sed non luctus turpis</a></h3>
                                                     </div>
-                                                    <p class="design"> in quibusdam accusantium qui nostrum consequuntur, officia, quidem ut placeat. Officiis, incidunt eos recusandae! Facilis aliquam vitae blanditiis quae perferendis minus eligendi</p>
+                                                    <p class="design"> in quibusdam accusantium qui nostrum
+                                                        consequuntur, officia, quidem ut placeat. Officiis, incidunt eos
+                                                        recusandae! Facilis aliquam vitae blanditiis quae perferendis
+                                                        minus eligendi</p>
 
                                                     <p class="compare">
                                                         <input id="select3" type="checkbox">
@@ -320,10 +365,16 @@
                                                     </div>
                                                     <div class="add_links">
                                                         <ul>
-                                                            <li><a href="#" title="add to cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
-                                                            <li><a href="#" title="add to wishlist"><i class="fa fa-heart" aria-hidden="true"></i></a></li>
+                                                            <li><a href="#" title="add to cart"><i
+                                                                    class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+                                                            </li>
+                                                            <li><a href="#" title="add to wishlist"><i
+                                                                    class="fa fa-heart" aria-hidden="true"></i></a></li>
 
-                                                            <li><a href="#" data-toggle="modal" data-target="#modal_box" title="Quick view"><i class="fa fa-eye" aria-hidden="true"></i></a></li>
+                                                            <li><a href="#" data-toggle="modal" data-target="#modal_box"
+                                                                   title="Quick view"><i class="fa fa-eye"
+                                                                                         aria-hidden="true"></i></a>
+                                                            </li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -334,7 +385,8 @@
                                         <div class="row align-items-center">
                                             <div class="col-lg-4 col-md-6 col-sm-6">
                                                 <div class="product_thumb">
-                                                    <a href="single-product.html"><img src="assets\img\product\product6.jpg" alt=""></a>
+                                                    <a href="single-product.html"><img
+                                                            src="assets\img\product\product6.jpg" alt=""></a>
                                                     <div class="hot_img">
                                                         <img src="assets\img\cart\span-hot.png" alt="">
                                                     </div>
@@ -354,7 +406,10 @@
                                                     <div class="list_title">
                                                         <h3><a href="single-product.html">Donec dignissim eget</a></h3>
                                                     </div>
-                                                    <p class="design"> in quibusdam accusantium qui nostrum consequuntur, officia, quidem ut placeat. Officiis, incidunt eos recusandae! Facilis aliquam vitae blanditiis quae perferendis minus eligendi</p>
+                                                    <p class="design"> in quibusdam accusantium qui nostrum
+                                                        consequuntur, officia, quidem ut placeat. Officiis, incidunt eos
+                                                        recusandae! Facilis aliquam vitae blanditiis quae perferendis
+                                                        minus eligendi</p>
 
                                                     <p class="compare">
                                                         <input id="select4" type="checkbox">
@@ -366,10 +421,16 @@
                                                     </div>
                                                     <div class="add_links">
                                                         <ul>
-                                                            <li><a href="#" title="add to cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
-                                                            <li><a href="#" title="add to wishlist"><i class="fa fa-heart" aria-hidden="true"></i></a></li>
+                                                            <li><a href="#" title="add to cart"><i
+                                                                    class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+                                                            </li>
+                                                            <li><a href="#" title="add to wishlist"><i
+                                                                    class="fa fa-heart" aria-hidden="true"></i></a></li>
 
-                                                            <li><a href="#" data-toggle="modal" data-target="#modal_box" title="Quick view"><i class="fa fa-eye" aria-hidden="true"></i></a></li>
+                                                            <li><a href="#" data-toggle="modal" data-target="#modal_box"
+                                                                   title="Quick view"><i class="fa fa-eye"
+                                                                                         aria-hidden="true"></i></a>
+                                                            </li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -380,7 +441,8 @@
                                         <div class="row align-items-center">
                                             <div class="col-lg-4 col-md-6 col-sm-6">
                                                 <div class="product_thumb">
-                                                    <a href="single-product.html"><img src="assets\img\product\product7.jpg" alt=""></a>
+                                                    <a href="single-product.html"><img
+                                                            src="assets\img\product\product7.jpg" alt=""></a>
                                                     <div class="img_icone">
                                                         <img src="assets\img\cart\span-new.png" alt="">
                                                     </div>
@@ -400,7 +462,10 @@
                                                     <div class="list_title">
                                                         <h3><a href="single-product.html">Lorem ipsum dolor</a></h3>
                                                     </div>
-                                                    <p class="design"> in quibusdam accusantium qui nostrum consequuntur, officia, quidem ut placeat. Officiis, incidunt eos recusandae! Facilis aliquam vitae blanditiis quae perferendis minus eligendi</p>
+                                                    <p class="design"> in quibusdam accusantium qui nostrum
+                                                        consequuntur, officia, quidem ut placeat. Officiis, incidunt eos
+                                                        recusandae! Facilis aliquam vitae blanditiis quae perferendis
+                                                        minus eligendi</p>
 
                                                     <p class="compare">
                                                         <input id="select5" type="checkbox">
@@ -412,10 +477,16 @@
                                                     </div>
                                                     <div class="add_links">
                                                         <ul>
-                                                            <li><a href="#" title="add to cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
-                                                            <li><a href="#" title="add to wishlist"><i class="fa fa-heart" aria-hidden="true"></i></a></li>
+                                                            <li><a href="#" title="add to cart"><i
+                                                                    class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+                                                            </li>
+                                                            <li><a href="#" title="add to wishlist"><i
+                                                                    class="fa fa-heart" aria-hidden="true"></i></a></li>
 
-                                                            <li><a href="#" data-toggle="modal" data-target="#modal_box" title="Quick view"><i class="fa fa-eye" aria-hidden="true"></i></a></li>
+                                                            <li><a href="#" data-toggle="modal" data-target="#modal_box"
+                                                                   title="Quick view"><i class="fa fa-eye"
+                                                                                         aria-hidden="true"></i></a>
+                                                            </li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -426,7 +497,8 @@
                                         <div class="row align-items-center">
                                             <div class="col-lg-4 col-md-6 col-sm-6">
                                                 <div class="product_thumb">
-                                                    <a href="single-product.html"><img src="assets\img\product\product8.jpg" alt=""></a>
+                                                    <a href="single-product.html"><img
+                                                            src="assets\img\product\product8.jpg" alt=""></a>
                                                     <div class="img_icone">
                                                         <img src="assets\img\cart\span-new.png" alt="">
                                                     </div>
@@ -446,7 +518,10 @@
                                                     <div class="list_title">
                                                         <h3><a href="single-product.html">Donec ac congue</a></h3>
                                                     </div>
-                                                    <p class="design"> in quibusdam accusantium qui nostrum consequuntur, officia, quidem ut placeat. Officiis, incidunt eos recusandae! Facilis aliquam vitae blanditiis quae perferendis minus eligendi</p>
+                                                    <p class="design"> in quibusdam accusantium qui nostrum
+                                                        consequuntur, officia, quidem ut placeat. Officiis, incidunt eos
+                                                        recusandae! Facilis aliquam vitae blanditiis quae perferendis
+                                                        minus eligendi</p>
 
                                                     <p class="compare">
                                                         <input id="select6" type="checkbox">
@@ -458,10 +533,16 @@
                                                     </div>
                                                     <div class="add_links">
                                                         <ul>
-                                                            <li><a href="#" title="add to cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
-                                                            <li><a href="#" title="add to wishlist"><i class="fa fa-heart" aria-hidden="true"></i></a></li>
+                                                            <li><a href="#" title="add to cart"><i
+                                                                    class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+                                                            </li>
+                                                            <li><a href="#" title="add to wishlist"><i
+                                                                    class="fa fa-heart" aria-hidden="true"></i></a></li>
 
-                                                            <li><a href="#" data-toggle="modal" data-target="#modal_box" title="Quick view"><i class="fa fa-eye" aria-hidden="true"></i></a></li>
+                                                            <li><a href="#" data-toggle="modal" data-target="#modal_box"
+                                                                   title="Quick view"><i class="fa fa-eye"
+                                                                                         aria-hidden="true"></i></a>
+                                                            </li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -472,7 +553,8 @@
                                         <div class="row align-items-center">
                                             <div class="col-lg-4 col-md-6 col-sm-6">
                                                 <div class="product_thumb">
-                                                    <a href="single-product.html"><img src="assets\img\product\product9.jpg" alt=""></a>
+                                                    <a href="single-product.html"><img
+                                                            src="assets\img\product\product9.jpg" alt=""></a>
                                                     <div class="hot_img">
                                                         <img src="assets\img\cart\span-hot.png" alt="">
                                                     </div>
@@ -492,7 +574,10 @@
                                                     <div class="list_title">
                                                         <h3><a href="single-product.html">Curabitur sodales</a></h3>
                                                     </div>
-                                                    <p class="design"> in quibusdam accusantium qui nostrum consequuntur, officia, quidem ut placeat. Officiis, incidunt eos recusandae! Facilis aliquam vitae blanditiis quae perferendis minus eligendi</p>
+                                                    <p class="design"> in quibusdam accusantium qui nostrum
+                                                        consequuntur, officia, quidem ut placeat. Officiis, incidunt eos
+                                                        recusandae! Facilis aliquam vitae blanditiis quae perferendis
+                                                        minus eligendi</p>
 
                                                     <p class="compare">
                                                         <input id="select7" type="checkbox">
@@ -504,10 +589,16 @@
                                                     </div>
                                                     <div class="add_links">
                                                         <ul>
-                                                            <li><a href="#" title="add to cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
-                                                            <li><a href="#" title="add to wishlist"><i class="fa fa-heart" aria-hidden="true"></i></a></li>
+                                                            <li><a href="#" title="add to cart"><i
+                                                                    class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+                                                            </li>
+                                                            <li><a href="#" title="add to wishlist"><i
+                                                                    class="fa fa-heart" aria-hidden="true"></i></a></li>
 
-                                                            <li><a href="#" data-toggle="modal" data-target="#modal_box" title="Quick view"><i class="fa fa-eye" aria-hidden="true"></i></a></li>
+                                                            <li><a href="#" data-toggle="modal" data-target="#modal_box"
+                                                                   title="Quick view"><i class="fa fa-eye"
+                                                                                         aria-hidden="true"></i></a>
+                                                            </li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -518,7 +609,8 @@
                                         <div class="row align-items-center">
                                             <div class="col-lg-4 col-md-6 col-sm-6">
                                                 <div class="product_thumb">
-                                                    <a href="single-product.html"><img src="assets\img\product\product1.jpg" alt=""></a>
+                                                    <a href="single-product.html"><img
+                                                            src="assets\img\product\product1.jpg" alt=""></a>
                                                     <div class="img_icone">
                                                         <img src="assets\img\cart\span-new.png" alt="">
                                                     </div>
@@ -538,7 +630,10 @@
                                                     <div class="list_title">
                                                         <h3><a href="single-product.html">Lorem ipsum dolor</a></h3>
                                                     </div>
-                                                    <p class="design"> in quibusdam accusantium qui nostrum consequuntur, officia, quidem ut placeat. Officiis, incidunt eos recusandae! Facilis aliquam vitae blanditiis quae perferendis minus eligendi</p>
+                                                    <p class="design"> in quibusdam accusantium qui nostrum
+                                                        consequuntur, officia, quidem ut placeat. Officiis, incidunt eos
+                                                        recusandae! Facilis aliquam vitae blanditiis quae perferendis
+                                                        minus eligendi</p>
 
                                                     <p class="compare">
                                                         <input id="select8" type="checkbox">
@@ -550,10 +645,16 @@
                                                     </div>
                                                     <div class="add_links">
                                                         <ul>
-                                                            <li><a href="#" title="add to cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
-                                                            <li><a href="#" title="add to wishlist"><i class="fa fa-heart" aria-hidden="true"></i></a></li>
+                                                            <li><a href="#" title="add to cart"><i
+                                                                    class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+                                                            </li>
+                                                            <li><a href="#" title="add to wishlist"><i
+                                                                    class="fa fa-heart" aria-hidden="true"></i></a></li>
 
-                                                            <li><a href="#" data-toggle="modal" data-target="#modal_box" title="Quick view"><i class="fa fa-eye" aria-hidden="true"></i></a></li>
+                                                            <li><a href="#" data-toggle="modal" data-target="#modal_box"
+                                                                   title="Quick view"><i class="fa fa-eye"
+                                                                                         aria-hidden="true"></i></a>
+                                                            </li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -581,12 +682,12 @@
                             </div>
                             <div class="page_number">
                                 <span>Pages: </span>
-                                <ul>
-                                    <li>«</li>
-                                    <li class="current_number">1</li>
-                                    <li><a href="#">2</a></li>
-                                    <li>»</li>
+                                <li th:if="${pageNumber>0}"><a th:href="@{/productDetail/list(page=${pageNumber} -1)}">«</a></li>
+                                <ul th:each="index : ${#numbers.sequence(0, totalPages - 1)}">
+                                    <li><a th:href="@{/productDetail/list(page=${index})}" th:text="${index+1}"></a>
+                                    </li>
                                 </ul>
+                                <li th:if="${pageNumber < (totalPages -1)}"><a th:href="@{/productDetail/list(page=${pageNumber} +1)}">»</a></li>
                             </div>
                         </div>
                         <!--pagination style end-->
@@ -732,8 +833,12 @@
 <div class="row" th:replace="~{layout/footer :: footer}"></div>
 
 <!-- all js here -->
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+        integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
+        crossorigin="anonymous"></script>
 <script src="/js/plugin/vendor/jquery-1.12.0.min.js"></script>
 <script src="/js/plugin/popper.js"></script>
 <script src="/js/plugin/bootstrap.min.js"></script>
