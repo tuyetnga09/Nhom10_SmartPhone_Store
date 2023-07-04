@@ -39,4 +39,7 @@ public interface ProductDetailRepository extends JpaRepository<ProductDetail, Lo
     List<ProductDetail> getLineProductDetail();
 
     Page<ProductDetail> findProductDetailByStatusAndProductId(Integer status, Long id, Pageable pageable);
+
+    @Query(value = "select ProductDetail.* from ProductDetail join Product on ProductDetail.Id_Product = Product.Id where ProductDetail.Status = 0 and Product.Price <= 20000000", nativeQuery = true)
+    Page<ProductDetail> getProductDetailByPriceBigger20000000(Pageable pageable);
 }

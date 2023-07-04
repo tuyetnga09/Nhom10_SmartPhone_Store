@@ -4,6 +4,7 @@ import com.example.smartphone_store.entity.Battery;
 import com.example.smartphone_store.entity.Capacity;
 import com.example.smartphone_store.entity.ProductDetail;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -35,4 +36,6 @@ public interface ProductDetailService {
     List<ProductDetail> getLineProductDetail();
 
     Page<ProductDetail> findProductDetailByStatusAndProductId(Integer status, Long id, Integer page, Integer size);
+
+    Page<ProductDetail> getProductDetailByPriceBigger20000000(Integer page, Integer size);
 }
