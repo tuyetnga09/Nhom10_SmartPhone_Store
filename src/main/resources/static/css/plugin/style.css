@@ -52,7 +52,7 @@
 /*  2.  header css here*/
 
 .pos_page {
-	background: url(../img/banner/background.png);
+	/*background: url(../img/banner/background.png);*/
 }
 .pos_page_inner {
 	background: #fff;
@@ -1210,8 +1210,8 @@
 	animation-delay: 0.9s;
 }
 .active .slider_content a {
-    -webkit-animation-delay: 1.5;
-    animation-delay: 1.5;
+    /*-webkit-animation-delay: 1.5;*/
+    /*animation-delay: 1.5;*/
 }
 /*slider content css end*/
 .banner_area.banner_two {
@@ -1517,7 +1517,7 @@
 	border-top: 1px solid #dbdbdb;
 	border-bottom: 1px solid #dbdbdb;
 	font-size: 16px;
-	line-height: ;
+	/*line-height: ;*/
 }
 .list_title {
 	margin-bottom: 5px;
@@ -3018,7 +3018,7 @@
 	color: #555;
 	font-size: 15px;
 	line-height: 24px;
-	margin-bottom: 15p;
+	margin-bottom: 15px;
 }
 .view__work a {
 	color: #555;
@@ -3824,6 +3824,17 @@
 .modal-content button span{
     
 }
+
+#button-view-all{
+	position: relative ;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 1;
+	border-radius: 5px;
+	margin-bottom: 100px;
+}
+
 /*modal css end*/
 
 
