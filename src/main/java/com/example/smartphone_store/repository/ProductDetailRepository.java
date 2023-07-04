@@ -38,5 +38,5 @@ public interface ProductDetailRepository extends JpaRepository<ProductDetail, Lo
             "Status = 0 ", nativeQuery = true)
     List<ProductDetail> getLineProductDetail();
 
-    List<ProductDetail> findProductDetailByStatusAndProductId(Integer status, Long id);
+    Page<ProductDetail> findProductDetailByStatusAndProductId(Integer status, Long id, Pageable pageable);
 }

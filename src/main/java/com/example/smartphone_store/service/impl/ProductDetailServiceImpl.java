@@ -96,7 +96,8 @@ public class ProductDetailServiceImpl implements ProductDetailService {
     }
 
     @Override
-    public List<ProductDetail> findProductDetailByStatusAndProductId(Integer status, Long id) {
-        return productDetailRepository.findProductDetailByStatusAndProductId(status, id);
+    public Page<ProductDetail> findProductDetailByStatusAndProductId(Integer status, Long id, Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return productDetailRepository.findProductDetailByStatusAndProductId(status, id, pageable);
     }
 }

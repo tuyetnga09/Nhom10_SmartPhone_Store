@@ -55,11 +55,13 @@ public class WebController {
     }
 
     @GetMapping("/product/{id}")
-    public String listProduct(Model model, @PathVariable("id") Long id){
+    public String listProduct(Model model, @PathVariable("id") Long id, @RequestParam(value = "page", defaultValue = "0") Integer page){
         List<Product> productList = productService.findByStatus(0);
         model.addAttribute("productList", productList);
-        List<ProductDetail> list = productDetailService.findProductDetailByStatusAndProductId(0, id);
-        model.addAttribute("list", list);
+        Page<ProductDetail> productDetailPage = productDetailService.findProductDetailByStatusAndProductId(0, id, page, 9);
+        model.addAttribute("list", productDetailPage);
+        model.addAttribute("totalPages", productDetailPage.getTotalPages());
+        model.addAttribute("pageNumber", page);
 
         return "pages/list_productdetail";
     }
@@ -69,7 +71,7 @@ public class WebController {
         List<Product> productList = productService.findByStatus(0);
         model.addAttribute("productList", productList);
 
-        Page<ProductDetail> productDetailPage = productDetailService.getPage(page, 12);
+        Page<ProductDetail> productDetailPage = productDetailService.getPage(page, 9);
         model.addAttribute("list", productDetailPage.getContent());
         model.addAttribute("totalPages", productDetailPage.getTotalPages());
         model.addAttribute("pageNumber", page);

@@ -34,5 +34,5 @@ public interface ProductDetailService {
 
     List<ProductDetail> getLineProductDetail();
 
-    List<ProductDetail> findProductDetailByStatusAndProductId(Integer status, Long id);
+    Page<ProductDetail> findProductDetailByStatusAndProductId(Integer status, Long id, Integer page, Integer size);
 }
