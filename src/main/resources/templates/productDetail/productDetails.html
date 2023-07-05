@@ -83,15 +83,15 @@
         </tr>
         </thead>
         <tbody class="table-group-divider">
-        <tr th:each="pr : ${productDetails}">
+        <tr th:each="pr, stave : ${productDetails}">
             <td th:text="${pr.id}"></td>
             <td th:text="${pr.code}"></td>
-            <td class="carousel slide" data-bs-ride="carousel" th:each="im, stave : ${pr.product.idImages}">
-<!--                <div class="carousel-inner" th:each="im, stave : ${pr.product.idImages}">-->
-                    <div class="carousel-item" th:classappend="${stave.index == 0} ? active : ''">
-                        <img th:src="@{'/images/' +  ${im.nameImage}}" class="d-block" style="width: 100px" alt="Không tìm thấy ảnh!"/>
+            <td class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item" th:classappend="${stave.index != -1} ? active : ''">
+                        <img th:src="@{${pr.images}}" class="d-block" style="width: 100px" alt="Không tìm thấy ảnh!"/>
                     </div>
-<!--                </div>-->
+                </div>
             </td>
             <td th:text="${pr.name}"></td>
             <td th:text="${pr.dateCreate}"></td>

@@ -1,5 +1,7 @@
 package com.example.smartphone_store.controller;
 
+import com.example.smartphone_store.DAO.ImagesDAO;
+import com.example.smartphone_store.DAO.ProductDetailDAO;
 import com.example.smartphone_store.entity.Battery;
 import com.example.smartphone_store.entity.Capacity;
 import com.example.smartphone_store.entity.Imei;
@@ -33,6 +35,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.Files;
 
 @Controller
 @RequestMapping("/productDetails/")
@@ -61,6 +66,8 @@ public class ProductDetailController {
     @Autowired
     private ImeiService imeiService;
 
+    public static String UPLOAD_DIRECTORY = System.getProperty("user.dir") + "/src/main/resources/static/images";
+
     @GetMapping("display")
     public String getAllProductDetails(Model model, @RequestParam(value = "pageNo", defaultValue = "0") Integer pageNo) {
         Page<ProductDetail> productDetails = productDetailService.getPage(pageNo, 5);
@@ -78,7 +85,6 @@ public class ProductDetailController {
         model.addAttribute("ram", ramService.getAll());
         model.addAttribute("screen", screenService.getAll());
         model.addAttribute("product", productService.getAll());
-        System.out.println(productDetails.getContent().get(0).getProduct().getName()+" ===============================>>>>");
         return "/productDetail/productDetails";
     }
 
@@ -98,9 +104,28 @@ public class ProductDetailController {
     }
 
     @PostMapping("add")
-    public String addProductDetail(Model model, @ModelAttribute("proDetail") ProductDetail productDetail,
+    public String addProductDetail(Model model, @ModelAttribute("proDetail") ProductDetailDAO productDetailDAO,
                                    @RequestParam(value = "imeiFile", required = false) MultipartFile imeiFile) {
         try {
+
+            Path fileNameAndPath = Paths.get(UPLOAD_DIRECTORY, productDetailDAO.getImages().getOriginalFilename());
+            Files.write(fileNameAndPath, productDetailDAO.getImages().getBytes());
+
+            ProductDetail productDetail = new ProductDetail();
+            productDetail.setCode(productDetailDAO.getCode());
+            productDetail.setName(productDetailDAO.getName());
+            productDetail.setCapacity(productDetailDAO.getCapacity());
+            productDetail.setColor(productDetailDAO.getColor());
+            productDetail.setManufacture(productDetailDAO.getManufacture());
+            productDetail.setCategory(productDetailDAO.getCategory());
+            productDetail.setProduct(productDetailDAO.getProduct());
+            productDetail.setChip(productDetailDAO.getChip());
+            productDetail.setScreen(productDetailDAO.getScreen());
+            productDetail.setRam(productDetailDAO.getRam());
+            productDetail.setPersonCreate(productDetailDAO.getPersonCreate());
+            productDetail.setPrice(productDetailDAO.getPrice());
+            productDetail.setImages("/images/" +productDetailDAO.getImages().getOriginalFilename());
+
             // Thêm chi tiết sản phẩm vào cơ sở dữ liệu
             productDetailService.addProductDetail(productDetail);
 
@@ -133,6 +158,23 @@ public class ProductDetailController {
             return "/productDetail/productDetail-view-add";
         }
     }
+//    @PostMapping(value = "/store")
+//    public String store(@Valid ImagesDAO imagesDAO, BindingResult result, Model model) throws IOException {
+//        if (result.hasErrors()) {
+//            model.addAttribute("image", imagesDAO);
+//            model.addAttribute("list", this.service.findAll(0));
+//            return "images/index";
+//        }
+//        Path fileNameAndPath = Paths.get(UPLOAD_DIRECTORY, imagesDAO.getFileImages().getOriginalFilename());
+//        Files.write(fileNameAndPath, imagesDAO.getFileImages().getBytes());
+//        Images image = new Images();
+//        image.setLinkImage("/images/" + imagesDAO.getFileImages().getOriginalFilename());
+//        image.setNameImage(imagesDAO.getFileImages().getOriginalFilename());
+//        image.setDescribe(imagesDAO.getDescribe());
+//        image.setPersonCreate(imagesDAO.getPersonCreate());
+//        this.service.save(image);
+//        return "redirect:/images/index";
+//    }
 
     @GetMapping("remove/{id}")
     public String removeProductDetail(@PathVariable("id") Long id) {
@@ -201,16 +243,16 @@ public class ProductDetailController {
                     if (listImeifindByIdProductDetail.contains(imeis.get(i).trim())) {
                         //nếu trùng thì add imei đó vào list xong thông báo
                         List<Imei> findImei = imeiService.findByCode(imeis.get(i).trim());
-                            listImeiAlreadyExistsElsewhere.add(findImei.get(0));
+                        listImeiAlreadyExistsElsewhere.add(findImei.get(0));
                     }
                 }
             }
-            System.out.println(listImeiAlreadyExistsElsewhere.size()+" =======================>" +listImeiAlreadyExistsElsewhere.toString());
+            System.out.println(listImeiAlreadyExistsElsewhere.size() + " =======================>" + listImeiAlreadyExistsElsewhere.toString());
 
             //nếu thoả mãn điều kiện thì cho update hoặc add imei mới
             if (imeiIsBigger.isEmpty() && listImeiAlreadyExistsElsewhere.isEmpty()) {
                 for (int i = 0; i < listImeisSize; i++) {
-                    if (imeis.get(i).trim().isEmpty()){
+                    if (imeis.get(i).trim().isEmpty()) {
                         continue;
                     }
                     if (imeiList.contains(imeis.get(i).trim())) {
