@@ -28,13 +28,13 @@ public interface ProductDetailRepository extends JpaRepository<ProductDetail, Lo
 
     ProductDetail findByCode(String code);
 
-    @Query(value = "SELECT Top 10 Id, Code, Name, DateCreate, Describe , DateUpdate, PersonCreate, PersonUpdate, Status, Id_Capacity, Id_Color, Id_Manufacture, Id_Category, Id_Battery, Id_Chip, Id_Ram, Id_Screen, Id_Product FROM ProductDetail WHERE Status = 0", nativeQuery = true)
+    @Query(value = "SELECT Top 10 Id, Code, Name, DateCreate, Describe , DateUpdate, PersonCreate, PersonUpdate, Status, Id_Capacity, Id_Color, Id_Manufacture, Id_Category, Id_Battery, Id_Chip, Id_Ram, Id_Screen, Id_Product, images, Quantity, Price FROM ProductDetail WHERE Status = 0", nativeQuery = true)
     List<ProductDetail> getTop10NewProductDetails();
 
-    @Query(value = "SELECT Id, Code, Name, DateCreate, Describe , DateUpdate, PersonCreate, PersonUpdate, Status, Id_Capacity, Id_Color, Id_Manufacture, Id_Category, Id_Battery, Id_Chip, Id_Ram, Id_Screen, Id_Product FROM ProductDetail WHERE Status = 0", nativeQuery = true)
+    @Query(value = "SELECT Id, Code, Name, DateCreate, Describe , DateUpdate, PersonCreate, PersonUpdate, Status, Id_Capacity, Id_Color, Id_Manufacture, Id_Category, Id_Battery, Id_Chip, Id_Ram, Id_Screen, Id_Product, images, Quantity, Price FROM ProductDetail WHERE Status = 0", nativeQuery = true)
     List<ProductDetail> getBestSelling();
 
-    @Query(value = "SELECT Id, Code, Name, DateCreate, Describe , DateUpdate, PersonCreate, PersonUpdate, Status, Id_Capacity, Id_Color, Id_Manufacture, Id_Category, Id_Battery, Id_Chip, Id_Ram, Id_Screen, Id_Product \n" +
+    @Query(value = "SELECT Id, Code, Name, DateCreate, Describe , DateUpdate, PersonCreate, PersonUpdate, Status, Id_Capacity, Id_Color, Id_Manufacture, Id_Category, Id_Battery, Id_Chip, Id_Ram, Id_Screen, Id_Product, images, Quantity, Price \n" +
             "FROM ProductDetail WHERE\n" +
             "Status = 0 ", nativeQuery = true)
     List<ProductDetail> getLineProductDetail();

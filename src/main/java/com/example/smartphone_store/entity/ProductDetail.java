@@ -114,6 +114,5 @@ public class ProductDetail {
     @ToString.Exclude
     private Product product;
 
-
 }
 
