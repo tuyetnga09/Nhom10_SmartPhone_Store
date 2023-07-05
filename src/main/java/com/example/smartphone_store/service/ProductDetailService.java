@@ -37,5 +37,9 @@ public interface ProductDetailService {
 
     Page<ProductDetail> findProductDetailByStatusAndProductId(Integer status, Long id, Integer page, Integer size);
 
+    Page<ProductDetail> getProductDetailByPriceLess10000000(Integer page, Integer size);
+
+    Page<ProductDetail> getProductDetailByPriceFrom10000000To20000000(Integer page, Integer size);
+
     Page<ProductDetail> getProductDetailByPriceBigger20000000(Integer page, Integer size);
 }

@@ -95,4 +95,28 @@ public class WebController {
         model.addAttribute("pageNumber", page);
         return "pages/list_productdetail_bigger20000000";
     }
+
+    @GetMapping("/productDetail/list/less10000000")
+    public String listProductDetailLess10000000(Model model, @RequestParam(value = "page", defaultValue = "0") Integer page){
+        List<Product> productList = productService.findByStatus(0);
+        model.addAttribute("productList", productList);
+
+        Page<ProductDetail> productDetailPage = productDetailService.getProductDetailByPriceLess10000000(page, 9);
+        model.addAttribute("list", productDetailPage.getContent());
+        model.addAttribute("totalPages", productDetailPage.getTotalPages());
+        model.addAttribute("pageNumber", page);
+        return "pages/list_productdetail_less10000000";
+    }
+
+    @GetMapping("/productDetail/list/from10000000to20000000")
+    public String listProductDetailFrom10000000to20000000(Model model, @RequestParam(value = "page", defaultValue = "0") Integer page){
+        List<Product> productList = productService.findByStatus(0);
+        model.addAttribute("productList", productList);
+
+        Page<ProductDetail> productDetailPage = productDetailService.getProductDetailByPriceFrom10000000To20000000(page, 9);
+        model.addAttribute("list", productDetailPage.getContent());
+        model.addAttribute("totalPages", productDetailPage.getTotalPages());
+        model.addAttribute("pageNumber", page);
+        return "pages/list_productdetail_from10000000to20000000";
+    }
 }

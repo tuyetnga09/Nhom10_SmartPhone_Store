@@ -102,6 +102,18 @@ public class ProductDetailServiceImpl implements ProductDetailService {
     }
 
     @Override
+    public Page<ProductDetail> getProductDetailByPriceLess10000000(Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return productDetailRepository.getProductDetailByPriceLess10000000(pageable);
+    }
+
+    @Override
+    public Page<ProductDetail> getProductDetailByPriceFrom10000000To20000000(Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return productDetailRepository.getProductDetailByPriceFrom10000000To20000000(pageable);
+    }
+
+    @Override
     public Page<ProductDetail> getProductDetailByPriceBigger20000000(Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page, size);
         return productDetailRepository.getProductDetailByPriceBigger20000000(pageable);

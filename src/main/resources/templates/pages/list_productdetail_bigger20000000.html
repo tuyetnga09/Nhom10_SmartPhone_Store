@@ -73,21 +73,20 @@
               <div class="layere_categorie">
                 <ul>
                   <li>
-                    <input id="acces" type="checkbox">
-                    <label for="acces">Tất cả<span>(1)</span></label>
+                    <input id="acces" type="checkbox" onchange="myFunction()">
+                    <label for="acces">Tất cả</label>
                   </li>
                   <li>
-                    <input id="dress" type="checkbox">
-                    <label for="dress">Dưới 10 triệu <span>(2)</span></label>
+                    <input id="dress" type="checkbox" onchange="myFunction()">
+                    <label for="dress">Dưới 10 triệu</label>
                   </li>
                   <li>
-                    <input id="tops" type="checkbox">
-                    <label for="tops">Từ 10 - 20 triệu<span>(3)</span></label>
+                    <input id="tops" type="checkbox" onchange="myFunction()">
+                    <label for="tops">Từ 10 - 20 triệu</label>
                   </li>
                   <li>
                     <input id="bag" type="checkbox" onchange="myFunction()" checked>
-                    <label for="bag">Trên 20 triệu<span>(4)</span></label>
-                    <span id="link" hidden="hidden">http://localhost:8080/productDetail/list/bigger20000000</span>
+                    <label for="bag">Trên 20 triệu</label>
                   </li>
                 </ul>
               </div>
@@ -882,6 +881,15 @@
   function myFunction() {
     if (!document.getElementById("bag").checked) {
       window.location.href = "http://localhost:8080/productDetail/list";
+    }
+    if (document.getElementById("acces").checked) {
+      window.location.href = "http://localhost:8080/productDetail/list";
+    }
+    if (document.getElementById("dress").checked) {
+      window.location.href = "http://localhost:8080/productDetail/list/less10000000";
+    }
+    if (document.getElementById("tops").checked) {
+      window.location.href = "http://localhost:8080/productDetail/list/from10000000to20000000";
     }
   }
 </script>

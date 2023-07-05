@@ -73,7 +73,7 @@
                             <div class="layere_categorie">
                                 <ul>
                                     <li>
-                                        <input id="acces" type="checkbox" onchange="myFunction()" checked>
+                                        <input id="acces" type="checkbox" onchange="myFunction()">
                                         <label for="acces">Tất cả</label>
                                     </li>
                                     <li>
@@ -81,7 +81,7 @@
                                         <label for="dress">Dưới 10 triệu</label>
                                     </li>
                                     <li>
-                                        <input id="tops" type="checkbox" onchange="myFunction()">
+                                        <input id="tops" type="checkbox" onchange="myFunction()" checked>
                                         <label for="tops">Từ 10 - 20 triệu</label>
                                     </li>
                                     <li>
@@ -92,7 +92,7 @@
                             </div>
                         </div>
                     </div>
-                        <!--layere categorie end-->
+                    <!--layere categorie end-->
 
                     <div class="col-lg-9 col-md-12">
                         <!--banner slider start-->
@@ -711,25 +711,25 @@
                                     <span>Products by page</span>
                                 </form>
                             </div>
-                            </div>
-                            <div class="page_number">
-                                <span>Pages: </span>
-                                <li th:if="${pageNumber>0}"><a th:href="@{/productDetail/list(page=${pageNumber} -1)}">«</a></li>
-                                <ul th:each="index : ${#numbers.sequence(0, totalPages - 1)}">
-                                    <li><a th:href="@{/productDetail/list(page=${index})}" th:text="${index+1}"></a>
-                                    </li>
-                                </ul>
-                                <li th:if="${pageNumber < (totalPages -1)}"><a th:href="@{/productDetail/list(page=${pageNumber} +1)}">»</a></li>
-                            </div>
                         </div>
-                        <!--pagination style end-->
+                        <div class="page_number">
+                            <span>Pages: </span>
+                            <li th:if="${pageNumber>0}"><a th:href="@{/productDetail/list/from10000000to20000000(page=${pageNumber} -1)}">«</a></li>
+                            <ul th:each="index : ${#numbers.sequence(0, totalPages - 1)}">
+                                <li><a th:href="@{/productDetail/list/from10000000to20000000(page=${index})}" th:text="${index+1}"></a>
+                                </li>
+                            </ul>
+                            <li th:if="${pageNumber < (totalPages -1)}"><a th:href="@{/productDetail/list/from10000000to20000000(page=${pageNumber} +1)}">»</a></li>
+                        </div>
                     </div>
+                    <!--pagination style end-->
                 </div>
             </div>
-            <!--pos home section end-->
         </div>
-        <!--pos page inner end-->
+        <!--pos home section end-->
     </div>
+    <!--pos page inner end-->
+</div>
 </div>
 <!--pos page end-->
 
@@ -879,7 +879,7 @@
 <script src="/js/plugin/main.js"></script>
 <script>
     function myFunction() {
-        if (!document.getElementById("acces").checked) {
+        if (!document.getElementById("tops").checked) {
             window.location.href = "http://localhost:8080/productDetail/list";
         }
         if (document.getElementById("acces").checked) {
@@ -887,9 +887,6 @@
         }
         if (document.getElementById("dress").checked) {
             window.location.href = "http://localhost:8080/productDetail/list/less10000000";
-        }
-        if (document.getElementById("tops").checked) {
-            window.location.href = "http://localhost:8080/productDetail/list/from10000000to20000000";
         }
         if (document.getElementById("bag").checked) {
             window.location.href = "http://localhost:8080/productDetail/list/bigger20000000";
