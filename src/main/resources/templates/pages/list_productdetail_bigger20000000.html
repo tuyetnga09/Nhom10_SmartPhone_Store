@@ -85,7 +85,7 @@
                     <label for="tops">Từ 10 - 20 triệu<span>(3)</span></label>
                   </li>
                   <li>
-                    <input id="bag" type="checkbox" onchange="myFunction()">
+                    <input id="bag" type="checkbox" onchange="myFunction()" checked>
                     <label for="bag">Trên 20 triệu<span>(4)</span></label>
                     <span id="link" hidden="hidden">http://localhost:8080/productDetail/list/bigger20000000</span>
                   </li>
@@ -880,9 +880,8 @@
 <script src="/js/plugin/main.js"></script>
 <script>
   function myFunction() {
-    if (document.getElementById("bag").checked) {
-      var link = document.getElementById("link").innerText;
-      window.location.href = link;
+    if (!document.getElementById("bag").checked) {
+      window.location.href = "http://localhost:8080/productDetail/list";
     }
   }
 </script>
