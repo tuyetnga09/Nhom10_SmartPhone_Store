@@ -43,6 +43,11 @@ public class WebController {
         return "pages/login";
     }
 
+    @GetMapping("/bill")
+    public String bill(){
+        return "pages/BillPage";
+    }
+
     @GetMapping("/single-product")
     public String singleProduct(Model model){
         List<ProductDetail> listTop10 = productDetailService.getTop10NewProductDetail();
