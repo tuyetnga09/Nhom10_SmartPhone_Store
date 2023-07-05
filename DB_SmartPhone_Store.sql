@@ -184,7 +184,8 @@ ALTER TABLE ProductDetail
     ADD images NVARCHAR(MAX)
 ALTER TABLE ProductDetail
     ADD Price FLOAT
-
+ALTER TABLE ProductDetail
+ADD Quantity INT
 --Asset Product Detail 
 CREATE TABLE Assets
 (
