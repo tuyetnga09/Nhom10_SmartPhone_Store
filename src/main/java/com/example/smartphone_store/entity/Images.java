@@ -57,7 +57,7 @@ public class Images {
     @Column(name = "PersonUpdate")
     private String personUpate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "Id_Product")
     private Product idProduct;
 

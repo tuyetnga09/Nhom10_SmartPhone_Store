@@ -126,17 +126,27 @@
 
             <span th:errors="*{ram}" style="color: red"></span>
         </div>
-
         <div class="form-group row">
             <label class="col-sm-2 col-form-label">PersonCreate:</label>
             <input class="form-control" name="personCreate" type="text" th:field="*{personCreate}"/>
             <span th:errors="*{personCreate}" style="color: red"></span>
         </div>
         <br/>
+<!--        <div class="form-group row">-->
+<!--            <label class="col-sm-2 col-form-label">Price:</label>-->
+<!--            <input class="form-control" name="price" type="text" th:field="*{price}"/>-->
+<!--            <span th:errors="*{personCreate}" style="color: red"></span>-->
+<!--        </div>-->
+        <br/>
         <div class="form-group">
             <label for="imeiFile">File Excel IMEI:</label>
             <input type="file" class="form-control-file" id="imeiFile" name="imeiFile" accept=".xlsx, .xls">
         </div>
+        </br>
+<!--        <div class="mb-3">-->
+<!--            <label class="form-label">Image Files</label>-->
+<!--            <input type="file" class="form-control" accept="image/*" name="images" multiple required th:field="*{images}>-->
+<!--        </div>-->
         </br>
         <button type="submit" class="btn btn-outline-secondary" onclick="return confirmSubmit()">ADD</button>
     </form>

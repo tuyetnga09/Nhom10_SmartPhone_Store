@@ -12,7 +12,8 @@ import java.util.List;
 
 @Repository
 public interface ProductDetailRepository extends JpaRepository<ProductDetail, Long> {
-    @Query(value = "SELECT Id, Code, Name, DateCreate, Describe , DateUpdate, PersonCreate, PersonUpdate, Status, Id_Capacity, Id_Color, Id_Manufacture, Id_Category, Id_Battery, Id_Chip, Id_Ram, Id_Screen, Id_Product FROM ProductDetail WHERE Status = 0 ORDER BY DateCreate DESC, Id DESC", nativeQuery = true)
+    @Query(value = "SELECT Id, Code, Name, DateCreate, Describe , DateUpdate, PersonCreate, PersonUpdate, Status, Id_Capacity, Id_Color, Id_Manufacture, \n" +
+            " Id_Category, Id_Battery, Id_Chip, Id_Ram, Id_Screen, Id_Product, images, Quantity, Price FROM ProductDetail WHERE Status = 0 ORDER BY DateCreate DESC, Id DESC", nativeQuery = true)
     Page<ProductDetail> getPageProductDetails(Pageable pageable);
 
     @Query(value = "SELECT Id, Code, Name, DateCreate, Describe , DateUpdate, PersonCreate, PersonUpdate, " +

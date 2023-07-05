@@ -71,7 +71,7 @@ public class Product {
     @Column(name = "Status")
     private int status;
 
-    @OneToMany(mappedBy = "idProduct", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "idProduct")
     private List<Images> idImages;
 
     public Product() {

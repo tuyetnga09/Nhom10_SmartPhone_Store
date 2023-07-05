@@ -65,6 +65,7 @@ public class ProductDetailController {
     public String getAllProductDetails(Model model, @RequestParam(value = "pageNo", defaultValue = "0") Integer pageNo) {
         Page<ProductDetail> productDetails = productDetailService.getPage(pageNo, 5);
         model.addAttribute("productDetails", productDetails.getContent());
+
         model.addAttribute("productDetailPages", productDetails.getTotalPages());
         model.addAttribute("pageNumber", pageNo);
         model.addAttribute("proDetail", new ProductDetail());
@@ -77,6 +78,7 @@ public class ProductDetailController {
         model.addAttribute("ram", ramService.getAll());
         model.addAttribute("screen", screenService.getAll());
         model.addAttribute("product", productService.getAll());
+        System.out.println(productDetails.getContent().get(0).getProduct().getName()+" ===============================>>>>");
         return "/productDetail/productDetails";
     }
 

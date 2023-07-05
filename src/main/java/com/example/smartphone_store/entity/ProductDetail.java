@@ -66,6 +66,16 @@ public class ProductDetail {
     @Column(name = "Describe")
     private String describe;
 
+    @Column(name = "Price")
+    @NotNull(message = "* Mời Nhập Giá Sản Phẩm!")
+    private Float price;
+
+    @Column(name = "images")
+    private String images;
+
+    @Column(name = "Quantity")
+    private Integer quantity;
+
     @ManyToOne
     @JoinColumn(name = "Id_Capacity")
     private Capacity capacity;
@@ -103,6 +113,7 @@ public class ProductDetail {
     @JoinColumn(name = "Id_Product")
     @ToString.Exclude
     private Product product;
+
 
 }
 
