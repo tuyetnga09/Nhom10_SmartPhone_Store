@@ -60,13 +60,16 @@ public class WebController {
     }
 
     @GetMapping("/product/{id}")
-    public String listProduct(Model model, @PathVariable("id") Long id){
+    public String listProduct(Model model, @PathVariable("id") Long id, @RequestParam(value = "page", defaultValue = "0") Integer page){
         List<Product> productList = productService.findByStatus(0);
         model.addAttribute("productList", productList);
-        List<ProductDetail> list = productDetailService.findProductDetailByStatusAndProductId(0, id);
-        model.addAttribute("list", list);
+        Page<ProductDetail> productDetailPage = productDetailService.findProductDetailByStatusAndProductId(0, id, page, 9);
+        model.addAttribute("list", productDetailPage);
+        model.addAttribute("totalPages", productDetailPage.getTotalPages());
+        model.addAttribute("pageNumber", page);
+        model.addAttribute("id", id);
 
-        return "pages/list_productdetail";
+        return "pages/list_productdetail_findby_product";
     }
 
     @GetMapping("/productDetail/list")
@@ -74,10 +77,22 @@ public class WebController {
         List<Product> productList = productService.findByStatus(0);
         model.addAttribute("productList", productList);
 
-        Page<ProductDetail> productDetailPage = productDetailService.getPage(page, 12);
+        Page<ProductDetail> productDetailPage = productDetailService.getPage(page, 9);
         model.addAttribute("list", productDetailPage.getContent());
         model.addAttribute("totalPages", productDetailPage.getTotalPages());
         model.addAttribute("pageNumber", page);
         return "pages/list_productdetail";
+    }
+
+    @GetMapping("/productDetail/list/bigger20000000")
+    public String listProductDetailBigger20000000(Model model, @RequestParam(value = "page", defaultValue = "0") Integer page){
+        List<Product> productList = productService.findByStatus(0);
+        model.addAttribute("productList", productList);
+
+        Page<ProductDetail> productDetailPage = productDetailService.getProductDetailByPriceBigger20000000(page, 9);
+        model.addAttribute("list", productDetailPage.getContent());
+        model.addAttribute("totalPages", productDetailPage.getTotalPages());
+        model.addAttribute("pageNumber", page);
+        return "pages/list_productdetail_bigger20000000";
     }
 }
