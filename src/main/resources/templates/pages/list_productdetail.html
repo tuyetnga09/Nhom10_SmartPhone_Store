@@ -147,20 +147,8 @@
                                         <div class="col-lg-4 col-md-6" th:each="list : ${list}">
                                             <div class="single_product">
                                                 <div class="product_thumb">
-                                                    <a href="/single-product" th:if="${list.product != null}">
-                                                        <div class="carousel slide" data-bs-ride="carousel">
-                                                            <!--                                                            <div class="carousel-inner" th:each="im, stave : ${list.product.idImages}">-->
-                                                            <!--                                                                <div class="carousel-item active" th:classappend="${stave.index == 0} ? active : ''">-->
-                                                            <!--                                                                    <img th:src="@{${im.linkImage}}" class="d-block" alt="...">-->
-                                                            <!--                                                                </div>-->
-                                                            <!--                                                            </div>-->
-                                                            <div class="carousel-inner">
-                                                                <div class="carousel-item active">
-                                                                    <img src="/assets/img/product/product1.jpg"
-                                                                         class="d-block" alt="...">
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                    <a href="/single-product">
+                                                        <img th:src="@{${list.images}}" class="d-block">
                                                     </a>
                                                     <div class="img_icone">
                                                         <img src="assets\img\cart\span-new.png" alt="">
@@ -171,7 +159,7 @@
                                                 </div>
                                                 <div class="product_content">
                                                     <span class="product_price"
-                                                          th:utext="${#numbers.formatInteger(list.product != null ? list.product.price : '', 0)}"></span>
+                                                          th:text="${list.price != null ? list.price : ''}"></span>
                                                     <h3 class="product_title"><a href="single-product.html"
                                                                                  th:text="${list.name != null ? list.name : ''}"></a>
                                                     </h3>

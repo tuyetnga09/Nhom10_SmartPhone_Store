@@ -201,14 +201,8 @@
                                     <div class="col-lg-3" th:each="top10PD : ${top10PD}">
                                         <div class="single_product">
                                             <div class="product_thumb">
-                                                <a href="/single-product" th:if="${top10PD.product != null}">
-                                                    <div class="carousel-inner"
-                                                         th:each="im, stave : ${top10PD.product.idImages}">
-                                                        <div class="carousel-item"
-                                                             th:classappend="${stave.index == 0} ? active : ''">
-                                                            <img th:src="@{${im.linkImage}}" class="d-block">
-                                                        </div>
-                                                    </div>
+                                                <a href="/single-product">
+                                                    <img th:src="@{${top10PD.images}}" class="d-block">
                                                 </a>
                                                 <div class="img_icone">
                                                     <img src="assets/img/cart/span-new.png" alt="">
@@ -226,7 +220,8 @@
                                             </div>
                                             <div class="product_content">
                                                 <span class="product_price"
-                                                      th:utext="${#numbers.formatInteger(top10PD.product != null ? top10PD.product.price : '', 0)}"></span>
+                                                      th:text="${top10PD.price != null ? top10PD.price : ''}"></a>
+                                                </span>
                                                 <h3 class="product_title">
                                                     <a href="single-product.html"
                                                        th:text="${top10PD.name != null ? top10PD.name : ''}"></a>
@@ -315,14 +310,8 @@
                                 <div class="col-lg-3" th:each="bestSelling : ${bestSelling}">
                                     <div class="single_product">
                                         <div class="product_thumb">
-                                            <a href="/single-product" th:if="${bestSelling.product != null}">
-                                                <div class="carousel-inner"
-                                                     th:each="im, stave : ${bestSelling.product.idImages}">
-                                                    <div class="carousel-item"
-                                                         th:classappend="${stave.index == 0} ? active : ''">
-                                                        <img th:src="@{${im.linkImage}}" class="d-block">
-                                                    </div>
-                                                </div>
+                                            <a href="/single-product">
+                                                <img th:src="@{${bestSelling.images}}" class="d-block">
                                             </a>
                                             <div class="hot_img">
                                                 <img src="assets/img/cart/span-hot.png" alt="">
@@ -339,8 +328,8 @@
                                             </div>
                                         </div>
                                         <div class="product_content">
-                                                <span class="product_price"
-                                                      th:utext="${#numbers.formatInteger(bestSelling.product != null ? bestSelling.product.price : '', 0)}"></span>
+                                            <span class="product_price"
+                                                  th:text="${bestSelling.price != null ? bestSelling.price : ''}"></span>
                                             <h3 class="product_title">
                                                 <a href="/single-product"
                                                    th:text="${bestSelling.name != null ? bestSelling.name : ''}"></a>
