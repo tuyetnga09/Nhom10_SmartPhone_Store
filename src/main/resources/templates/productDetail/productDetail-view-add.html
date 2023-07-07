@@ -55,7 +55,6 @@
                 <option th:each="capacity : ${capacities}" th:value="${capacity.id}"
                         th:text="${capacity.name}"></option>
             </select>
-
             <span th:errors="*{capacity}" style="color: red"></span>
         </div>
 
@@ -135,7 +134,7 @@
         <div class="form-group row">
             <label class="col-sm-2 col-form-label">Price:</label>
             <input class="form-control" name="price" type="text" th:field="*{price}"/>
-            <span th:errors="*{personCreate}" style="color: red"></span>
+            <span th:errors="*{price}" style="color: red"></span>
         </div>
         <br/>
         <div class="form-group">
@@ -151,6 +150,37 @@
         </br>
         <button type="submit" class="btn btn-outline-secondary" onclick="return confirmSubmit()">ADD</button>
     </form>
+
+    <!--    thông báo lỗi khi imei vượt quá 20 ký tụ vaf đã tồn tại trên dòng sản phẩm khác-->
+    <section>
+        <!--        thông báo lỗi khi imei vượt quá 20 ký tụ-->
+        <div th:if="${errorImeiIsGreaterThan20Characters == true}">
+            <h3>* Imei vượt quá 20 ký tự:</h3>
+            <div th:each="imeiError20, index : ${listErrorImeiIsGreaterThan20Characters}">
+                <p>
+                    <span th:text="-  ${index.count}"></span>
+                    <span>: </span>
+                    <span th:text="${imeiError20}"></span>
+                </p>
+            </div>
+        </div>
+
+        <!--     imei   đã tồn tại trên dòng sản phẩm khác-->
+        <div th:if="${errorImeiAlreadyExistsElsewhere == true}">
+            <h3>* Imei đã tồn tại trên dòng máy khác:</h3>
+            <div th:each="imeiErrorExistsElsewhere, index : ${listErrorImeiAlreadyExistsElsewhere}">
+                <p>
+                    <span th:text="-  ${index.count}"></span>
+                    <span>: Mã Imei: </span>
+                    <span th:text="${imeiErrorExistsElsewhere.code}"></span>
+                    <span> - Mã Sản Phẩm: </span>
+                    <span th:text="${imeiErrorExistsElsewhere.productDetail.code}"></span>
+                    <span> - Tên Sản Phẩm: </span>
+                    <span th:text="${imeiErrorExistsElsewhere.productDetail.name}"></span>
+                </p>
+            </div>
+        </div>
+    </section>
 </div>
 <!--footer start-->
 <div class="row" th:replace="~{layout/footer :: footer}"></div>

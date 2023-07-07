@@ -66,6 +66,7 @@
         <tr>
             <th scope="col">ID</th>
             <th scope="col">Code</th>
+            <th scope="col">Quantity ProductDetail</th>
             <th scope="col">Images</th>
             <th scope="col">Name</th>
             <th scope="col">DateCreate</th>
@@ -78,7 +79,7 @@
             <th scope="col">Product</th>
             <th scope="col">Ram</th>
             <th scope="col">Status</th>
-            <th scope="col">Quantity</th>
+            <th scope="col">Quantity All Product</th>
             <th scope="col">Function</th>
         </tr>
         </thead>
@@ -86,6 +87,7 @@
         <tr th:each="pr, stave : ${productDetails}">
             <td th:text="${pr.id}"></td>
             <td th:text="${pr.code}"></td>
+            <td th:text="${pr.quantity}"></td>
             <td class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item" th:classappend="${stave.index != -1} ? active : ''">

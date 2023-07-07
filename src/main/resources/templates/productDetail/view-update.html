@@ -29,7 +29,7 @@
 
         <div class="form-group row">
             <label class="col-sm-2 col-form-label">CODE:</label>
-            <input class="form-control" name="code" type="text" th:field="*{code}"/>
+            <input class="form-control" readonly="readonly" name="code" type="text" th:field="*{code}"/>
             <span th:errors="*{code}" style="color: red"></span>
         </div>
 
@@ -126,18 +126,38 @@
             <span th:errors="*{personUpdate}" style="color: red"></span>
         </div>
         <br/>
-        <div class="form-group">
-            <label for="imeiFile">File IMEI</label>
-            <input type="file" class="form-control-file" id="imeiFile" name="imeiFile" accept=".xlsx, .xls">
+        <!--        <div class="form-group">-->
+        <!--            <label for="imeiFile">File IMEI</label>-->
+        <!--            <input type="file" class="form-control-file" id="imeiFile" name="imeiFile" accept=".xlsx, .xls">-->
+        <!--        </div>-->
+        <!--        <br/>-->
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Price:</label>
+            <input class="form-control" name="price" type="text" th:field="*{price}"/>
+            <span th:errors="*{price}" style="color: red"></span>
         </div>
         <br/>
+        <div class="form-group">
+            <label for="imeiFile">File Excel IMEI:</label>
+            <input type="file" class="form-control-file" id="imeiFile" name="imeiFile" accept=".xlsx, .xls">
+        </div>
+        </br>
+        <div class="mb-3">
+            <label class="form-label">Image Files</label>
+            <input type="file" class="form-control" accept="image/*" th:field="*{images}" name="images" multiple
+                   required/>
+<!--            <div class="carousel-item" th:classappend="${0 != -1} ? active : ''">-->
+<!--                <img th:src="@{${proDetailImage}}" class="d-block" style="width: 100px" alt="Không tìm thấy ảnh!"/>-->
+<!--            </div>-->
+        </div>
+        </br>
 
         <button type="submit" class="btn btn-outline-secondary">UPDATE</button>
     </form>
 
     <!--    thông báo lỗi khi imei vượt quá 20 ký tụ vaf đã tồn tại trên dòng sản phẩm khác-->
     <section>
-<!--        thông báo lỗi khi imei vượt quá 20 ký tụ-->
+        <!--        thông báo lỗi khi imei vượt quá 20 ký tụ-->
         <div th:if="${errorImeiIsGreaterThan20Characters == true}">
             <h3>* Imei vượt quá 20 ký tự:</h3>
             <div th:each="imeiError20, index : ${listErrorImeiIsGreaterThan20Characters}">
@@ -149,7 +169,7 @@
             </div>
         </div>
 
-<!--     imei   đã tồn tại trên dòng sản phẩm khác-->
+        <!--     imei   đã tồn tại trên dòng sản phẩm khác-->
         <div th:if="${errorImeiAlreadyExistsElsewhere == true}">
             <h3>* Imei đã tồn tại trên dòng máy khác:</h3>
             <div th:each="imeiErrorExistsElsewhere, index : ${listErrorImeiAlreadyExistsElsewhere}">

@@ -35,6 +35,7 @@ import java.time.LocalDate;
 @Builder
 
 public class ProductDetailDAO {
+    private Long id;
 
     @NotBlank(message = "Mã không được để trống!")
     private String code;
