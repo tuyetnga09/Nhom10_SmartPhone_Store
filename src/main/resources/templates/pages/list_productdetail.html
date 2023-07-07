@@ -159,7 +159,7 @@
                                                 </div>
                                                 <div class="product_content">
                                                     <span class="product_price"
-                                                          th:text="${list.price != null ? list.price : ''}"></span>
+                                                          th:text="${#numbers.formatInteger(list.price != null ? list.price : '', 0)}"></span>
                                                     <h3 class="product_title"><a href="single-product.html"
                                                                                  th:text="${list.name != null ? list.name : ''}"></a>
                                                     </h3>
