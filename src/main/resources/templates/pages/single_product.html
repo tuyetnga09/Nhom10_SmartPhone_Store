@@ -28,7 +28,30 @@
     <div class="container">
         <!--pos page inner-->
         <div class="pos_page_inner">
-
+            <div class="container">
+                <!--breadcrumbs area start-->
+                <div class="breadcrumbs_area">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="breadcrumb_content">
+                                <ul>
+                                    <li><a href="/home">Home</a></li>
+                                    <li>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                             fill="currentColor"
+                                             class="bi bi-chevron-right" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd"
+                                                  d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+                                        </svg>
+                                    </li>
+                                    <!--                        <li>shop</li>-->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--breadcrumbs area end-->
+            </div>
             <!--product wrapper start-->
             <div class="product_details">
                 <div class="row">
@@ -92,6 +115,7 @@
 
                         </div>
                     </div>
+
                     <div class="col-lg-7 col-md-6">
                         <div class="product_d_right">
                             <h1>IPHONE 13 PRO MAX</h1>
@@ -374,20 +398,16 @@
                         <div class="col-lg-3" th:each="top10PD : ${top10PD}">
                             <div class="single_product">
                                 <div class="product_thumb">
-                                    <a href="/single-product" th:if="${top10PD.product != null}">
-<!--                                        <img th:src="@{'/images/' +  ${top10PD.product.idImages.nameImage}}" alt="Không tìm thấy ảnh!">-->
-                                        <div class="carousel-inner" th:each="im, stave : ${top10PD.product.idImages}">
-                                            <div class="carousel-item" th:classappend="${stave.index == 0} ? active : ''">
-                                                <img th:src="@{${im.linkImage}}" class="d-block" >
-                                            </div>
-                                        </div>
+                                    <a href="/single-product">
+                                        <img th:src="@{${top10PD.images}}" class="d-block">
                                     </a>
                                     <div class="img_icone">
                                         <img src="assets/img/cart/span-new.png" alt="">
                                     </div>
                                     <div class="product_action">
                                         <a href="#">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                 fill="currentColor"
                                                  class="bi bi-cart-check-fill" viewBox="0 0 16 16">
                                                 <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm-1.646-7.646-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L8 8.293l2.646-2.647a.5.5 0 0 1 .708.708z"/>
                                             </svg>
@@ -396,7 +416,8 @@
                                     </div>
                                 </div>
                                 <div class="product_content">
-                                    <span class="product_price" th:utext="${#numbers.formatInteger(top10PD.product != null ? top10PD.product.price : '', 0)}"></span>
+                                    <span class="product_price"
+                                          th:text="${top10PD.price != null ? top10PD.price : ''}"></span>
                                     <h3 class="product_title">
                                         <a href="single-product.html" th:text="${top10PD.name != null ? top10PD.name : ''}"></a>
                                     </h3>
@@ -434,20 +455,16 @@
                         <div class="col-lg-3" th:each="bestSelling : ${bestSelling}">
                             <div class="single_product">
                                 <div class="product_thumb">
-                                    <a href="/single-product" th:if="${bestSelling.product != null}">
-<!--                                        <img th:src="@{'/images/' +  ${bestSelling.product.idImages.nameImage}}" alt="Không tìm thấy ảnh!">-->
-                                        <div class="carousel-inner" th:each="im, stave : ${bestSelling.product.idImages}">
-                                            <div class="carousel-item" th:classappend="${stave.index == 0} ? active : ''">
-                                                <img th:src="@{${im.linkImage}}" class="d-block" >
-                                            </div>
-                                        </div>
+                                    <a href="/single-product">
+                                        <img th:src="@{${bestSelling.images}}" class="d-block">
                                     </a>
                                     <div class="hot_img">
                                         <img src="assets/img/cart/span-hot.png" alt="">
                                     </div>
                                     <div class="product_action">
                                         <a href="#">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                 fill="currentColor"
                                                  class="bi bi-cart-check-fill" viewBox="0 0 16 16">
                                                 <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm-1.646-7.646-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L8 8.293l2.646-2.647a.5.5 0 0 1 .708.708z"/>
                                             </svg>
@@ -456,7 +473,8 @@
                                     </div>
                                 </div>
                                 <div class="product_content">
-                                    <span class="product_price" th:utext="${#numbers.formatInteger(bestSelling.product != null ? bestSelling.product.price : '', 0)}"></span>
+                                    <span class="product_price"
+                                          th:text="${bestSelling.price != null ? bestSelling.price : ''}"></span>
                                     <h3 class="product_title">
                                         <a href="/single-product" th:text="${bestSelling.name != null ? bestSelling.name : ''}"></a>
                                     </h3>

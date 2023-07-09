@@ -67,7 +67,7 @@ public class ProductDetail {
     private String describe;
 
     @Column(name = "Price")
-    @NotNull(message = "* Mời Nhập Giá Sản Phẩm!")
+//    @NotNull(message = "* Mời Nhập Giá Sản Phẩm!")
     private Float price;
 
     @Column(name = "images")
@@ -108,11 +108,11 @@ public class ProductDetail {
     @ManyToOne
     @JoinColumn(name = "Id_Screen")
     private Screen screen;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Id_Product")
     @ToString.Exclude
     private Product product;
+
 
 }
 
