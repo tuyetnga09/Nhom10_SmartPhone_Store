@@ -118,4 +118,9 @@ public class ProductDetailServiceImpl implements ProductDetailService {
         Pageable pageable = PageRequest.of(page, size);
         return productDetailRepository.getProductDetailByPriceBigger20000000(pageable);
     }
+
+    @Override
+    public Integer countCodeImei(Long id) {
+        return productDetailRepository.countCodeImei(id);
+    }
 }

@@ -50,4 +50,8 @@ public interface ProductDetailRepository extends JpaRepository<ProductDetail, Lo
 //    @Query(value = "select ProductDetail.Id, ProductDetail.Code, ProductDetail.Name, ProductDetail.DateCreate, ProductDetail.DateUpdate, ProductDetail.PersonCreate, ProductDetail.PersonUpdate, ProductDetail.Describe, ProductDetail.Status, ProductDetail.Id_Capacity, ProductDetail.Id_Color, ProductDetail.Id_Manufacture, ProductDetail.Id_Category, ProductDetail.Id_Battery, ProductDetail.Id_Chip, ProductDetail.Id_Ram, ProductDetail.Id_Screen, ProductDetail.Id_Size, ProductDetail.Id_Product, ProductDetail.images, ProductDetail.Price, ProductDetail.Quantity from ProductDetail join Product on ProductDetail.Id_Product = Product.Id where ProductDetail.Status = 0 and Product.Price > 20000000", nativeQuery = true)
     @Query(value = "select * from ProductDetail where Status = 0 and Price > 20000000", nativeQuery = true)
     Page<ProductDetail> getProductDetailByPriceBigger20000000(Pageable pageable);
+
+    //lấy ra tổng số lượng imei thuộc ID_ProductDetail
+    @Query(value = "SELECT COUNT(Code) FROM Imei WHERE Id_ProductDetail =?1 AND [Status] =0", nativeQuery = true)
+    Integer countCodeImei(Long id);
 }

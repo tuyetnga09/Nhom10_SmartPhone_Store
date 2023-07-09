@@ -220,15 +220,17 @@ public class ProductDetailController {
                 imeis = ExcelUtil.extractImeisFromExcel(imeiFile);
             }
 
-            //list imei không phải của productDetail creat
+            //list imei không phải của productDetail where Id_ProductDetail
             List<CharSequence> listImeifindByIdProductDetail = imeiService.getImeiByIdProductDetail(productDetail.getId());
 
             // find ra đối tượng product
             Product product = productService.findById(productDetail.getProduct().getId());
 
-            // getAll code imei
+            // getAll code imei where Id_ProductDetail
             List<CharSequence> imeiList = imeiService.findByCodeImei(productDetail.getId());
 
+            // getAll code imei
+            List<CharSequence> getAllListCodeImei = imeiService.findAllCodeImei();
             //list code imei vượt qua 20 ký tự (tạo list rỗng để tý add vào)
             List<String> imeiIsBigger = new ArrayList<>();
 
@@ -247,14 +249,13 @@ public class ProductDetailController {
                 }
                 // kiểm tra imei đã tồn tại trên dòng máy khác hay chưa hay chưa
                 if (imeiIsBigger.isEmpty()) {
-                    if (listImeifindByIdProductDetail.contains(imeis.get(i).trim())) {
+                    if (getAllListCodeImei.contains(imeis.get(i).trim())) {
                         //nếu trùng thì add imei đó vào list xong thông báo
                         List<Imei> findImei = imeiService.findByCode(imeis.get(i).trim());
                         listImeiAlreadyExistsElsewhere.add(findImei.get(0));
                     }
                 }
             }
-//            System.out.println(listImeiAlreadyExistsElsewhere.size() + " =======================>" + listImeiAlreadyExistsElsewhere.toString());
 
             //nếu thoả mãn điều kiện thì cho  add imei mới
             if (imeiIsBigger.isEmpty() && listImeiAlreadyExistsElsewhere.isEmpty()) {
@@ -283,7 +284,9 @@ public class ProductDetailController {
                 product.setQuantity(updatedQuantity);
                 productService.update(product);
 
-                productDetail.setQuantity(quantity);
+                Integer sumQuantityCodeImeiId_Productdetail = productDetailService.countCodeImei(productDetail.getId());
+                System.out.println("Tổng là " + sumQuantityCodeImeiId_Productdetail + " ========================>");
+                productDetail.setQuantity(sumQuantityCodeImeiId_Productdetail);
                 productDetailService.updateProduct(productDetail);
                 return "redirect:/productDetails/display";
             } else {
@@ -420,15 +423,12 @@ public class ProductDetailController {
 
             //list imei không phải của productDetail update
             List<CharSequence> listImeifindByIdProductDetail = imeiService.getImeiByIdProductDetail(productDetail.getId());
-//            System.out.println(listImeifindByIdProductDetail.toString() + "======================================= 1");
-//            System.out.println(productDetail.getId() + "======================================= 1.1");
 
             // find ra đối tượng product
             Product product = productService.findById(productDetail.getProduct().getId());
 
             // getAll code imei
             List<CharSequence> imeiList = imeiService.findByCodeImei(productDetail.getId());
-//            System.out.println(imeiList.toString() + "======================================= 2");
 
 
             //list code imei vượt qua 20 ký tự (tạo list rỗng để tý add vào)
@@ -456,7 +456,6 @@ public class ProductDetailController {
                     }
                 }
             }
-//            System.out.println(listImeiAlreadyExistsElsewhere.size() + " =======================>" + listImeiAlreadyExistsElsewhere.toString());
 
             //nếu thoả mãn điều kiện thì cho update hoặc add imei mới
             if (imeiIsBigger.isEmpty() && listImeiAlreadyExistsElsewhere.isEmpty()) {
@@ -485,9 +484,8 @@ public class ProductDetailController {
                 product.setQuantity(updatedQuantityProduct);
                 productService.update(product);
 
-                int currentQuantityProductDetail = productDetail.getQuantity();
-                int updatedQuantityProductDetail = currentQuantityProductDetail + quantity;
-                productDetail.setQuantity(updatedQuantityProductDetail);
+                Integer sumQuantityCodeImeiId_Productdetail = productDetailService.countCodeImei(productDetail.getId());
+                productDetail.setQuantity(sumQuantityCodeImeiId_Productdetail);
                 productDetailService.updateProduct(productDetail);
                 return "redirect:/productDetails/display";
             } else {

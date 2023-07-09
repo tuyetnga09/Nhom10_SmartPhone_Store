@@ -26,4 +26,8 @@ public interface ImeiRepository extends JpaRepository<Imei, Long> {
     // trên dòng sản phẩm khác
     @Query(value = "SELECT Code FROM Imei WHERE Id_ProductDetail !=?1", nativeQuery = true)
     List<CharSequence> getImeiByIdProductDetail(Long idProductDetail);
+
+    //lấy ra all code imei
+    @Query(value = "    SELECT Code FROM Imei", nativeQuery = true)
+    List<CharSequence> findAllCodeImei();
 }

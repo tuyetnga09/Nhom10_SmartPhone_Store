@@ -61,4 +61,9 @@ public class ImeiServiceImpl implements ImeiService {
     public List<CharSequence> getImeiByIdProductDetail(Long idProductDetail) {
         return imeiRepository.getImeiByIdProductDetail(idProductDetail);
     }
+
+    @Override
+    public List<CharSequence> findAllCodeImei() {
+        return imeiRepository.findAllCodeImei();
+    }
 }

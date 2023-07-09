@@ -42,4 +42,8 @@ public interface ProductDetailService {
     Page<ProductDetail> getProductDetailByPriceFrom10000000To20000000(Integer page, Integer size);
 
     Page<ProductDetail> getProductDetailByPriceBigger20000000(Integer page, Integer size);
+
+    //lấy ra tổng số lượng imei thuộc ID_ProductDetail
+    Integer countCodeImei(Long id);
+
 }
