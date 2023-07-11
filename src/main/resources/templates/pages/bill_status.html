@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bill_Status</title>
+    <link rel="stylesheet" th:href="@{/css/plugin/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/plugin/plugin.css}"/>
+    <link rel="stylesheet" th:href="@{/css/plugin/bundle.css}"/>
+    <link rel="stylesheet" th:href="@{/css/plugin/style.css}"/>
+    <link rel="stylesheet" th:href="@{/css/plugin/responsive.css}"/>
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <script src="/js/plugin/vendor/modernizr-2.8.3.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <!-- Main CSS-->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/plugin/main.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    <!-- or -->
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+
+    <!-- Font-icon css-->
+    <link rel="stylesheet" type="text/css"
+          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+</head>
+<body>
+<!-- header start-->
+<div class="row" th:replace="~{layout/header :: menu}"></div>
+<!-- header end-->
+
+<div class="container">
+    <!--breadcrumbs area start-->
+    <div class="breadcrumbs_area">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb_content">
+                    <ul>
+                        <li><a href="/home">Home</a></li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-chevron-right" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                      d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+                            </svg>
+                        </li>
+                        <li>Đơn hàng</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--breadcrumbs area end-->
+</div>
+
+
+<main class="app-content">
+    <div class="app-title">
+        <ul class="app-breadcrumb breadcrumb side">
+            <li class="breadcrumb-item active"><a href="#"><b>Danh sách đơn hàng</b></a></li>
+        </ul>
+        <div id="clock"></div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tile">
+                <div class="tile-body">
+
+                    <div class="container">
+                        <div class="row element-button">
+                            <div class="col-sm-2">
+
+                                <a class="btn btn-add btn-sm" href="#" title="Thêm"><i
+                                        class="fas fa-plus"></i>
+                                    Tạo mới đơn hàng</a>
+                            </div>
+                            <div class="col-sm-2">
+                                <a class="btn btn-delete btn-sm nhap-tu-file" href="#" type="button" title="Nhập"><i
+                                        class="fas fa-file-upload"></i> Tải từ file</a>
+                            </div>
+
+                            <div class="col-sm-2">
+                                <a class="btn btn-delete btn-sm print-file" href="#" type="button" title="In"><i
+                                        class="fas fa-print"></i> In dữ liệu</a>
+                            </div>
+                            <div class="col-sm-2">
+                                <a class="btn btn-excel btn-sm" href="#" title="In"><i class="fas fa-file-excel"></i> Xuất
+                                    Excel</a>
+                            </div>
+                            <div class="col-sm-2">
+                                <a class="btn btn-delete btn-sm pdf-file" href="#" type="button" title="In"><i
+                                        class="fas fa-file-pdf"></i> Xuất PDF</a>
+                            </div>
+                            <div class="col-sm-2">
+                                <a class="btn btn-delete btn-sm" href="#" type="button" title="Xóa"><i
+                                        class="fas fa-trash-alt"></i> Xóa tất cả </a>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-8"></div>
+                            <div class="col-4">
+                                <input type="search" required="required" class="header_search_input"
+                                       placeholder="Search for bill...">
+                            </div>
+                        </div>
+                    </div>
+
+                    <br>
+                    <div class="container">
+                        <table class="table table-hover table-bordered" id="sampleTable">
+                            <thead>
+                            <tr>
+                                <th width="10"><input type="checkbox" id="all"></th>
+                                <th>ID đơn hàng</th>
+                                <th>Khách hàng</th>
+                                <th>Đơn hàng</th>
+                                <th>Hình ảnh</th>
+                                <th>Số lượng</th>
+                                <th>Tổng tiền</th>
+                                <th>Tình trạng</th>
+                                <th>Tính năng</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td width="10"><input type="checkbox" name="check1" value="1"></td>
+                                <td>MD0837</td>
+                                <td>Triệu Thanh Phú</td>
+                                <td>Iphone 11</td>
+                                <td>
+                                    <img src="assets/img/product/product1.jpg" alt="" style="width: 50px">
+                                </td>
+                                <td>2</td>
+                                <td>9.400.000 đ</td>
+                                <td><span class="badge bg-success">Hoàn thành</span></td>
+                                <td>
+                                    <button class="btn btn-danger" type="button" title="Xóa"><i
+                                            class="fas fa-trash-alt"></i></button>
+                                    <button class="btn btn-success" type="button" title="Chuyển Trạng Thái"><i
+                                            class="fa fa-edit"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="10"><input type="checkbox" name="check1" value="1"></td>
+                                <td>MĐ8265</td>
+                                <td>Phong</td>
+                                <td>Iphone 12 Pro</td>
+                                <td>
+                                    <img src="assets/img/product/product1.jpg" alt="" style="width: 50px">
+                                </td>
+                                <td>1</td>
+                                <td>3.800.000 đ</td>
+                                <td><span class="badge bg-success">Hoàn thành</span></td>
+                                <td>
+                                    <button class="btn btn-danger" type="button" title="Xóa"><i
+                                            class="fas fa-trash-alt"></i></button>
+                                    <button class="btn btn-success" type="button" title="Chuyển Trạng Thái"><i
+                                            class="fa fa-edit"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="10"><input type="checkbox" name="check1" value="1"></td>
+                                <td>MT9835</td>
+                                <td>Đặng Hoàng Phúc</td>
+                                <td>Iphone 13</td>
+                                <td>
+                                    <img src="assets/img/product/product1.jpg" alt="" style="width: 50px">
+                                </td>
+                                <td>3</td>
+                                <td>40.650.000 đ</td>
+                                <td><span class="badge bg-success">Hoàn thành</span></td>
+                                <td>
+                                    <button class="btn btn-danger" type="button" title="Xóa"><i
+                                            class="fas fa-trash-alt"></i></button>
+                                    <button class="btn btn-success" type="button" title="Chuyển Trạng Thái"><i
+                                            class="fa fa-edit"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="10"><input type="checkbox" name="check1" value="1"></td>
+                                <td>ER3835</td>
+                                <td>Nguyễn Thị Mỹ Yến</td>
+                                <td>Iphone 14</td>
+                                <td>
+                                    <img src="assets/img/product/product1.jpg" alt="" style="width: 50px">
+                                </td>
+                                <td>1</td>
+                                <td>16.770.000 đ</td>
+                                <td><span class="badge bg-info">Chờ thanh toán</span></td>
+                                <td>
+                                    <button class="btn btn-danger" type="button" title="Xóa"><i
+                                            class="fas fa-trash-alt"></i></button>
+                                    <button class="btn btn-success" type="button" title="Chuyển Trạng Thái"><i
+                                            class="fa fa-edit"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="10"><input type="checkbox" name="check1" value="1"></td>
+                                <td>AL3947</td>
+                                <td>Phạm Thị Ngọc</td>
+                                <td>Iphone 11 Pro</td>
+                                <td>
+                                    <img src="assets/img/product/product1.jpg" alt="" style="width: 50px">
+                                </td>
+                                <td>2</td>
+                                <td>19.770.000 đ</td>
+                                <td><span class="badge bg-warning">Đang giao hàng</span></td>
+                                <td>
+                                    <button class="btn btn-danger" type="button" title="Xóa"><i
+                                            class="fas fa-trash-alt"></i></button>
+                                    <button class="btn btn-success" type="button" title="Chuyển Trạng Thái"><i
+                                            class="fa fa-edit"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="10"><input type="checkbox" name="check1" value="1"></td>
+                                <td>QY8723</td>
+                                <td>Ngô Thái An</td>
+                                <td>Iphone 13 Pro Max</td>
+                                <td>
+                                    <img src="assets/img/product/product1.jpg" alt="" style="width: 50px">
+                                </td>
+                                <td>1</td>
+                                <td>14.500.000 đ</td>
+                                <td><span class="badge bg-danger">Đã hủy</span></td>
+                                <td>
+                                    <button class="btn btn-danger" type="button" title="Xóa"><i
+                                            class="fas fa-trash-alt"></i></button>
+                                    <button class="btn btn-success" type="button" title="Chuyển Trạng Thái"><i
+                                            class="fa fa-edit"></i></button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                            </ul>
+                        </nav>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+</div>
+
+
+<!-- footer start-->
+<div class="row" th:replace="~{layout/footer :: footer}"></div>
+<!-- footer end-->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+        integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
+        crossorigin="anonymous"></script>
+<script src="/js/plugin/vendor/jquery-1.12.0.min.js"></script>
+<script src="/js/plugin/popper.js"></script>
+<script src="/js/plugin/bootstrap.min.js"></script>
+<script src="/js/plugin/ajax-mail.js"></script>
+<script src="/js/plugin/plugins.js"></script>
+<script src="/js/plugin/main.js"></script>
+<!-- Page specific javascripts-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+</body>
+</html>

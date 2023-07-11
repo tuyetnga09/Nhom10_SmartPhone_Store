@@ -119,4 +119,9 @@ public class WebController {
         model.addAttribute("pageNumber", page);
         return "pages/list_productdetail_from10000000to20000000";
     }
+
+    @GetMapping("/bill-status")
+    public String billStatus(){
+        return "pages/bill_status";
+    }
 }
