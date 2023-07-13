@@ -18,7 +18,12 @@ import com.example.smartphone_store.service.ProductDetailService;
 import com.example.smartphone_store.service.RamService;
 import com.example.smartphone_store.service.ScreenService;
 import com.example.smartphone_store.service.impl.ProductService;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -547,4 +552,45 @@ public class ProductDetailController {
         return "redirect:/productDetails/display";
     }
 
+    @GetMapping("/export")
+    public void exportToExcel(HttpServletResponse response) throws IOException {
+        // Thiết lập header cho response
+        response.setContentType("application/vnd.ms-excel");
+        response.setHeader("Content-Disposition", "attachment; filename=example.xlsx");
+
+        // Tạo workbook mới
+        Workbook workbook = new XSSFWorkbook();
+
+        // Tạo một sheet mới
+        Sheet sheet = workbook.createSheet("Sheet 1");
+
+        // Tạo header cho sheet
+        Row header = sheet.createRow(0);
+        header.createCell(0).setCellValue("Tên sản phẩm");
+        header.createCell(1).setCellValue("Giá");
+        header.createCell(2).setCellValue("Số lượng ");
+        header.createCell(3).setCellValue("Ngày tạo ");
+        header.createCell(4).setCellValue("Người tạo ");
+        header.createCell(5).setCellValue("Tên SP");
+        header.createCell(6).setCellValue("Trạng thái");
+
+        // Lấy dữ liệu từ database và thêm vào sheet
+        List<ProductDetail> products = productDetailService.getAll();
+        int rowNum = 1;
+        for (ProductDetail product : products) {
+            Row row = sheet.createRow(rowNum++);
+            row.createCell(0).setCellValue(product.getName());
+            row.createCell(1).setCellValue(product.getPrice());
+            row.createCell(2).setCellValue(product.getQuantity());
+            row.createCell(3).setCellValue(product.getDateCreate());
+            row.createCell(4).setCellValue(product.getPersonCreate());
+            row.createCell(5).setCellValue(product.getProduct().getName());
+            row.createCell(6).setCellValue(product.getStatus());
+        }
+        // Ghi dữ liệu vào response
+        workbook.write(response.getOutputStream());
+
+        // Đóng workbook
+        workbook.close();
+    }
 }

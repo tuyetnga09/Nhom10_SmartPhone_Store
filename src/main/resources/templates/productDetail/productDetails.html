@@ -10,6 +10,28 @@
             crossorigin="anonymous"/>
     <link rel="stylesheet" th:href="@{/css/header.css}">
     <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/plugin/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/plugin/plugin.css}"/>
+    <link rel="stylesheet" th:href="@{/css/plugin/bundle.css}"/>
+    <link rel="stylesheet" th:href="@{/css/plugin/style.css}"/>
+    <link rel="stylesheet" th:href="@{/css/plugin/responsive.css}"/>
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <script src="/js/plugin/vendor/modernizr-2.8.3.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <!-- Main CSS-->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/plugin/main.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    <!-- or -->
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+
+    <!-- Font-icon css-->
+    <link rel="stylesheet" type="text/css"
+          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
 </head>
 <script>
     function confirmSubmit() {
@@ -29,11 +51,7 @@
     <div><h1>Product Details</h1></div>
 </div>
 <hr/>
-<div class="container">
-    <a th:href="@{/productDetails/view-add}" class="btn btn-outline-secondary">ADD</a>
-    <a th:href="@{/productDetails/return-delete}" class="btn btn-outline-secondary">VIEW-DELETE</a>
-</div>
-<hr/>
+
 <div class="container">
     <div class="form-group row">
         <form th:action="@{/productDetails/search}" method="get">
@@ -49,6 +67,36 @@
     </div>
 </div>
 <hr/>
+<div class="container">
+    <div class="row element-button">
+        <div class="col-sm-2">
+
+            <a class="btn btn-add btn-sm" th:href="@{/productDetails/view-add}"><i class="fas fa-plus"></i>
+                Tạo mới sản phẩm</a>
+        </div>
+        <div class="col-sm-2">
+            <a class="btn btn-delete btn-sm nhap-tu-file" href="#" type="button" title="Nhập"><i
+                    class="fas fa-file-upload"></i> Tải từ file</a>
+        </div>
+
+        <div class="col-sm-2">
+            <a class="btn btn-delete btn-sm print-file" href="#" type="button" title="In"><i class="fas fa-print"></i>
+                In dữ liệu</a>
+        </div>
+        <div class="col-sm-2">
+            <a class="btn btn-excel btn-sm" th:href="@{/productDetails/export}"><i class="fas fa-file-excel"></i> Xuất
+                Excel</a>
+        </div>
+        <div class="col-sm-2">
+            <a class="btn btn-delete btn-sm pdf-file" href="#" type="button" title="In"><i class="fas fa-file-pdf"></i>
+                Xóa tất cả </a>
+        </div>
+        <div class="col-sm-2">
+            <a class="btn btn-delete btn-sm" th:href="@{/productDetails/return-delete}"><i class="fas fa-trash-alt"></i>Đã
+                xoá</a>
+        </div>
+    </div>
+</div>
 <!--<div class="container">-->
 <!--  <form th:action="@{/capacity/upload}" method="POST" enctype="multipart/form-data">-->
 <!--    <label class="col-sm-2 col-form-label">IMPORT EXCEL:</label>-->
@@ -61,7 +109,7 @@
 <!--</div>-->
 <hr/>
 <div>
-    <table class="table table-bordered table-striped">
+    <table class="table table-hover table-bordered" id="sampleTable">
         <thead class="thead-dark">
         <tr>
             <th scope="col">ID</th>
@@ -108,10 +156,11 @@
             <td th:text="${pr.status == 0 ? 'Hoat dong' : 'Khong hoat dong'}"></td>
             <td th:text="${pr.product.quantity}"></td>
             <td>
-                <a th:href="@{/productDetails/remove/{id}(id=${pr.id})}" class="btn btn-success"
-                   onclick="return confirmSubmit()">Remove</a>
-                <a th:href="@{/productDetails/view-update/{id}(id=${pr.id})}" class="btn btn-warning"
-                   onclick="return confirmSubmit()">Edit</a>
+                <a th:href="@{/productDetails/remove/{id}(id=${pr.id})}" class="fas fa-trash-alt"
+                   onclick="return confirmSubmit()" style="margin-right: 10px;"></a>
+                <a th:href="@{/productDetails/view-update/{id}(id=${pr.id})}" class="fa fa-edit"
+                   onclick="return confirmSubmit()" style="margin-left: 10px;"></a>
+
             </td>
         </tr>
         </tbody>
