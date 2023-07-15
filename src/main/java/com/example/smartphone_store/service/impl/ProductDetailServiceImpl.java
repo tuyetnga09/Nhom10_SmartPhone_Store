@@ -102,25 +102,27 @@ public class ProductDetailServiceImpl implements ProductDetailService {
     }
 
     @Override
-    public Page<ProductDetail> getProductDetailByPriceLess10000000(Integer page, Integer size) {
-        Pageable pageable = PageRequest.of(page, size);
-        return productDetailRepository.getProductDetailByPriceLess10000000(pageable);
-    }
-
-    @Override
-    public Page<ProductDetail> getProductDetailByPriceFrom10000000To20000000(Integer page, Integer size) {
-        Pageable pageable = PageRequest.of(page, size);
-        return productDetailRepository.getProductDetailByPriceFrom10000000To20000000(pageable);
-    }
-
-    @Override
-    public Page<ProductDetail> getProductDetailByPriceBigger20000000(Integer page, Integer size) {
-        Pageable pageable = PageRequest.of(page, size);
-        return productDetailRepository.getProductDetailByPriceBigger20000000(pageable);
-    }
-
-    @Override
     public Integer countCodeImei(Long id) {
         return productDetailRepository.countCodeImei(id);
+    }
+
+    @Override
+    public List<ProductDetail> findProductDetailByNameAndStatus(String name, Integer status) {
+        return productDetailRepository.findProductDetailByNameAndStatus(name, status);
+    }
+
+    @Override
+    public List<String> findNameCapacityByNameProductDetail(String name) {
+        return productDetailRepository.findNameCapacityByNameProductDetail(name);
+    }
+
+    @Override
+    public List<String> findNameColorByNameProductDetail(String name) {
+        return productDetailRepository.findNameColorByNameProductDetail(name);
+    }
+
+    @Override
+    public List<String> findImagesByNameProductDetail(String name) {
+        return productDetailRepository.findImagesByNameProductDetail(name);
     }
 }

@@ -5,6 +5,7 @@ import com.example.smartphone_store.entity.Capacity;
 import com.example.smartphone_store.entity.ProductDetail;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
@@ -37,13 +38,15 @@ public interface ProductDetailService {
 
     Page<ProductDetail> findProductDetailByStatusAndProductId(Integer status, Long id, Integer page, Integer size);
 
-    Page<ProductDetail> getProductDetailByPriceLess10000000(Integer page, Integer size);
-
-    Page<ProductDetail> getProductDetailByPriceFrom10000000To20000000(Integer page, Integer size);
-
-    Page<ProductDetail> getProductDetailByPriceBigger20000000(Integer page, Integer size);
-
     //lấy ra tổng số lượng imei thuộc ID_ProductDetail
     Integer countCodeImei(Long id);
+
+    List<ProductDetail> findProductDetailByNameAndStatus(String name, Integer status);
+
+    List<String> findNameCapacityByNameProductDetail(String name);
+
+    List<String> findNameColorByNameProductDetail(String name);
+
+    List<String> findImagesByNameProductDetail(String name);
 
 }

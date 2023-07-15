@@ -58,59 +58,59 @@
                     <div class="col-lg-5 col-md-6">
                         <div class="product_tab fix">
                             <div class="product_tab_button">
-                                <ul class="nav" role="tablist">
+                                <ul class="nav" role="tablist" th:each="img : ${nameImages}">
                                     <li>
                                         <a class="active" data-toggle="tab" href="#p_tab1" role="tab"
                                            aria-controls="p_tab1" aria-selected="false"><img
-                                                src="assets\img\product\product13.jpg" alt=""></a>
+                                                th:src="@{${img}}" alt=""></a>
                                     </li>
-                                    <li>
-                                        <a data-toggle="tab" href="#p_tab2" role="tab" aria-controls="p_tab2"
-                                           aria-selected="false"><img src="assets\img\product\product14.jpg" alt=""></a>
-                                    </li>
-                                    <li>
-                                        <a data-toggle="tab" href="#p_tab3" role="tab" aria-controls="p_tab3"
-                                           aria-selected="false"><img src="assets\img\product\product15.jpg" alt=""></a>
-                                    </li>
+<!--                                    <li>-->
+<!--                                        <a data-toggle="tab" href="#p_tab2" role="tab" aria-controls="p_tab2"-->
+<!--                                           aria-selected="false"><img src="assets\img\product\product14.jpg" alt=""></a>-->
+<!--                                    </li>-->
+<!--                                    <li>-->
+<!--                                        <a data-toggle="tab" href="#p_tab3" role="tab" aria-controls="p_tab3"-->
+<!--                                           aria-selected="false"><img src="assets\img\product\product15.jpg" alt=""></a>-->
+<!--                                    </li>-->
                                 </ul>
                             </div>
                             <div class="tab-content produc_tab_c">
                                 <div class="tab-pane fade show active" id="p_tab1" role="tabpanel">
-                                    <div class="modal_img">
-                                        <a href="#"><img src="assets\img\product\product13.jpg" alt=""></a>
-                                        <div class="img_icone">
-                                            <img src="assets\img\cart\span-new.png" alt="">
-                                        </div>
-                                        <div class="view_img">
-                                            <a class="large_view" href="assets\img\product\product13.jpg"><i
-                                                    class="fa fa-search-plus"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="p_tab2" role="tabpanel">
                                     <div class="modal_img">
                                         <a href="#"><img src="assets\img\product\product14.jpg" alt=""></a>
                                         <div class="img_icone">
                                             <img src="assets\img\cart\span-new.png" alt="">
                                         </div>
                                         <div class="view_img">
-                                            <a class="large_view" href="assets\img\product\product14.jpg"><i
+                                            <a class="large_view" src="assets\img\product\product14.jpg"><i
                                                     class="fa fa-search-plus"></i></a>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tab-pane fade" id="p_tab3" role="tabpanel">
-                                    <div class="modal_img">
-                                        <a href="#"><img src="assets\img\product\product15.jpg" alt=""></a>
-                                        <div class="img_icone">
-                                            <img src="assets\img\cart\span-new.png" alt="">
-                                        </div>
-                                        <div class="view_img">
-                                            <a class="large_view" href="assets\img\product\product15.jpg"> <i
-                                                    class="fa fa-search-plus"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
+<!--                                <div class="tab-pane fade" id="p_tab2" role="tabpanel">-->
+<!--                                    <div class="modal_img">-->
+<!--                                        <a href="#"><img th:src="@{${prd.images}}" alt=""></a>-->
+<!--                                        <div class="img_icone">-->
+<!--                                            <img src="assets\img\cart\span-new.png" alt="">-->
+<!--                                        </div>-->
+<!--                                        <div class="view_img">-->
+<!--                                            <a class="large_view" href="assets\img\product\product14.jpg"><i-->
+<!--                                                    class="fa fa-search-plus"></i></a>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div class="tab-pane fade" id="p_tab3" role="tabpanel">-->
+<!--                                    <div class="modal_img">-->
+<!--                                        <a href="#"><img th:src="@{${prd.images}}" alt=""></a>-->
+<!--                                        <div class="img_icone">-->
+<!--                                            <img src="assets\img\cart\span-new.png" alt="">-->
+<!--                                        </div>-->
+<!--                                        <div class="view_img">-->
+<!--                                            <a class="large_view" href="assets\img\product\product15.jpg"> <i-->
+<!--                                                    class="fa fa-search-plus"></i></a>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
                             </div>
 
                         </div>
@@ -118,7 +118,7 @@
 
                     <div class="col-lg-7 col-md-6">
                         <div class="product_d_right">
-                            <h1>IPHONE 13 PRO MAX</h1>
+                            <h1 th:text="${name}"></h1>
                             <div class="product_ratting mb-10">
                                 <ul>
                                     <li><a href="#">
@@ -158,12 +158,13 @@
                             </div>
                             <div class="modal_size mb-15">
                                 <h2>Dung Lượng</h2>
-                                <ul>
-                                    <li><a href="#">128GB</a></li>
-                                    <li><a href="#">256GB</a></li>
-                                    <li><a href="#">512GB</a></li>
-                                    <li><a href="#">1TB</a></li>
-                                    <li><a href="#">2TB</a></li>
+                                <ul th:each="cp : ${nameCapacity}" style="display: inline">
+                                    <li><a href="#" th:text="${cp}"></a></li>
+<!--                                    <li><a href="#">128GB</a></li>-->
+<!--                                    <li><a href="#">256GB</a></li>-->
+<!--                                    <li><a href="#">512GB</a></li>-->
+<!--                                    <li><a href="#">1TB</a></li>-->
+<!--                                    <li><a href="#">2TB</a></li>-->
                                 </ul>
                             </div>
                             <div class="box_quantity mb-20">
@@ -189,9 +190,9 @@
                             <div class="product_d_size mb-20">
                                 <label for="group_1">Color</label>
                                 <select name="size" id="group_1">
-                                    <option value="1">Blue</option>
-                                    <option value="2">Red</option>
-                                    <option value="3">Green</option>
+                                    <option th:each="cl : ${nameColor}" th:value="${cl}" th:text="${cl}"></option>
+<!--                                    <option value="2">Red</option>-->
+<!--                                    <option value="3">Green</option>-->
                                 </select>
                             </div>
 
@@ -417,7 +418,7 @@
                                 </div>
                                 <div class="product_content">
                                     <span class="product_price"
-                                          th:text="${top10PD.price != null ? top10PD.price : ''}"></span>
+                                          th:text="${#numbers.formatInteger(top10PD.price != null ? top10PD.price : '', 0)}"></span>
                                     <h3 class="product_title">
                                         <a href="single-product.html" th:text="${top10PD.name != null ? top10PD.name : ''}"></a>
                                     </h3>

@@ -6,6 +6,8 @@ import com.example.smartphone_store.service.ProductDetailService;
 import com.example.smartphone_store.service.impl.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,8 +50,22 @@ public class WebController {
         return "pages/BillPage";
     }
 
-    @GetMapping("/single-product")
-    public String singleProduct(Model model){
+    @GetMapping("/single-product/{name}")
+    public String singleProduct(Model model, @PathVariable("name") String name){
+        model.addAttribute("name", name);
+
+        List<String> nameCapacity = productDetailService.findNameCapacityByNameProductDetail(name);
+        model.addAttribute("nameCapacity", nameCapacity);
+
+        List<String> nameColor = productDetailService.findNameColorByNameProductDetail(name);
+        model.addAttribute("nameColor", nameColor);
+
+        List<String> nameImages = productDetailService.findImagesByNameProductDetail(name);
+        model.addAttribute("nameImages", nameImages);
+
+        List<ProductDetail> productDetails = productDetailService.findProductDetailByNameAndStatus(name, 0);
+        model.addAttribute("productDetails", productDetails);
+
         List<ProductDetail> listTop10 = productDetailService.getTop10NewProductDetail();
         model.addAttribute("top10PD", listTop10);
 
@@ -59,16 +75,38 @@ public class WebController {
         return "pages/single_product";
     }
 
-    @GetMapping("/product/{id}")
-    public String listProduct(Model model, @PathVariable("id") Long id, @RequestParam(value = "page", defaultValue = "0") Integer page){
-        List<Product> productList = productService.findByStatus(0);
-        model.addAttribute("productList", productList);
-        Page<ProductDetail> productDetailPage = productDetailService.findProductDetailByStatusAndProductId(0, id, page, 9);
-        model.addAttribute("list", productDetailPage);
-        model.addAttribute("totalPages", productDetailPage.getTotalPages());
-        model.addAttribute("pageNumber", page);
-        model.addAttribute("id", id);
+    @GetMapping("/iphone-x")
+    public String listProductIphoneX(Model model){
+        List<Product> list = productService.getProductIphoneX();
+        model.addAttribute("list", list);
+        return "pages/list_productdetail_findby_product";
+    }
 
+    @GetMapping("/iphone-11")
+    public String listProductIphone11(Model model){
+        List<Product> list = productService.getProductIphone11();
+        model.addAttribute("list", list);
+        return "pages/list_productdetail_findby_product";
+    }
+
+    @GetMapping("/iphone-12")
+    public String listProductIphone12(Model model){
+        List<Product> list = productService.getProductIphone12();
+        model.addAttribute("list", list);
+        return "pages/list_productdetail_findby_product";
+    }
+
+    @GetMapping("/iphone-13")
+    public String listProductIphone13(Model model){
+        List<Product> list = productService.getProductIphone13();
+        model.addAttribute("list", list);
+        return "pages/list_productdetail_findby_product";
+    }
+
+    @GetMapping("/iphone-14")
+    public String listProductIphone14(Model model){
+        List<Product> list = productService.getProductIphone14();
+        model.addAttribute("list", list);
         return "pages/list_productdetail_findby_product";
     }
 
@@ -76,46 +114,37 @@ public class WebController {
     public String listProductDetail(Model model, @RequestParam(value = "page", defaultValue = "0") Integer page){
         List<Product> productList = productService.findByStatus(0);
         model.addAttribute("productList", productList);
-
-        Page<ProductDetail> productDetailPage = productDetailService.getPage(page, 9);
-        model.addAttribute("list", productDetailPage.getContent());
-        model.addAttribute("totalPages", productDetailPage.getTotalPages());
+        Pageable pageable = PageRequest.of(page, 9);
+        Page<Product> productPage = productService.selectByStatus(0, pageable);
+        model.addAttribute("list", productPage.getContent());
+        model.addAttribute("totalPages", productPage.getTotalPages());
         model.addAttribute("pageNumber", page);
         return "pages/list_productdetail";
     }
 
     @GetMapping("/productDetail/list/bigger20000000")
     public String listProductDetailBigger20000000(Model model, @RequestParam(value = "page", defaultValue = "0") Integer page){
-        List<Product> productList = productService.findByStatus(0);
-        model.addAttribute("productList", productList);
-
-        Page<ProductDetail> productDetailPage = productDetailService.getProductDetailByPriceBigger20000000(page, 9);
-        model.addAttribute("list", productDetailPage.getContent());
-        model.addAttribute("totalPages", productDetailPage.getTotalPages());
+        Page<Product> productPage = productService.getProductByPriceBigger20000000(page, 9);
+        model.addAttribute("list", productPage.getContent());
+        model.addAttribute("totalPages", productPage.getTotalPages());
         model.addAttribute("pageNumber", page);
         return "pages/list_productdetail_bigger20000000";
     }
 
     @GetMapping("/productDetail/list/less10000000")
     public String listProductDetailLess10000000(Model model, @RequestParam(value = "page", defaultValue = "0") Integer page){
-        List<Product> productList = productService.findByStatus(0);
-        model.addAttribute("productList", productList);
-
-        Page<ProductDetail> productDetailPage = productDetailService.getProductDetailByPriceLess10000000(page, 9);
-        model.addAttribute("list", productDetailPage.getContent());
-        model.addAttribute("totalPages", productDetailPage.getTotalPages());
+        Page<Product> productPage = productService.getProductByPriceLess10000000(page, 9);
+        model.addAttribute("list", productPage.getContent());
+        model.addAttribute("totalPages", productPage.getTotalPages());
         model.addAttribute("pageNumber", page);
         return "pages/list_productdetail_less10000000";
     }
 
     @GetMapping("/productDetail/list/from10000000to20000000")
     public String listProductDetailFrom10000000to20000000(Model model, @RequestParam(value = "page", defaultValue = "0") Integer page){
-        List<Product> productList = productService.findByStatus(0);
-        model.addAttribute("productList", productList);
-
-        Page<ProductDetail> productDetailPage = productDetailService.getProductDetailByPriceFrom10000000To20000000(page, 9);
-        model.addAttribute("list", productDetailPage.getContent());
-        model.addAttribute("totalPages", productDetailPage.getTotalPages());
+        Page<Product> productPage = productService.getProductByPriceFrom10000000To20000000(page, 9);
+        model.addAttribute("list", productPage.getContent());
+        model.addAttribute("totalPages", productPage.getTotalPages());
         model.addAttribute("pageNumber", page);
         return "pages/list_productdetail_from10000000to20000000";
     }

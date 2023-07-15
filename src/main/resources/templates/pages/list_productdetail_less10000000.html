@@ -54,8 +54,12 @@
         <!--end banner-->
 
         <!--menu-->
-        <nav class="nav" th:each="pr : ${productList}" style="display: inline-block">
-            <a id="menu_product" class="nav-link" th:href="@{/product/{id}(id=${pr.id})}" th:text="${pr.name}"></a>
+        <nav class="nav">
+            <a id="menu_product" class="nav-link" th:href="@{/iphone-x}" style="display: inline">Iphone X</a>
+            <a id="menu_product" class="nav-link" th:href="@{/iphone-11}">Iphone 11</a>
+            <a id="menu_product" class="nav-link" th:href="@{/iphone-12}">Iphone 12</a>
+            <a id="menu_product" class="nav-link" th:href="@{/iphone-13}">Iphone 13</a>
+            <a id="menu_product" class="nav-link" th:href="@{/iphone-14}">Iphone 14</a>
         </nav>
         <!--end menu-->
 
@@ -147,12 +151,12 @@
                                         <div class="col-lg-4 col-md-6" th:each="list : ${list}">
                                             <div class="single_product">
                                                 <div class="product_thumb">
-                                                    <a href="/single-product" th:if="${list.product != null}">
+                                                    <a href="/single-product" th:if="${list != null}">
                                                         <div class="carousel slide" data-bs-ride="carousel">
                                                             <div class="carousel-inner">
                                                                 <div class="carousel-item active">
-                                                                    <img th:src="@{${list.images}}"
-                                                                         class="d-block" alt="...">
+<!--                                                                    <img th:src="@{${list.images}}"-->
+<!--                                                                         class="d-block" alt="...">-->
                                                                 </div>
                                                             </div>
                                                         </div>
