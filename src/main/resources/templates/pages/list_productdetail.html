@@ -152,8 +152,7 @@
                                             <div class="single_product">
                                                 <div class="product_thumb">
                                                     <a th:href="@{/single-product/{name}(name = ${list.name})}">
-<!--                                                        <img th:src="@{${list.images}}" class="d-block">-->
-                                                        <img src="/images/ip-14-black.jpg" class="d-block">
+                                                        <img th:src="@{${list.idImages.get(0).linkImage}}" class="d-block">
                                                     </a>
                                                     <div class="img_icone">
                                                         <img src="assets\img\cart\span-new.png" alt="">

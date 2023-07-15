@@ -50,8 +50,6 @@ public class ImagesController {
     @Autowired
     private ProductService productService;
 
-
-
     @GetMapping(value = "/index")
     public String index(Model model, @RequestParam(value = "pageIndex", defaultValue = "0") int pageIndex) {
         Pageable page = PageRequest.of(pageIndex, 5);

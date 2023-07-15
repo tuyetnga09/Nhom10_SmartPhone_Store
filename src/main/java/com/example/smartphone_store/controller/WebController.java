@@ -1,7 +1,9 @@
 package com.example.smartphone_store.controller;
 
+import com.example.smartphone_store.entity.Images;
 import com.example.smartphone_store.entity.Product;
 import com.example.smartphone_store.entity.ProductDetail;
+import com.example.smartphone_store.service.IImages;
 import com.example.smartphone_store.service.ProductDetailService;
 import com.example.smartphone_store.service.impl.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -26,8 +29,11 @@ public class WebController {
     @Autowired
     private ProductService productService;
 
+    @Autowired
+    private IImages imagesService;
+
     @GetMapping("/home")
-    public String home(Model model){
+    public String home(Model model) {
         List<ProductDetail> listTop10 = productDetailService.getTop10NewProductDetail();
         model.addAttribute("top10PD", listTop10);
 
@@ -41,17 +47,17 @@ public class WebController {
     }
 
     @GetMapping("/login")
-    public String login(){
+    public String login() {
         return "pages/login";
     }
 
     @GetMapping("/bill")
-    public String bill(){
+    public String bill() {
         return "pages/BillPage";
     }
 
     @GetMapping("/single-product/{name}")
-    public String singleProduct(Model model, @PathVariable("name") String name){
+    public String singleProduct(Model model, @PathVariable("name") String name) {
         model.addAttribute("name", name);
 
         List<String> nameCapacity = productDetailService.findNameCapacityByNameProductDetail(name);
@@ -76,54 +82,53 @@ public class WebController {
     }
 
     @GetMapping("/iphone-x")
-    public String listProductIphoneX(Model model){
+    public String listProductIphoneX(Model model) {
         List<Product> list = productService.getProductIphoneX();
         model.addAttribute("list", list);
         return "pages/list_productdetail_findby_product";
     }
 
     @GetMapping("/iphone-11")
-    public String listProductIphone11(Model model){
+    public String listProductIphone11(Model model) {
         List<Product> list = productService.getProductIphone11();
         model.addAttribute("list", list);
         return "pages/list_productdetail_findby_product";
     }
 
     @GetMapping("/iphone-12")
-    public String listProductIphone12(Model model){
+    public String listProductIphone12(Model model) {
         List<Product> list = productService.getProductIphone12();
         model.addAttribute("list", list);
         return "pages/list_productdetail_findby_product";
     }
 
     @GetMapping("/iphone-13")
-    public String listProductIphone13(Model model){
+    public String listProductIphone13(Model model) {
         List<Product> list = productService.getProductIphone13();
         model.addAttribute("list", list);
         return "pages/list_productdetail_findby_product";
     }
 
     @GetMapping("/iphone-14")
-    public String listProductIphone14(Model model){
+    public String listProductIphone14(Model model) {
         List<Product> list = productService.getProductIphone14();
         model.addAttribute("list", list);
         return "pages/list_productdetail_findby_product";
     }
 
     @GetMapping("/productDetail/list")
-    public String listProductDetail(Model model, @RequestParam(value = "page", defaultValue = "0") Integer page){
-        List<Product> productList = productService.findByStatus(0);
-        model.addAttribute("productList", productList);
+    public String listProductDetail(Model model, @RequestParam(value = "page", defaultValue = "0") Integer page) {
         Pageable pageable = PageRequest.of(page, 9);
         Page<Product> productPage = productService.selectByStatus(0, pageable);
         model.addAttribute("list", productPage.getContent());
         model.addAttribute("totalPages", productPage.getTotalPages());
         model.addAttribute("pageNumber", page);
+        System.out.println(productPage.getContent().get(0).getIdImages().get(0).getLinkImage());
         return "pages/list_productdetail";
     }
 
     @GetMapping("/productDetail/list/bigger20000000")
-    public String listProductDetailBigger20000000(Model model, @RequestParam(value = "page", defaultValue = "0") Integer page){
+    public String listProductDetailBigger20000000(Model model, @RequestParam(value = "page", defaultValue = "0") Integer page) {
         Page<Product> productPage = productService.getProductByPriceBigger20000000(page, 9);
         model.addAttribute("list", productPage.getContent());
         model.addAttribute("totalPages", productPage.getTotalPages());
@@ -132,7 +137,7 @@ public class WebController {
     }
 
     @GetMapping("/productDetail/list/less10000000")
-    public String listProductDetailLess10000000(Model model, @RequestParam(value = "page", defaultValue = "0") Integer page){
+    public String listProductDetailLess10000000(Model model, @RequestParam(value = "page", defaultValue = "0") Integer page) {
         Page<Product> productPage = productService.getProductByPriceLess10000000(page, 9);
         model.addAttribute("list", productPage.getContent());
         model.addAttribute("totalPages", productPage.getTotalPages());
@@ -141,7 +146,7 @@ public class WebController {
     }
 
     @GetMapping("/productDetail/list/from10000000to20000000")
-    public String listProductDetailFrom10000000to20000000(Model model, @RequestParam(value = "page", defaultValue = "0") Integer page){
+    public String listProductDetailFrom10000000to20000000(Model model, @RequestParam(value = "page", defaultValue = "0") Integer page) {
         Page<Product> productPage = productService.getProductByPriceFrom10000000To20000000(page, 9);
         model.addAttribute("list", productPage.getContent());
         model.addAttribute("totalPages", productPage.getTotalPages());
@@ -150,7 +155,7 @@ public class WebController {
     }
 
     @GetMapping("/bill-status")
-    public String billStatus(){
+    public String billStatus() {
         return "pages/bill_status";
     }
 }
