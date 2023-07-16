@@ -74,6 +74,9 @@ public class Product {
     @OneToMany(mappedBy = "idProduct")
     private List<Images> idImages;
 
+//    @OneToMany(mappedBy = "idProduct")
+//    private List<ProductDetail> productDetailList;
+
     public Product() {
         this.dateCreate = new Date(new java.util.Date().getTime());
         this.status = 0;

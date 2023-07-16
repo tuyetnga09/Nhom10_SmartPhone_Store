@@ -82,4 +82,9 @@ public class CapacityServiceImpl implements CapacityService {
     public Capacity findByCode(String code) {
         return capacityRepository.findByCode(code);
     }
+
+//    @Override
+//    public List<Capacity> listIdAndNameCapacity(Long id_Product) {
+//        return capacityRepository.listIdAndNameCapacity(id_Product);
+//    }
 }

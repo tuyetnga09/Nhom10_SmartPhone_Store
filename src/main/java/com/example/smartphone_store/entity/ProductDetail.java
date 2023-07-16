@@ -108,6 +108,7 @@ public class ProductDetail {
     @ManyToOne
     @JoinColumn(name = "Id_Screen")
     private Screen screen;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Id_Product")
     @ToString.Exclude

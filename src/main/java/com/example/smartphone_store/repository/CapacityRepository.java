@@ -7,8 +7,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import jakarta.transaction.Transactional;
+import org.springframework.data.jpa.repository.Modifying;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Repository
 public interface CapacityRepository extends JpaRepository<Capacity, Integer> {
@@ -23,4 +26,11 @@ public interface CapacityRepository extends JpaRepository<Capacity, Integer> {
     Page<Capacity> searchCapacity(String search, Pageable pageable);
 
     Capacity findByCode(String code);
+
+//    //lấy ra nam của capacity
+//    @Transactional
+//    @Modifying
+//    @Query(value = "SELECT DISTINCT Capacity.Name, Capacity.Id FROM ProductDetail JOIN Capacity ON ProductDetail.Id_Capacity = Capacity.Id " +
+//            " WHERE Id_Product =?1 AND [Capacity].[Status] = 0 AND ProductDetail.[Status] =0\n", nativeQuery = true)
+//    List<Capacity> listIdAndNameCapacity(Long id_Product);
 }

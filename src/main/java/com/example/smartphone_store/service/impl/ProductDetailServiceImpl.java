@@ -125,4 +125,16 @@ public class ProductDetailServiceImpl implements ProductDetailService {
     public List<String> findImagesByNameProductDetail(String name) {
         return productDetailRepository.findImagesByNameProductDetail(name);
     }
+
+    //lấy ra list productDetail theo điều kiện capacity và color trong trang single_product.html
+    @Override
+    public List<ProductDetail> findProductDetailByNameAndCapacityOrColor(String name, String color, String capacity) {
+        return productDetailRepository.findProductDetailByNameAndCapacityOrColor(name, color, capacity);
+    }
+
+    //lấy ra list productDetail theo điều kiện capacity and color trong trang single_product.html
+    @Override
+    public List<ProductDetail> findProductDetailByNameAndCapacityAndColor(String name, String color, String capacity) {
+        return productDetailRepository.findProductDetailByNameAndCapacityAndColor(name, color, capacity);
+    }
 }

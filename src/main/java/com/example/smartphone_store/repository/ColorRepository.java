@@ -21,4 +21,5 @@ public interface ColorRepository extends JpaRepository<Color, Long> {
             " DateCreate LIKE %?1% OR DateUpdate LIKE %?1% OR PersonCreate LIKE %?1% OR" +
             " PersonUpdate LIKE %?1%) AND Status = 0)", nativeQuery = true)
     Page<Color> search(String keyword, Pageable pageable);
+
 }

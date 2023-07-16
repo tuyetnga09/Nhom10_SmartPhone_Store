@@ -49,4 +49,10 @@ public interface ProductDetailService {
 
     List<String> findImagesByNameProductDetail(String name);
 
+    //lấy ra list productDetail theo điều kiện capacity và color trong trang single_product.html
+    List<ProductDetail> findProductDetailByNameAndCapacityOrColor(String name,String color, String capacity);
+
+    //lấy ra list productDetail theo điều kiện capacity and color trong trang single_product.html
+    List<ProductDetail> findProductDetailByNameAndCapacityAndColor(String name,String color, String capacity);
+
 }

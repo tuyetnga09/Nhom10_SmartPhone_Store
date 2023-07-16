@@ -3,6 +3,7 @@ package com.example.smartphone_store.service;
 import com.example.smartphone_store.entity.Battery;
 import com.example.smartphone_store.entity.Capacity;
 import org.springframework.data.domain.Page;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
@@ -28,4 +29,7 @@ public interface CapacityService {
     void delete(Integer id);
 
     Capacity findByCode(String code);
+
+    //lấy ra nam của capacity
+//    List<Capacity> listIdAndNameCapacity(Long id_Product);
 }

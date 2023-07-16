@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="/css/plugin/responsive.css"/>
     <link rel="stylesheet" th:href="@{/css/header.css}">
     <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/single_product.css}">
     <script src="/js/plugin/vendor/modernizr-2.8.3.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 </head>
@@ -56,63 +57,77 @@
             <div class="product_details">
                 <div class="row">
                     <div class="col-lg-5 col-md-6">
-                        <div class="product_tab fix">
-                            <div class="product_tab_button">
-                                <ul class="nav" role="tablist" th:each="img : ${nameImages}">
-                                    <li>
-                                        <a class="active" data-toggle="tab" href="#p_tab1" role="tab"
-                                           aria-controls="p_tab1" aria-selected="false"><img
-                                                th:src="@{${img}}" alt=""></a>
-                                    </li>
-<!--                                    <li>-->
-<!--                                        <a data-toggle="tab" href="#p_tab2" role="tab" aria-controls="p_tab2"-->
-<!--                                           aria-selected="false"><img src="assets\img\product\product14.jpg" alt=""></a>-->
-<!--                                    </li>-->
-<!--                                    <li>-->
-<!--                                        <a data-toggle="tab" href="#p_tab3" role="tab" aria-controls="p_tab3"-->
-<!--                                           aria-selected="false"><img src="assets\img\product\product15.jpg" alt=""></a>-->
-<!--                                    </li>-->
-                                </ul>
-                            </div>
-                            <div class="tab-content produc_tab_c">
-                                <div class="tab-pane fade show active" id="p_tab1" role="tabpanel">
-                                    <div class="modal_img">
-                                        <a href="#"><img src="assets\img\product\product14.jpg" alt=""></a>
-                                        <div class="img_icone">
-                                            <img src="assets\img\cart\span-new.png" alt="">
-                                        </div>
-                                        <div class="view_img">
-                                            <a class="large_view" src="assets\img\product\product14.jpg"><i
-                                                    class="fa fa-search-plus"></i></a>
-                                        </div>
+                        <div class="row">
+                            <div class="product_tab fix">
+                                <div class="product_tab_button">
+                                    <div th:if="${checkProductDetails == true}">
+                                        <ul class="nav" role="tablist" th:each="img : ${nameImages}">
+                                            <li>
+                                                <a class="active" data-toggle="tab" href="#p_tab1" role="tab"
+                                                   aria-controls="p_tab1" aria-selected="false"><img
+                                                        th:src="@{${img}}" alt=""></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div th:if="${checkProductDetails == false}">
+                                        <ul class="nav" role="tablist">
+                                            <li>
+                                                <a class="active" data-toggle="tab" href="#p_tab1" role="tab"
+                                                   aria-controls="p_tab1" aria-selected="false"><img
+                                                        src="../../assets/img/product/het_hang.jpeg" alt=""></a>
+                                            </li>
+                                        </ul>
                                     </div>
                                 </div>
-<!--                                <div class="tab-pane fade" id="p_tab2" role="tabpanel">-->
-<!--                                    <div class="modal_img">-->
-<!--                                        <a href="#"><img th:src="@{${prd.images}}" alt=""></a>-->
-<!--                                        <div class="img_icone">-->
-<!--                                            <img src="assets\img\cart\span-new.png" alt="">-->
-<!--                                        </div>-->
-<!--                                        <div class="view_img">-->
-<!--                                            <a class="large_view" href="assets\img\product\product14.jpg"><i-->
-<!--                                                    class="fa fa-search-plus"></i></a>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                <div class="tab-pane fade" id="p_tab3" role="tabpanel">-->
-<!--                                    <div class="modal_img">-->
-<!--                                        <a href="#"><img th:src="@{${prd.images}}" alt=""></a>-->
-<!--                                        <div class="img_icone">-->
-<!--                                            <img src="assets\img\cart\span-new.png" alt="">-->
-<!--                                        </div>-->
-<!--                                        <div class="view_img">-->
-<!--                                            <a class="large_view" href="assets\img\product\product15.jpg"> <i-->
-<!--                                                    class="fa fa-search-plus"></i></a>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-                            </div>
+                                <div class="tab-content produc_tab_c" style="border: none">
+                                    <div class="tab-pane fade show active" id="p_tab1" role="tabpanel">
+                                        <div th:if="${checkProductDetails == true}">
+                                            <div class="modal_img">
+                                                <!--                                            &lt;!&ndash;                                        <a href="#"><img src="assets\img\product\product14.jpg" alt=""></a>&ndash;&gt;-->
+                                                <!--                                            <div class="img_icone">-->
+                                                <!--                                                <img src="assets\img\cart\span-new.png" alt="">-->
+                                                <!--                                            </div>-->
+                                                <!--                                            <div class="view_img">-->
+                                                <!--                                            <a class="large_view"><i-->
+                                                <!--                                                    class="fa fa-search-plus"></i></a>-->
+                                                <img th:src="@{${nameImages.get(0)}}"/>
+                                                <!--                                            </div>-->
+                                            </div>
+                                        </div>
+                                        <div th:if="${checkProductDetails == false}">
+                                            <div class="modal_img">
+                                                <img src="../../assets/img/product/het_hang.jpeg" alt=""/>
+                                            </div>
+                                        </div>
 
+                                    </div>
+                                    <!--                                <div class="tab-pane fade" id="p_tab2" role="tabpanel">-->
+                                    <!--                                    <div class="modal_img">-->
+                                    <!--                                        <a href="#"><img th:src="@{${prd.images}}" alt=""></a>-->
+                                    <!--                                        <div class="img_icone">-->
+                                    <!--                                            <img src="assets\img\cart\span-new.png" alt="">-->
+                                    <!--                                        </div>-->
+                                    <!--                                        <div class="view_img">-->
+                                    <!--                                            <a class="large_view" href="assets\img\product\product14.jpg"><i-->
+                                    <!--                                                    class="fa fa-search-plus"></i></a>-->
+                                    <!--                                        </div>-->
+                                    <!--                                    </div>-->
+                                    <!--                                </div>-->
+                                    <!--                                <div class="tab-pane fade" id="p_tab3" role="tabpanel">-->
+                                    <!--                                    <div class="modal_img">-->
+                                    <!--                                        <a href="#"><img th:src="@{${prd.images}}" alt=""></a>-->
+                                    <!--                                        <div class="img_icone">-->
+                                    <!--                                            <img src="assets\img\cart\span-new.png" alt="">-->
+                                    <!--                                        </div>-->
+                                    <!--                                        <div class="view_img">-->
+                                    <!--                                            <a class="large_view" href="assets\img\product\product15.jpg"> <i-->
+                                    <!--                                                    class="fa fa-search-plus"></i></a>-->
+                                    <!--                                        </div>-->
+                                    <!--                                    </div>-->
+                                    <!--                                </div>-->
+                                </div>
+
+                            </div>
                         </div>
                     </div>
 
@@ -159,12 +174,18 @@
                             <div class="modal_size mb-15">
                                 <h2>Dung Lượng</h2>
                                 <ul th:each="cp : ${nameCapacity}" style="display: inline">
-                                    <li><a href="#" th:text="${cp}"></a></li>
-<!--                                    <li><a href="#">128GB</a></li>-->
-<!--                                    <li><a href="#">256GB</a></li>-->
-<!--                                    <li><a href="#">512GB</a></li>-->
-<!--                                    <li><a href="#">1TB</a></li>-->
-<!--                                    <li><a href="#">2TB</a></li>-->
+                                    <!--                                    <li><a th:href="@{/single-product(nameproduct=${name},capacity=${cp},color=${cl})}" th:text="${cp}" th:value="${cp}"></a></li>-->
+                                    <li>
+                                        <a th:href="@{'/single-product/' + ${name} + '?capacity=' + ${cp} + '&color='+${colorPathOf}}"
+                                           th:text="${cp}" th:value="${cp}"></a></li>
+                                </ul>
+                            </div>
+                            <div class="modal_size mb-15">
+                                <h2>Color</h2>
+                                <ul th:each="cl : ${nameColor}" style="display: inline">
+                                    <li>
+                                        <a th:href="@{'/single-product/' + ${name} + '?capacity='+${capacityPathOf} + '&color=' + ${cl}}"
+                                           th:text="${cl}" th:value="${cl}"></a></li>
                                 </ul>
                             </div>
                             <div class="box_quantity mb-20">
@@ -187,14 +208,7 @@
                                     </svg>
                                 </a>
                             </div>
-                            <div class="product_d_size mb-20">
-                                <label for="group_1">Color</label>
-                                <select name="size" id="group_1">
-                                    <option th:each="cl : ${nameColor}" th:value="${cl}" th:text="${cl}"></option>
-<!--                                    <option value="2">Red</option>-->
-<!--                                    <option value="3">Green</option>-->
-                                </select>
-                            </div>
+
 
                             <div class="product_stock mb-20">
                                 <p>299 items</p>
@@ -420,7 +434,8 @@
                                     <span class="product_price"
                                           th:text="${#numbers.formatInteger(top10PD.price != null ? top10PD.price : '', 0)}"></span>
                                     <h3 class="product_title">
-                                        <a href="single-product.html" th:text="${top10PD.name != null ? top10PD.name : ''}"></a>
+                                        <a href="single-product.html"
+                                           th:text="${top10PD.name != null ? top10PD.name : ''}"></a>
                                     </h3>
                                 </div>
                                 <div class="product_info">
@@ -477,7 +492,8 @@
                                     <span class="product_price"
                                           th:text="${bestSelling.price != null ? bestSelling.price : ''}"></span>
                                     <h3 class="product_title">
-                                        <a href="/single-product" th:text="${bestSelling.name != null ? bestSelling.name : ''}"></a>
+                                        <a href="/single-product"
+                                           th:text="${bestSelling.name != null ? bestSelling.name : ''}"></a>
                                     </h3>
                                 </div>
                                 <div class="product_info">

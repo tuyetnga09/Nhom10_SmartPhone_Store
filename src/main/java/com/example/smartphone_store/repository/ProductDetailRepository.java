@@ -55,4 +55,17 @@ public interface ProductDetailRepository extends JpaRepository<ProductDetail, Lo
 
     @Query(value = "SELECT DISTINCT images FROM ProductDetail where name = ?1", nativeQuery = true)
     List<String> findImagesByNameProductDetail(String name);
+
+    //lấy ra list productDetail theo điều kiện capacity or color trong trang single_product.html
+    @Query(value = "SELECT * FROM ProductDetail where name =?1 AND " +
+            " (Id_Color=(select id from Color where Name =?2) " +
+            " OR Id_Capacity= (select id from Capacity where Name =?3 )) AND [Status] =0", nativeQuery = true)
+    List<ProductDetail> findProductDetailByNameAndCapacityOrColor(String name,String color, String capacity);
+
+    //lấy ra list productDetail theo điều kiện capacity and color trong trang single_product.html
+    @Query(value = "SELECT  * FROM ProductDetail where name =?1 AND" +
+            " Id_Color=(select id from Color where Name =?2) and" +
+            " Id_Capacity= (select id from Capacity where Name =?3) AND [Status] =0", nativeQuery = true)
+    List<ProductDetail> findProductDetailByNameAndCapacityAndColor(String name,String color, String capacity);
+
 }

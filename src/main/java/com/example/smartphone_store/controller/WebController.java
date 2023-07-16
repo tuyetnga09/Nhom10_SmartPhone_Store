@@ -57,28 +57,137 @@ public class WebController {
     }
 
     @GetMapping("/single-product/{name}")
-    public String singleProduct(Model model, @PathVariable("name") String name) {
-        model.addAttribute("name", name);
+    public String singleProduct(Model model, @PathVariable("name") String name,
+                                @RequestParam(name = "capacity", required = false, defaultValue = "") String capacityReques,
+                                @RequestParam(name = "color", required = false, defaultValue = "") String colorReques,
+                                @PathVariable(name = "capacity", required = false) String capacityPath,
+                                @PathVariable(name = "color", required = false) String colorPath) {
+//        System.out.println("====================================================================" +
+//                "=================================================="+ nameproductPath + " "+capacityPath+" "+ capacityPath);
 
-        List<String> nameCapacity = productDetailService.findNameCapacityByNameProductDetail(name);
-        model.addAttribute("nameCapacity", nameCapacity);
+        String capacityPathOf = "";
+        String colorPathOf = "";
 
-        List<String> nameColor = productDetailService.findNameColorByNameProductDetail(name);
-        model.addAttribute("nameColor", nameColor);
+        if (capacityReques != null) {
+            capacityPathOf = capacityReques;
+            model.addAttribute("capacityPathOf", capacityPathOf);
+        }
+        if (colorReques != null) {
+            colorPathOf = colorReques;
+            model.addAttribute("colorPathOf", colorPathOf);
+        }
 
-        List<String> nameImages = productDetailService.findImagesByNameProductDetail(name);
-        model.addAttribute("nameImages", nameImages);
+        if(!capacityReques.isEmpty() && !colorReques.isEmpty()){
 
-        List<ProductDetail> productDetails = productDetailService.findProductDetailByNameAndStatus(name, 0);
-        model.addAttribute("productDetails", productDetails);
+            List<ProductDetail> productDetails =
+                    productDetailService.findProductDetailByNameAndCapacityAndColor(name, colorReques, capacityReques);
+            model.addAttribute("productDetails", productDetails);
+            if (productDetails.isEmpty()){
+                model.addAttribute("checkProductDetails", false);
+            }else {
+                model.addAttribute("checkProductDetails", true);
+                List<String> nameImages = new ArrayList<>();
+                productDetails.forEach(productDetail -> nameImages.add(productDetail.getImages()));
+                model.addAttribute("nameImages", nameImages);
+            }
+//            System.out.println(capacityReques+" "+colorReques);
+//            System.out.println("====================================================================" +
+//                "==================================================" + productDetails.toString());
 
-        List<ProductDetail> listTop10 = productDetailService.getTop10NewProductDetail();
-        model.addAttribute("top10PD", listTop10);
+            List<String> nameCapacity = productDetailService.findNameCapacityByNameProductDetail(name);
+            model.addAttribute("nameCapacity", nameCapacity); // true
 
-        List<ProductDetail> listBestSelling = productDetailService.getBestSelling();
-        model.addAttribute("bestSelling", listBestSelling);
+            List<ProductDetail> productDetailsCapacityOrColor =
+                    productDetailService.findProductDetailByNameAndCapacityOrColor(name, null, capacityReques);
+            List<String> nameColors = new ArrayList<>();
+            productDetailsCapacityOrColor.forEach(productDetail -> nameColors.add(productDetail.getColor().getName()));
+            model.addAttribute("nameColor", nameColors);
 
-        return "pages/single_product";
+            List<ProductDetail> listTop10 = productDetailService.getTop10NewProductDetail();
+            model.addAttribute("top10PD", listTop10);
+
+            List<ProductDetail> listBestSelling = productDetailService.getBestSelling();
+            model.addAttribute("bestSelling", listBestSelling);
+
+            return "pages/single_product";
+        }else if (!capacityReques.isEmpty() || !colorReques.isEmpty()) {
+            // khi capacityReques có gí trị thì chọn vào GB thì sẽ tự động chuyển các màu mà máy đó còn theo GB được chọn
+            if (!capacityReques.isEmpty()) {
+                model.addAttribute("checkProductDetails", true);
+                List<ProductDetail> productDetails = productDetailService.findProductDetailByNameAndCapacityOrColor(name, null, capacityReques);
+                model.addAttribute("productDetails", productDetails);
+
+                List<String> nameCapacity = productDetailService.findNameCapacityByNameProductDetail(name);
+                model.addAttribute("nameCapacity", nameCapacity); // true
+
+//                List<String> nameColor = productDetailService.findNameColorByNameProductDetail(name);
+                List<String> nameColors = new ArrayList<>();
+                productDetails.forEach(productDetail -> nameColors.add(productDetail.getColor().getName()));
+                model.addAttribute("nameColor", nameColors);
+
+                List<String> nameImages = new ArrayList<>();
+                productDetails.forEach(productDetail -> nameImages.add(productDetail.getImages()));
+                model.addAttribute("nameImages", nameImages);
+
+                List<ProductDetail> listTop10 = productDetailService.getTop10NewProductDetail();
+                model.addAttribute("top10PD", listTop10);
+
+                List<ProductDetail> listBestSelling = productDetailService.getBestSelling();
+                model.addAttribute("bestSelling", listBestSelling);
+
+                return "pages/single_product";
+
+            } else {
+                // khi colorReques có gí trị thì chọn vào màu sắc thì sẽ tự động chuyển các GB mà máy đó còn theo màu sắc được chọn
+
+                model.addAttribute("checkProductDetails", true);
+                List<ProductDetail> productDetails = productDetailService.findProductDetailByNameAndCapacityOrColor(name, colorReques, null);
+                model.addAttribute("productDetails", productDetails);
+
+                List<String> nameColor = productDetailService.findNameColorByNameProductDetail(name);
+                model.addAttribute("nameColor", nameColor);
+
+                List<String> nameCapacitys = new ArrayList<>();
+                productDetails.forEach(productDetail -> nameCapacitys.add(productDetail.getCapacity().getName()));
+                model.addAttribute("nameCapacity", nameCapacitys);
+
+                List<String> nameImages = new ArrayList<>();
+                productDetails.forEach(productDetail -> nameImages.add(productDetail.getImages()));
+                model.addAttribute("nameImages", nameImages);
+
+                List<ProductDetail> listTop10 = productDetailService.getTop10NewProductDetail();
+                model.addAttribute("top10PD", listTop10);
+
+                List<ProductDetail> listBestSelling = productDetailService.getBestSelling();
+                model.addAttribute("bestSelling", listBestSelling);
+
+                return "pages/single_product";
+            }
+        } else {
+            model.addAttribute("checkProductDetails", true);
+            model.addAttribute("name", name.trim());
+
+            List<ProductDetail> productDetails = productDetailService.findProductDetailByNameAndStatus(name, 0);
+            model.addAttribute("productDetails", productDetails); //có đổi
+
+            List<String> nameCapacity = productDetailService.findNameCapacityByNameProductDetail(name);
+            model.addAttribute("nameCapacity", nameCapacity);
+
+            List<String> nameColor = productDetailService.findNameColorByNameProductDetail(name);
+            model.addAttribute("nameColor", nameColor);
+
+            List<String> nameImages = productDetailService.findImagesByNameProductDetail(name);
+            model.addAttribute("nameImages", nameImages);// có đổi
+
+
+            List<ProductDetail> listTop10 = productDetailService.getTop10NewProductDetail();
+            model.addAttribute("top10PD", listTop10);
+
+            List<ProductDetail> listBestSelling = productDetailService.getBestSelling();
+            model.addAttribute("bestSelling", listBestSelling);
+
+            return "pages/single_product";
+        }
     }
 
     @GetMapping("/iphone-x")

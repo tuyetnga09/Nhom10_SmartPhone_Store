@@ -233,8 +233,12 @@
                                                         <a href="#" title=" Add to Wishlist ">Add to Wishlist</a>
                                                     </li>
                                                     <li>
-                                                        <a href="#" data-toggle="modal" data-target="#modal_box"
-                                                           title="Quick view">View Detail</a>
+<!--                                                        <a th:href="@{/ram/remove/{id}(id=${ram.id})}" class="btn btn-danger"-->
+                                                        <!-- ai làm đoạn này chỉ cần cho cái id vào đây hộ anh, đùng sửa đường link-->
+<!--                                                        th:href="@{/home/view-detail-product/{id}(id=${top10PD.id})}"-->
+                                                        <a  data-toggle="modal" data-target="#modal_box"
+                                                           title="Quick view"  th:data-product-id="${top10PD.id}"
+                                                            th:data-product-name="${top10PD.name}" onclick="handleQuickViewClick(this)">View Detail</a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -622,6 +626,14 @@
                                         cao</p>
                                 </div>
                                 <div class="modal_size mb-15">
+                                    <h2>color</h2>
+                                    <ul>
+                                        <li><a href="#">128GB</a></li>
+                                        <li><a href="#">256GB</a></li>
+                                        <li><a href="#">512GB</a></li>
+                                        <li><a href="#">1TB</a></li>
+                                        <li><a href="#">2TB</a></li>
+                                    </ul>
                                     <h2>size</h2>
                                     <ul>
                                         <li><a href="#">128GB</a></li>
@@ -688,6 +700,27 @@
 <!-- modal area end -->
 
 <div class="row" th:replace="~{layout/footer :: footer}"></div>
+
+<!--xử lý nút view detail-->
+<!--<script>-->
+<!--    function handleQuickViewClick(button) {-->
+<!--        if (button.getAttribute('title') === 'Quick view') {-->
+<!--            const productId1 = button.getAttribute('data-product-id');-->
+<!--            const productName1 = button.getAttribute('data-product-name');-->
+
+<!--            // Xử lý thông tin sản phẩm ở đây-->
+<!--            // console.log(productId + productName); // In ra "123"-->
+<!--            // console.log(productName); // In ra "Product A"-->
+<!--            document.cookie = "productId=button.getAttribute('data-product-id')";-->
+<!--            document.cookie = "productName=productName1";-->
+
+<!--            alert(productId1); // In ra "123"-->
+<!--            alert(productName1); // In ra "Product A"-->
+<!--            alert(document.cookie); // In ra "Product A"-->
+
+<!--        }-->
+<!--    }-->
+<!--</script>-->
 <!-- all js here -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
