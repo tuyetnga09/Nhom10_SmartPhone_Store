@@ -171,23 +171,38 @@
                             <div class="modal_content mb-10">
                                 <p>Hiệu năng vượt trội - Chip Apple A15 Bionic mạnh mẽ, hỗ trợ mạng 5G tốc độ cao</p>
                             </div>
+
                             <div class="modal_size mb-15">
                                 <h2>Dung Lượng</h2>
-                                <ul th:each="cp : ${nameCapacity}" style="display: inline">
-                                    <!--                                    <li><a th:href="@{/single-product(nameproduct=${name},capacity=${cp},color=${cl})}" th:text="${cp}" th:value="${cp}"></a></li>-->
-                                    <li>
-                                        <a th:href="@{'/single-product/' + ${name} + '?capacity=' + ${cp} + '&color='+${colorPathOf}}"
-                                           th:text="${cp}" th:value="${cp}"></a></li>
-                                </ul>
+                                <!--                                <ul th:each="cp : ${nameCapacity}" style="display: inline">-->
+                                <!--                                    &lt;!&ndash;                                    <li><a th:href="@{/single-product(nameproduct=${name},capacity=${cp},color=${cl})}" th:text="${cp}" th:value="${cp}"></a></li>&ndash;&gt;-->
+                                <!--                                    <li>-->
+                                <!--                                        <a th:href="@{'/single-product/' + ${name} + '?capacity=' + ${cp} + '&color='+${colorPathOf}}"-->
+                                <!--                                           th:text="${cp}" th:value="${cp}"></a></li>-->
+                                <!--                                </ul>-->
                             </div>
+
+                            <button type="button" class="btn btn-outline-secondary" th:each="cp : ${nameCapacity}"
+                                    style="margin-left: 7px; margin-bottom: 9px">
+                                <a th:href="@{'/single-product/' + ${name} + '?capacity=' + ${cp} + '&color='+${colorPathOf}}"
+                                   th:text="${cp}" th:value="${cp}"></a>
+                            </button>
+
                             <div class="modal_size mb-15">
                                 <h2>Color</h2>
-                                <ul th:each="cl : ${nameColor}" style="display: inline">
-                                    <li>
-                                        <a th:href="@{'/single-product/' + ${name} + '?capacity='+${capacityPathOf} + '&color=' + ${cl}}"
-                                           th:text="${cl}" th:value="${cl}"></a></li>
-                                </ul>
+<!--                                <ul th:each="cl : ${nameColor}" style="display: inline">-->
+<!--                                    <li>-->
+<!--                                        <a th:href="@{'/single-product/' + ${name} + '?capacity='+${capacityPathOf} + '&color=' + ${cl}}"-->
+<!--                                           th:text="${cl}" th:value="${cl}"></a></li>-->
+<!--                                </ul>-->
                             </div>
+
+                            <button type="button" class="btn btn-outline-secondary" th:each="cl : ${nameColor}"
+                                    style="margin-left: 7px; margin-bottom: 12px">
+                                <a th:href="@{'/single-product/' + ${name} + '?capacity='+${capacityPathOf} + '&color=' + ${cl}}"
+                                   th:text="${cl}" th:value="${cl}"></a>
+                            </button>
+
                             <div class="box_quantity mb-20">
                                 <form action="#">
                                     <label>Số lượng</label>
