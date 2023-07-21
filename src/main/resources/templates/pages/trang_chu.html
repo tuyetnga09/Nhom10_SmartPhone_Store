@@ -201,7 +201,7 @@
                                     <div class="col-lg-3" th:each="top10PD : ${top10PD}">
                                         <div class="single_product">
                                             <div class="product_thumb">
-                                                <a href="/single-product">
+                                                <a th:href="@{/single-product/{name}(name = ${top10PD.name})}">
                                                     <img th:src="@{${top10PD.images}}" class="d-block">
                                                 </a>
                                                 <div class="img_icone">
@@ -314,7 +314,7 @@
                                 <div class="col-lg-3" th:each="bestSelling : ${bestSelling}">
                                     <div class="single_product">
                                         <div class="product_thumb">
-                                            <a href="/single-product">
+                                            <a th:href="@{/single-product/{name}(name = ${bestSelling.name})}">
                                                 <img th:src="@{${bestSelling.images}}" class="d-block">
                                             </a>
                                             <div class="hot_img">

@@ -151,7 +151,7 @@
                                         <div class="col-lg-4 col-md-6" th:each="list : ${list}">
                                             <div class="single_product">
                                                 <div class="product_thumb">
-                                                    <a href="/single-product" th:if="${list != null}">
+                                                    <a th:href="@{/single-product/{name}(name = ${list.name})}" th:if="${list != null}">
                                                         <div class="carousel slide" data-bs-ride="carousel">
                                                             <div class="carousel-inner">
                                                                 <div class="carousel-item active">

@@ -232,7 +232,6 @@ public class WebController {
         model.addAttribute("list", productPage.getContent());
         model.addAttribute("totalPages", productPage.getTotalPages());
         model.addAttribute("pageNumber", page);
-        System.out.println(productPage.getContent().get(0).getIdImages().get(0).getLinkImage());
         return "pages/list_productdetail";
     }
 
