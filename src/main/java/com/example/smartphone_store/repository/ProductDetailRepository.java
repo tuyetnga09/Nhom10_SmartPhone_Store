@@ -68,4 +68,9 @@ public interface ProductDetailRepository extends JpaRepository<ProductDetail, Lo
             " Id_Capacity= (select id from Capacity where Name =?3) AND [Status] =0", nativeQuery = true)
     List<ProductDetail> findProductDetailByNameAndCapacityAndColor(String name,String color, String capacity);
 
+    @Query(value = "SELECT top 1 FROM ProductDetail where name =?1 AND" +
+            " Id_Color=(select id from Color where Name =?3) and" +
+            " Id_Capacity= (select id from Capacity where Name =?2) AND [Status] =0", nativeQuery = true)
+    ProductDetail getProductDetail(String name, String capacity, String color);
+
 }

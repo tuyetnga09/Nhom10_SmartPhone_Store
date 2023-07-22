@@ -83,15 +83,7 @@
                                     <div class="tab-pane fade show active" id="p_tab1" role="tabpanel">
                                         <div th:if="${checkProductDetails == true}">
                                             <div class="modal_img">
-                                                <!--                                            &lt;!&ndash;                                        <a href="#"><img src="assets\img\product\product14.jpg" alt=""></a>&ndash;&gt;-->
-                                                <!--                                            <div class="img_icone">-->
-                                                <!--                                                <img src="assets\img\cart\span-new.png" alt="">-->
-                                                <!--                                            </div>-->
-                                                <!--                                            <div class="view_img">-->
-                                                <!--                                            <a class="large_view"><i-->
-                                                <!--                                                    class="fa fa-search-plus"></i></a>-->
                                                 <img th:src="@{${nameImages.get(0)}}"/>
-                                                <!--                                            </div>-->
                                             </div>
                                         </div>
                                         <div th:if="${checkProductDetails == false}">
@@ -101,36 +93,11 @@
                                         </div>
 
                                     </div>
-                                    <!--                                <div class="tab-pane fade" id="p_tab2" role="tabpanel">-->
-                                    <!--                                    <div class="modal_img">-->
-                                    <!--                                        <a href="#"><img th:src="@{${prd.images}}" alt=""></a>-->
-                                    <!--                                        <div class="img_icone">-->
-                                    <!--                                            <img src="assets\img\cart\span-new.png" alt="">-->
-                                    <!--                                        </div>-->
-                                    <!--                                        <div class="view_img">-->
-                                    <!--                                            <a class="large_view" href="assets\img\product\product14.jpg"><i-->
-                                    <!--                                                    class="fa fa-search-plus"></i></a>-->
-                                    <!--                                        </div>-->
-                                    <!--                                    </div>-->
-                                    <!--                                </div>-->
-                                    <!--                                <div class="tab-pane fade" id="p_tab3" role="tabpanel">-->
-                                    <!--                                    <div class="modal_img">-->
-                                    <!--                                        <a href="#"><img th:src="@{${prd.images}}" alt=""></a>-->
-                                    <!--                                        <div class="img_icone">-->
-                                    <!--                                            <img src="assets\img\cart\span-new.png" alt="">-->
-                                    <!--                                        </div>-->
-                                    <!--                                        <div class="view_img">-->
-                                    <!--                                            <a class="large_view" href="assets\img\product\product15.jpg"> <i-->
-                                    <!--                                                    class="fa fa-search-plus"></i></a>-->
-                                    <!--                                        </div>-->
-                                    <!--                                    </div>-->
-                                    <!--                                </div>-->
                                 </div>
 
                             </div>
                         </div>
                     </div>
-
                     <div class="col-lg-7 col-md-6">
                         <div class="product_d_right">
                             <h1 th:text="${name}"></h1>
@@ -174,7 +141,6 @@
                             <div class="modal_size mb-15">
                                 <h2>Dung Lượng</h2>
                                 <ul th:each="cp : ${nameCapacity}" style="display: inline">
-                                    <!--                                    <li><a th:href="@{/single-product(nameproduct=${name},capacity=${cp},color=${cl})}" th:text="${cp}" th:value="${cp}"></a></li>-->
                                     <li>
                                         <a th:href="@{'/single-product/' + ${name} + '?capacity=' + ${cp} + '&color='+${colorPathOf}}"
                                            th:text="${cp}" th:value="${cp}"></a></li>
@@ -189,17 +155,17 @@
                                 </ul>
                             </div>
                             <div class="box_quantity mb-20">
-                                <form action="#">
+                                <form th:action="@{'/cart-details/add/' + ${name} + '?capacity=' + ${capacityPathOf} + '&color=' + ${colorPathOf}}" method="post">
                                     <label>Số lượng</label>
-                                    <input min="0" max="100" value="1" type="number">
+                                    <input min="1" max="100" type="number" value="1" name="quantity">
+                                    <button type="submit">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                             class="bi bi-cart-check-fill" viewBox="0 0 16 16">
+                                            <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm-1.646-7.646-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L8 8.293l2.646-2.647a.5.5 0 0 1 .708.708z"/>
+                                        </svg>
+                                        add to cart
+                                    </button>
                                 </form>
-                                <button type="submit">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                         class="bi bi-cart-check-fill" viewBox="0 0 16 16">
-                                        <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm-1.646-7.646-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L8 8.293l2.646-2.647a.5.5 0 0 1 .708.708z"/>
-                                    </svg>
-                                    add to cart
-                                </button>
                                 <a href="#" title="add to wishlist">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                          class="bi bi-heart-fill" viewBox="0 0 16 16">

@@ -55,4 +55,6 @@ public interface ProductDetailService {
     //lấy ra list productDetail theo điều kiện capacity and color trong trang single_product.html
     List<ProductDetail> findProductDetailByNameAndCapacityAndColor(String name,String color, String capacity);
 
+    ProductDetail getProductDetails(String name,String color, String capacity);
+
 }

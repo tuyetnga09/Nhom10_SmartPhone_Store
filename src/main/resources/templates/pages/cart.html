@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <meta charset="UTF-8">
+  <title>Images Index</title>
+  <link rel="stylesheet" th:href="@{/css/plugin/bootstrap.min.css}">
+  <link rel="stylesheet" th:href="@{/css/header.css}">
+  <link rel="stylesheet" th:href="@{/css/footer.css}">
+  <link rel="stylesheet" th:href="@{/css/custom/cart.css}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+</head>
+<body>
+<div class="container px-3 my-5 clearfix">
+  <!-- Shopping cart table -->
+  <div class="card">
+    <div class="card-header">
+      <h2>Shopping Cart</h2>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered m-0">
+          <thead>
+          <tr>
+            <!-- Set columns width -->
+            <th class="text-center py-3 px-4" style="min-width: 400px;">Product Name &amp; Details</th>
+            <th class="text-right py-3 px-4" style="width: 100px;">Price</th>
+            <th class="text-center py-3 px-4" style="width: 120px;">Quantity</th>
+            <th class="text-right py-3 px-4" style="width: 100px;">Total</th>
+            <th class="text-center align-middle py-3 px-0" style="width: 40px;"><a href="#" class="shop-tooltip float-none text-light" title="" data-original-title="Clear cart"><i class="ino ion-md-trash"></i></a></th>
+          </tr>
+          </thead>
+          <tbody>
+
+          <tr th:each="ct : ${cart.cartDetails}">
+            <td class="p-4">
+              <div class="media align-items-center">
+                <img th:src="@{${ct.id_productDetail.images}}" class="d-block ui-w-40 ui-bordered mr-4" alt="">
+                <div class="media-body">
+                  <a href="#" class="d-block text-dark" th:text="${ct.id_productDetail.name}">Product 2</a>
+                  <small>&nbsp;
+                    <span class="text-muted">Storage: </span> <span th:text="${ct.id_productDetail.capacity.name}"></span> &nbsp;
+                  </small>
+                </div>
+              </div>
+            </td>
+            <td class="text-right font-weight-semibold align-middle p-4" th:text="${ct.id_productDetail.price}">$1049.00</td>
+            <td class="align-middle p-4"><input type="text" class="form-control text-center" th:value="${ct.quantity}"></td>
+            <td class="text-right font-weight-semibold align-middle p-4" th:text="${ct.totalMoney}">$1049.00</td>
+            <td class="text-center align-middle px-0"><a th:href="@{'/cart-details/delete/' + ${ct.id}}" class="shop-tooltip close float-none text-danger" title="" data-original-title="Remove">×</a></td>
+          </tr>
+
+          </tbody>
+        </table>
+      </div>
+      <!-- / Shopping cart table -->
+
+      <div class="d-flex flex-wrap justify-content-between align-items-center pb-4">
+        <div class="mt-4">
+          <label class="text-muted font-weight-normal">Promocode</label>
+          <input type="text" placeholder="ABC" class="form-control">
+        </div>
+        <div class="d-flex">
+          <div class="text-right mt-4 mr-5">
+            <label class="text-muted font-weight-normal m-0">Discount</label>
+            <div class="text-large"><strong>$20</strong></div>
+          </div>
+          <div class="text-right mt-4">
+            <label class="text-muted font-weight-normal m-0">Total price</label>
+            <div class="text-large"><strong>$1164.65</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="float-right">
+        <button type="button" class="btn btn-lg btn-default md-btn-flat mt-2 mr-3">Back to shopping</button>
+        <button type="button" class="btn btn-lg btn-primary mt-2">Checkout</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+<script th:src="@{/js/plugin/bootstrap.bundle.min.js}"></script>
+</body>
+</html>
