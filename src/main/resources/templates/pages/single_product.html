@@ -61,7 +61,7 @@
                             <div class="product_tab fix">
                                 <div class="product_tab_button">
                                     <div th:if="${checkProductDetails == true}">
-                                        <ul class="nav" role="tablist" th:each="img : ${nameImages}">
+                                        <ul class="nav" role="tablist" th:each="img : ${top3Images}">
                                             <li>
                                                 <a class="active" data-toggle="tab" href="#p_tab1" role="tab"
                                                    aria-controls="p_tab1" aria-selected="false"><img
@@ -91,12 +91,35 @@
                                                 <img src="../../assets/img/product/het_hang.jpeg" alt=""/>
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
 
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-1">
+                                <button class="carousel-prev-btn">Prev</button>
+                            </div>
+
+                            <div class="col-10">
+                                <div class="carousel-container">
+                                    <div class="carousel-slide col-3" th:each="img : ${top3Images}">
+                                        <div class="carousel-column">
+<!--                                            <h2>Slide 1</h2>-->
+                                            <a class="active" data-toggle="tab" href="#p_tab1" role="tab" aria-controls="p_tab1" aria-selected="false"><img
+                                                    th:src="@{${img}}" alt=""></a>
+<!--                                            <p>This is content for slide 1.</p>-->
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="col-1">
+                                <button class="carousel-next-btn">Next</button>
+                            </div>
+                        </div>
+
                     </div>
                     <div class="col-lg-7 col-md-6">
                         <div class="product_d_right">

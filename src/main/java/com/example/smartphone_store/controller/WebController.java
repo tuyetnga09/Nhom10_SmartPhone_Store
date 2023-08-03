@@ -62,12 +62,25 @@ public class WebController {
                                 @RequestParam(name = "color", required = false, defaultValue = "") String colorReques,
                                 @PathVariable(name = "capacity", required = false) String capacityPath,
                                 @PathVariable(name = "color", required = false) String colorPath) {
-//        System.out.println("====================================================================" +
-//                "=================================================="+ nameproductPath + " "+capacityPath+" "+ capacityPath);
+
+        // lấy top 3 ảnh sản phẩm
+        List<String> top3Images = new ArrayList<>();
+        List<ProductDetail> top3ProductDetails = productDetailService.getImageTop3ProductDetail(name);
+        top3ProductDetails.forEach(productDetail -> top3Images.add(productDetail.getImages()));
+        model.addAttribute("top3Images", top3Images);
 
         String capacityPathOf = "";
         String colorPathOf = "";
 
+        if(capacityReques.isEmpty() && colorReques.isEmpty()){
+            List<ProductDetail> productDetailOrImeis =
+                    productDetailService.findProductDetailByNameandImei(name);
+            capacityPathOf = productDetailOrImeis.get(0).getCapacity().getName();
+            model.addAttribute("capacityPathOf", capacityPathOf);
+            colorPathOf = productDetailOrImeis.get(0).getColor().getName();
+            model.addAttribute("colorPathOf", colorPathOf);
+        }
+//        else {
         if (capacityReques != null) {
             capacityPathOf = capacityReques;
             model.addAttribute("capacityPathOf", capacityPathOf);
@@ -77,22 +90,20 @@ public class WebController {
             model.addAttribute("colorPathOf", colorPathOf);
         }
 
-        if(!capacityReques.isEmpty() && !colorReques.isEmpty()){
+        if (!capacityReques.isEmpty() && !colorReques.isEmpty()) {
+
 
             List<ProductDetail> productDetails =
                     productDetailService.findProductDetailByNameAndCapacityAndColor(name, colorReques, capacityReques);
             model.addAttribute("productDetails", productDetails);
-            if (productDetails.isEmpty()){
+            if (productDetails.isEmpty()) {
                 model.addAttribute("checkProductDetails", false);
-            }else {
+            } else {
                 model.addAttribute("checkProductDetails", true);
                 List<String> nameImages = new ArrayList<>();
                 productDetails.forEach(productDetail -> nameImages.add(productDetail.getImages()));
                 model.addAttribute("nameImages", nameImages);
             }
-//            System.out.println(capacityReques+" "+colorReques);
-//            System.out.println("====================================================================" +
-//                "==================================================" + productDetails.toString());
 
             List<String> nameCapacity = productDetailService.findNameCapacityByNameProductDetail(name);
             model.addAttribute("nameCapacity", nameCapacity); // true
@@ -110,7 +121,7 @@ public class WebController {
             model.addAttribute("bestSelling", listBestSelling);
 
             return "pages/single_product";
-        }else if (!capacityReques.isEmpty() || !colorReques.isEmpty()) {
+        } else if (!capacityReques.isEmpty() || !colorReques.isEmpty()) {
             // khi capacityReques có gí trị thì chọn vào GB thì sẽ tự động chuyển các màu mà máy đó còn theo GB được chọn
             if (!capacityReques.isEmpty()) {
                 model.addAttribute("checkProductDetails", true);
@@ -227,6 +238,7 @@ public class WebController {
 
     @GetMapping("/productDetail/list")
     public String listProductDetail(Model model, @RequestParam(value = "page", defaultValue = "0") Integer page) {
+
         Pageable pageable = PageRequest.of(page, 9);
         Page<Product> productPage = productService.selectByStatus(0, pageable);
         model.addAttribute("list", productPage.getContent());

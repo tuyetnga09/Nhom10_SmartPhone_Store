@@ -142,4 +142,14 @@ public class ProductDetailServiceImpl implements ProductDetailService {
     public ProductDetail getProductDetails(String name, String color, String capacity) {
         return this.productDetailRepository.getProductDetail(name, color, capacity);
     }
+
+    @Override
+    public List<ProductDetail> findProductDetailByNameandImei(String name) {
+        return productDetailRepository.findProductDetailByNameandImei(name);
+    }
+
+    @Override
+    public List<ProductDetail> getImageTop3ProductDetail(String name) {
+        return productDetailRepository.getImageTop3ProductDetail(name);
+    }
 }

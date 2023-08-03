@@ -73,4 +73,20 @@ public interface ProductDetailRepository extends JpaRepository<ProductDetail, Lo
             " Id_Capacity= (select id from Capacity where Name =?2) AND [Status] =0", nativeQuery = true)
     ProductDetail getProductDetail(String name, String capacity, String color);
 
+
+
+    //lấy ra list sp mặc dịnh khi chưa chọn GB và color
+    @Query(value = "SELECT ProductDetail.id, ProductDetail.Code, ProductDetail.Name, ProductDetail.Id_Capacity, ProductDetail.Id_Category, ProductDetail.Id_Chip, ProductDetail.Id_Color,\n" +
+            " ProductDetail.DateCreate, ProductDetail.DateUpdate, ProductDetail.Describe, ProductDetail.Id_Battery, ProductDetail.Id_Manufacture, ProductDetail.Id_Product,\n" +
+            " ProductDetail.Id_Ram, ProductDetail.Id_Screen, ProductDetail.Id_Size, ProductDetail.images, ProductDetail.PersonCreate, ProductDetail.PersonUpdate, \n" +
+            " ProductDetail.Price, ProductDetail.Quantity, ProductDetail.[Status]\n" +
+            " FROM ProductDetail\n" +
+            " JOIN Imei ON ProductDetail.Id = Imei.Id_ProductDetail\n" +
+            " WHERE ProductDetail.name =?1 AND ProductDetail.Status = 0 AND Imei.Status = 0 AND Id_Color != 0 AND Id_Capacity != 0", nativeQuery = true)
+    List<ProductDetail> findProductDetailByNameandImei(String name);
+
+    //lấy ra top 3 productdetail (lấy anh)
+    @Query(value = "    SELECT Top 3 * FROM ProductDetail WHERE ProductDetail.name =?1 "+
+            " AND Status = 0 ORDER BY DateCreate DESC, Id DESC\n", nativeQuery = true)
+    List<ProductDetail> getImageTop3ProductDetail(String name);
 }

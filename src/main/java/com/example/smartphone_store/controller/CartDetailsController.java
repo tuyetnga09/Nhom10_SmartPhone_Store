@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 @Controller
 @RequestMapping(value = "/cart-details")
 public class CartDetailsController {
@@ -39,9 +41,21 @@ public class CartDetailsController {
     public String singleProduct(Model model, @PathVariable("name") String name,
                                 @RequestParam(name = "capacity", required = false, defaultValue = "") String capacityReques,
                                 @RequestParam(name = "color", required = false, defaultValue = "") String colorReques,
-                                @RequestParam(name = "quantity") int quantity){
+                                @RequestParam(name = "quantity") int quantity) {
         String capacityPathOf = "";
         String colorPathOf = "";
+
+        if (capacityReques.isEmpty() && colorReques.isEmpty()) {
+            List<ProductDetail> productDetailOrImeis =
+                    productDetailService.findProductDetailByNameandImei(name);
+            capacityPathOf = productDetailOrImeis.get(0).getCapacity().getName();
+            capacityReques = capacityPathOf;
+            model.addAttribute("capacityPathOf", capacityPathOf);
+            colorPathOf = productDetailOrImeis.get(0).getColor().getName();
+            colorReques = colorPathOf;
+            model.addAttribute("colorPathOf", colorPathOf);
+
+        }
 
         if (capacityReques != null) {
             capacityPathOf = capacityReques;
@@ -51,13 +65,14 @@ public class CartDetailsController {
             colorPathOf = colorReques;
             model.addAttribute("colorPathOf", colorPathOf);
         }
+
         ProductDetail productDetails = this.productDetailService.findProductDetailByNameAndCapacityAndColor(name, colorReques, capacityReques).get(0);
         CartDetails searchDetails = cartDetailsService.countProductDetails(productDetails.getId());
-        if (searchDetails != null){
+        if (searchDetails != null) {
             cartDetailsService.update(searchDetails.getId(), quantity);
             cartDetailsService.updateTotalMoney(searchDetails.getId(), searchDetails.getQuantity());
         } else {
-            CartDetails cartDetails =  new CartDetails();
+            CartDetails cartDetails = new CartDetails();
             cartDetails.setId_productDetail(productDetails);
             cartDetails.setQuantity(quantity);
             cartDetails.setTotalMoney((long) (productDetails.getPrice() * quantity));
@@ -67,7 +82,7 @@ public class CartDetailsController {
     }
 
     @GetMapping(value = "/delete/{id}")
-    public String deleteCart(@PathVariable(value = "id") Long id){
+    public String deleteCart(@PathVariable(value = "id") Long id) {
         this.cartDetailsService.delete(id);
         return "redirect:/cart-details/index";
     }

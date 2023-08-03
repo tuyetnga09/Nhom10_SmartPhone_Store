@@ -17,3 +17,29 @@
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+/* carousel.css */
+.carousel-container {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: hidden;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 800px; /* Điều chỉnh theo nhu cầu */
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.carousel-slide {
+    display: flex;
+}
+
+.carousel-column {
+    flex: 0 0 50%; /* Chia mỗi cột chiếm 50% chiều rộng của carousel, bạn có thể điều chỉnh theo ý muốn */
+    padding: 20px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+}
+

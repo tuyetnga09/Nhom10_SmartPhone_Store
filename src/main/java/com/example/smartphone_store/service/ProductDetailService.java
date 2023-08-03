@@ -57,4 +57,11 @@ public interface ProductDetailService {
 
     ProductDetail getProductDetails(String name,String color, String capacity);
 
+    //lấy ra list sp mặc dịnh khi chưa chọn GB và color
+    List<ProductDetail> findProductDetailByNameandImei(String name);
+
+    //lấy ra top 3 productdetail (lấy anh)
+   List<ProductDetail> getImageTop3ProductDetail(String name);
+
+
 }
